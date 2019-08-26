@@ -11,9 +11,10 @@ defmodule App.Application do
       # Start the Ecto repository
       App.Repo,
       # Start the endpoint when the application starts
-      AppWeb.Endpoint
+      AppWeb.Endpoint,
       # Starts a worker by calling: App.Worker.start_link(arg)
       # {App.Worker, arg},
+      {Redix, host: System.get_env("DATA_CACHE_HOST"), name: :redix}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

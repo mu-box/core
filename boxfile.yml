@@ -41,3 +41,7 @@ web.main:
 # add postgres as a data component
 data.db:
   image: nanobox/postgresql:9.6
+
+# add redis as a data component
+data.cache:
+  image: nanobox/redis:4.0

@@ -22,18 +22,7 @@ defmodule App.MixProject do
       mod: {App.Application, []},
       extra_applications: [
         :logger,
-        :runtime_tools,
-        :ueberauth,
-        :ueberauth_identity,
-        :ueberauth_github,
-        :ueberauth_gitlab_strategy,
-        :ueberauth_heroku,
-        :ueberauth_auth0,
-        :ueberauth_google,
-        :ueberauth_microsoft,
-        :ueberauth_facebook,
-        :ueberauth_linkedin,
-        :ueberauth_twitter
+        :runtime_tools
       ]
     ]
   end
@@ -59,19 +48,18 @@ defmodule App.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       # App deps
-      {:ueberauth, "~> 0.6"},                 # First factor, core
-      {:ueberauth_identity, "~> 0.2"},        # First factor, username/password
-      {:ueberauth_github, "~> 0.7"},          # First factor, GitHub
-      {:ueberauth_gitlab_strategy, "~> 0.2"}, # First factor, GitLab
-      {:ueberauth_heroku, "~> 0.1"},          # First factor, Heroku
-      {:ueberauth_auth0, "~> 0.3"},           # First factor, Auth0
-      {:ueberauth_google, "~> 0.8"},          # First factor, Google
-      {:ueberauth_microsoft, "~> 0.4"},       # First factor, Microsoft
-      {:ueberauth_facebook, "~> 0.8"},        # First factor, Facebook
-      {:ueberauth_linkedin, "~> 0.3"},        # First factor, LinkedIn
-      {:ueberauth_twitter, "~> 0.2"},         # First factor, Twitter
-      {:elixir2fa, "~> 0.1.0"},               # Second factor, generator
-      {:passwordless_auth, "~> 0.1.0"},       # Second factor, SMS
+      # Auth - First factor
+      {:pow, "~> 1.0.13"},                    # User management
+      {:mint, "~> 0.1.0"},                    # HTTP lib
+      {:castore, "~> 0.1.0"},                 # SSL support for mint
+      {:redix, "~> 0.9.2"},                   # Caching
+      {:pow_assent, "~> 0.3.2"},              # External services
+      # {:ueberauth_heroku, "~> 0.1"},          # Heroku
+      # {:ueberauth_microsoft, "~> 0.4"},       # Microsoft
+      # {:ueberauth_linkedin, "~> 0.3"},        # LinkedIn
+      # Auth - Second factor
+      {:elixir2fa, "~> 0.1.0"},               # code generator
+      {:passwordless_auth, "~> 0.1.0"},       # SMS
     ]
   end
 

@@ -42,5 +42,8 @@ defmodule AppWeb.Endpoint do
     key: "_app_key",
     signing_salt: "aP9XTOaU"
 
+  plug Pow.Plug.Session, otp_app: :app
+  plug PowPersistentSession.Plug.Cookie
+
   plug AppWeb.Router
 end

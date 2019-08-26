@@ -45,6 +45,15 @@ defmodule AppWeb do
     end
   end
 
+  def mailer_view do
+    quote do
+      use Phoenix.View, root: "lib/app_web/templates",
+                        namespace: AppWeb
+
+      use Phoenix.HTML
+    end
+  end
+
   def router do
     quote do
       use Phoenix.Router

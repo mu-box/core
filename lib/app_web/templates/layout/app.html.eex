@@ -12,11 +12,26 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+            <%= if @current_user do %>
+              <li>
+                <!-- <img src="<%= #@current_user.avatar %>" class="img-circle" alt="Logged in as <%= #@current_user.name %>" /> -->
+                <span><%= link @current_user.email, to: Routes.pow_registration_path(@conn, :edit) %></span>
+              </li>
+              <li>
+                <span><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></span>
+              </li>
+            <% else %>
+              <li>
+                <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
+              </li>
+              <li>
+                <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>
+              </li>
+            <% end %>
           </ul>
         </nav>
-        <a href="http://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+        <a href="/" class="phx-logo">
+          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Logo"/>
         </a>
       </section>
     </header>
