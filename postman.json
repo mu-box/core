@@ -1,0 +1,1372 @@
+{
+  "info": {
+    "name": "Microbox Core API",
+    "_postman_id": "a41993ce-a798-4df6-93dd-cc13ac180667",
+    "description": "The full API spec for Microbox Core, and other Nanobox-v1-compatible dashboard and coordination servers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/"
+  },
+  "item": [
+    {
+      "name": "app",
+      "description": "Endpoints that interact directly with the application.",
+      "item": [
+        {
+          "id": "7b3fe177-8e71-443a-88d6-b20b6baae06b",
+          "name": "listApps",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": []
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "List all accessible apps."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "[\r\n  {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"name\": \"example-app\",\r\n    \"timezone\": \"UTC\",\r\n    \"state\": \"active\",\r\n    \"auto_reconfigure\": false\r\n  }\r\n]",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "14d67fcc-185c-4d53-a53a-9357a424df68"
+            }
+          ]
+        },
+        {
+          "id": "27e2bf0c-203b-4658-bb59-c41189b05a57",
+          "name": "getApp",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Get information about a specific app."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"name\": \"example-app\",\r\n  \"timezone\": \"UTC\",\r\n  \"state\": \"active\",\r\n  \"auto_reconfigure\": false\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "b09d54cd-7dc6-422d-8a88-dea8fbe1ce3a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "component",
+      "description": "Endpoints that interact with application components.",
+      "item": [
+        {
+          "id": "473cf32c-16df-4645-b303-d65deffb3cb2",
+          "name": "listComponents",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/components"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "List components in a given app."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "[\r\n  {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"name\": \"data.db\",\r\n    \"uid\": \"data.db\",\r\n    \"deploy_strategy\": \"inline\",\r\n    \"repair_strategy\": \"inline\",\r\n    \"behaviors\": [\r\n      \"migratable\",\r\n      \"backupable\"\r\n    ],\r\n    \"port\": 5432,\r\n    \"state\": \"active\",\r\n    \"pulse\": \"online\",\r\n    \"category\": \"data\",\r\n    \"network\": \"virt\",\r\n    \"generation_counter\": 2,\r\n    \"horizontal\": false,\r\n    \"redundant\": false\r\n  }\r\n]",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "5ea32e09-723f-4462-8d91-a6acb379453d"
+            }
+          ]
+        },
+        {
+          "id": "d48d5fc3-c63b-45da-a76c-8d917c8855b4",
+          "name": "getComponent",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/components/:component"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                },
+                {
+                  "id": "component",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the component's UUID"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Get information about a specific component in a given app."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"name\": \"data.db\",\r\n  \"uid\": \"data.db\",\r\n  \"deploy_strategy\": \"inline\",\r\n  \"repair_strategy\": \"inline\",\r\n  \"behaviors\": [\r\n    \"migratable\",\r\n    \"backupable\"\r\n  ],\r\n  \"port\": 5432,\r\n  \"state\": \"active\",\r\n  \"pulse\": \"online\",\r\n  \"category\": \"data\",\r\n  \"network\": \"virt\",\r\n  \"generation_counter\": 2,\r\n  \"horizontal\": false,\r\n  \"redundant\": false\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "0ffb7268-9940-45c3-8610-38a0bcba2f55"
+            }
+          ]
+        },
+        {
+          "id": "7af22fa7-e716-433c-81e1-b06ff8bda14a",
+          "name": "listServiceComponents",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/services/:service/components"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                },
+                {
+                  "id": "service",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the service's UUID or slug"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "List components in a given service of a given app."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "[\r\n  {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"name\": \"data.db\",\r\n    \"uid\": \"data.db\",\r\n    \"deploy_strategy\": \"inline\",\r\n    \"repair_strategy\": \"inline\",\r\n    \"behaviors\": [\r\n      \"migratable\",\r\n      \"backupable\"\r\n    ],\r\n    \"port\": 5432,\r\n    \"state\": \"active\",\r\n    \"pulse\": \"online\",\r\n    \"category\": \"data\",\r\n    \"network\": \"virt\",\r\n    \"generation_counter\": 2,\r\n    \"horizontal\": false,\r\n    \"redundant\": false\r\n  }\r\n]",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "4991b153-1ff9-4354-8978-1e3a9b2014a6"
+            }
+          ]
+        },
+        {
+          "id": "487a3301-4640-4708-b32f-8e7e75a75681",
+          "name": "getServiceComponent",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/services/:service/components/:component"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                },
+                {
+                  "id": "service",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the service's UUID or slug"
+                },
+                {
+                  "id": "component",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the component's UUID"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Get information about a specific component in a given service of a given app."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"name\": \"data.db\",\r\n  \"uid\": \"data.db\",\r\n  \"deploy_strategy\": \"inline\",\r\n  \"repair_strategy\": \"inline\",\r\n  \"behaviors\": [\r\n    \"migratable\",\r\n    \"backupable\"\r\n  ],\r\n  \"port\": 5432,\r\n  \"state\": \"active\",\r\n  \"pulse\": \"online\",\r\n  \"category\": \"data\",\r\n  \"network\": \"virt\",\r\n  \"generation_counter\": 2,\r\n  \"horizontal\": false,\r\n  \"redundant\": false\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "6b7faa11-e1e4-42be-acee-3c6379c8d379"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "deploy",
+      "description": "Endpoints for deploying code.",
+      "item": [
+        {
+          "id": "e8cc1d5e-cf68-4c1f-af0c-58d7d9d77ab0",
+          "name": "listDeploys",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/deploys"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "List deploys in a given app."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "[\r\n  {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"commit_message\": \"commit_message46\",\r\n    \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n    \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n    \"author_id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"app_id\": \"00000000-0000-0000-0000-000000000000\"\r\n  }\r\n]",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "21a81331-2d68-464c-a0b4-e833a4ff8cc0"
+            }
+          ]
+        },
+        {
+          "id": "bdc26157-0d9f-4dc3-8a2d-f99946f2338e",
+          "name": "createDeploy",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/deploys"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n  \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n  \"commit_message\": \"commit_message46\"\r\n}",
+              "disabled": false
+            },
+            "description": "Create a new deploy."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"commit_message\": \"commit_message46\",\r\n  \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n  \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n  \"author_id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"app_id\": \"00000000-0000-0000-0000-000000000000\"\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "6d479fe2-7de0-4e0c-b4d7-a5037ab7f977"
+            }
+          ]
+        },
+        {
+          "id": "599d024d-997d-446e-b6b3-d7bae124bc04",
+          "name": "getDeploy",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/deploys/:deploy"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                },
+                {
+                  "id": "deploy",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the deploy's UUID"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Get information about a specific deploy in a given app."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"commit_message\": \"commit_message46\",\r\n  \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n  \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n  \"author_id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"app_id\": \"00000000-0000-0000-0000-000000000000\"\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "6ff152ed-9c3f-47a4-a8f3-0444a82641d9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "evar",
+      "description": "Endpoints for managing environment variables.",
+      "item": [
+        {
+          "id": "7db39879-a89e-402f-813f-7574ef06ecc2",
+          "name": "listEvars",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/evars"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "List environment variables in a given app."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "[\r\n  {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"title\": \"EXAMPLE_EVAR\",\r\n    \"value\": \"example value\",\r\n    \"internal\": false,\r\n    \"component_id\": \"component_id46\"\r\n  }\r\n]",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "7c6ed02c-0622-4e0e-9250-ee1c813fb374"
+            }
+          ]
+        },
+        {
+          "id": "38ccf1fa-836a-4e32-84ee-3e0a30220dac",
+          "name": "createEvar",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/evars"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"EXAMPLE_EVAR\",\r\n  \"value\": \"example value\"\r\n}",
+              "disabled": false
+            },
+            "description": "Add or set an environment variable."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"title\": \"EXAMPLE_EVAR\",\r\n  \"value\": \"example value\",\r\n  \"internal\": false,\r\n  \"component_id\": \"component_id46\"\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "301c7a1b-33fe-4293-bef3-469f92551464"
+            }
+          ]
+        },
+        {
+          "id": "47be4a26-07f9-47f8-80cb-289b717b58a8",
+          "name": "getEvar",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/evars/:evar"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                },
+                {
+                  "id": "evar",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the evar's UUID"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Get information about a specific environment variable in a given app."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"title\": \"EXAMPLE_EVAR\",\r\n  \"value\": \"example value\",\r\n  \"internal\": false,\r\n  \"component_id\": \"component_id46\"\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "23bcac48-21ed-4028-8e9f-2a886c4d31ed"
+            }
+          ]
+        },
+        {
+          "id": "4def23b7-79d4-4423-8f75-abdfddc5c4ed",
+          "name": "deleteEvar",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/evars/:evar"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                },
+                {
+                  "id": "evar",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the evar's UUID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Delete an environment variable."
+          },
+          "response": [
+            {
+              "header": [],
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "b76bf697-1b84-4ce4-ab3f-8d206f723847"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "description": "Endpoints for interacting with events.",
+      "item": [
+        {
+          "id": "2e1ded03-d979-49eb-9ea0-2bcfe9b23ca1",
+          "name": "createEvent",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": []
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"event\": {\r\n    \"eventable_id\": \"example-app\",\r\n    \"message\": \"example\",\r\n    \"action\": \"example\",\r\n    \"meta\": {}\r\n  }\r\n}",
+              "disabled": false
+            },
+            "description": "Create an event"
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"user\": {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"username\": \"johndoe\",\r\n    \"email\": \"johndoe@example.com\",\r\n    \"authentication_token\": \"MDAwMDAwMDAwMDAwMDA\",\r\n    \"unconfirmed_email\": true\r\n  },\r\n  \"eventable\": {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"name\": \"example-app\",\r\n    \"timezone\": \"UTC\",\r\n    \"state\": \"active\",\r\n    \"auto_reconfigure\": false\r\n  },\r\n  \"message\": \"example\",\r\n  \"action\": \"example\",\r\n  \"meta\": {}\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "2663b6d5-57f0-4690-92d3-c5a0f1d5578a"
+            },
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"error\": \"There was an error!\"\r\n}",
+              "status": "unprocessable_entity",
+              "code": 422,
+              "name": "Response_422",
+              "id": "d24c8c35-ba0e-4698-a993-0504497733a1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "remote",
+      "description": "Endpoints for accessing servers and components.",
+      "item": [
+        {
+          "id": "d026d79d-7b3f-4cb7-b073-fe4ec231deaf",
+          "name": "openTunnel",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/tunnels/:id"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                },
+                {
+                  "id": "id",
+                  "value": "data.db",
+                  "type": "string",
+                  "description": "the name of the server or component to tunnel into"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Create a tunnel, and get the connection parameters."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"token\": \"MDAwMDAwMD\",\r\n  \"url\": \"0.0.0.0:8570\",\r\n  \"protocol\": \"docker\",\r\n  \"port\": 5432\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "95318d01-2f6a-425f-9f49-343819a35bf5"
+            }
+          ]
+        },
+        {
+          "id": "9b84b1e2-f748-4642-af71-3fa684ee305f",
+          "name": "openConsole",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/consoles/:id"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                },
+                {
+                  "id": "id",
+                  "value": "do.1",
+                  "type": "string",
+                  "description": "the name of the server or component to console into"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Create a console session, and get the connection parameters."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"token\": \"MDAwMDAwMD\",\r\n  \"url\": \"0.0.0.0:1289\",\r\n  \"protocol\": \"ssh\"\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "9745ab89-0b7b-4229-acf7-2176bde54726"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "service",
+      "description": "Endpoints for interacting with individual services within components.",
+      "item": [
+        {
+          "id": "c89ab452-b0d5-4dc9-8acc-7a7889a564c4",
+          "name": "listServices",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/services"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "List services in a given app."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "[\r\n  {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"uid\": \"logger1\",\r\n    \"name\": \"logger\",\r\n    \"slug\": \"logger\",\r\n    \"url\": \"0.0.0.0\",\r\n    \"token\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n    \"mode\": \"simple\",\r\n    \"ip\": \"0.0.0.0\"\r\n  }\r\n]",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "2f8d6405-921b-4e57-a75d-adb1b3c9a34d"
+            }
+          ]
+        },
+        {
+          "id": "facab178-1ba1-41f6-a8d5-5b1d40e05460",
+          "name": "getService",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "apps/:app/services/:service"
+              ],
+              "query": [
+                {
+                  "key": "ci",
+                  "value": "ci46",
+                  "description": "the application's team name, if `{app}` is a name",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "app",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the application's UUID or name"
+                },
+                {
+                  "id": "service",
+                  "value": "00000000-0000-0000-0000-000000000000",
+                  "type": "string",
+                  "description": "the service's UUID or slug"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Get information about a specific service in a given app."
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"uid\": \"logger1\",\r\n  \"name\": \"logger\",\r\n  \"slug\": \"logger\",\r\n  \"url\": \"0.0.0.0\",\r\n  \"token\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n  \"mode\": \"simple\",\r\n  \"ip\": \"0.0.0.0\"\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "e1d5a3ed-f61a-4864-9858-1c9550f568cc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "description": "Endpoints that interact with user data.",
+      "item": [
+        {
+          "id": "54e57098-aeec-4eed-862d-3bc744f09250",
+          "name": "getToken",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [],
+              "query": [
+                {
+                  "key": "slug",
+                  "value": "johndoe%40example.com",
+                  "description": "email address of the user",
+                  "disabled": false
+                },
+                {
+                  "key": "password",
+                  "value": "P%40ssw0rd",
+                  "description": "password of the user",
+                  "disabled": false
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Look up the auth token of the user"
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"authentication_token\": \"MDAwMDAwMDAwMDAwMDA\",\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\"\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "10a609dd-6200-4770-84dd-3b7fc1d6c944"
+            }
+          ]
+        },
+        {
+          "id": "84028da1-a62a-4862-ac67-8f991dd468c9",
+          "name": "getTokenFromUsername",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "users/:slug/auth_token"
+              ],
+              "query": [
+                {
+                  "key": "password",
+                  "value": "P%40ssw0rd",
+                  "description": "password of the user",
+                  "disabled": false
+                }
+              ],
+              "variable": [
+                {
+                  "id": "slug",
+                  "value": "johndoe",
+                  "type": "string",
+                  "description": "username of the user"
+                }
+              ]
+            },
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Duplicate of `GET /user_auth_token`, with the `slug` in the path; abandoned with a switch from usernames to emails for login credentials"
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"authentication_token\": \"MDAwMDAwMDAwMDAwMDA\",\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\"\r\n}",
+              "status": "success",
+              "code": 200,
+              "name": "Response_200",
+              "id": "3f75ca36-4822-4e0c-b99f-06658c16b7ff"
+            }
+          ]
+        },
+        {
+          "id": "da618c26-54f5-48a1-b2af-f73f81d21702",
+          "name": "getUser",
+          "request": {
+            "url": {
+              "host": "{{default}}",
+              "path": [
+                "users/:anything"
+              ],
+              "variable": [
+                {
+                  "id": "anything",
+                  "value": "me",
+                  "type": "string",
+                  "description": "ignored; use \"me\""
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": "Get the current user"
+          },
+          "response": [
+            {
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "disabled": false
+                }
+              ],
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"username\": \"johndoe\",\r\n  \"email\": \"johndoe@example.com\",\r\n  \"authentication_token\": \"MDAwMDAwMDAwMDAwMDA\",\r\n  \"unconfirmed_email\": true\r\n}",
+              "status": "User object",
+              "code": 200,
+              "name": "Response_200",
+              "id": "05e6667b-74ea-4985-9bb3-8bc384bd1dd4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c7500ebd-1106-4916-9649-0fde3b39d65d",
+      "name": "getVersion",
+      "request": {
+        "url": {
+          "host": "{{default}}",
+          "path": []
+        },
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "disabled": false
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "disabled": false
+        },
+        "description": "The Nanobox API no longer exposes this endpoint, but Microbox will for purposes of detecting the difference in future releases when that starts to matter."
+      },
+      "response": [
+        {
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "disabled": false
+            }
+          ],
+          "body": "{\r\n  \"name\": \"Microbox API\",\r\n  \"version\": \"1.0.0\"\r\n}",
+          "status": "A JSON object with the name and version of the API.",
+          "code": 200,
+          "name": "Response_200",
+          "id": "d1f68dad-5655-4203-8f64-3e6e34ddb809"
+        },
+        {
+          "status": "Returned by Nanobox.",
+          "code": 404,
+          "name": "Response_404",
+          "id": "7f016da0-3579-4da3-b8b6-db246c8869b8"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "default",
+      "value": "https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0"
+    },
+    {
+      "key": "default1",
+      "value": "https://api.mubox.cloud/v1"
+    },
+    {
+      "key": "default2",
+      "value": "https://api.xn-box-wyc.cloud/v1"
+    },
+    {
+      "key": "default3",
+      "value": "https://api.nanobox.io/v1"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": {
+      "key": "auth_token",
+      "value": "auth_token46",
+      "in": "query"
+    }
+  }
+}

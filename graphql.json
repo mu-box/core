@@ -1,0 +1,408 @@
+# API Name: "Microbox Core API"
+# Host: https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0
+# The full API spec for Microbox Core, and other Nanobox-v1-compatible dashboard and coordination servers.
+
+enum Anything {
+    ME
+}
+
+type App {
+    id: String!
+    name: String!
+    timezone: String!
+    state: String!
+    autoReconfigure: Boolean!
+}
+
+type Component {
+    id: String!
+    name: String!
+    uid: String!
+    deployStrategy: String!
+    repairStrategy: String!
+    behaviors: [String!]
+    port: Int!
+    state: String!
+    pulse: String!
+    category: String!
+    network: String!
+    generationCounter: Int!
+    horizontal: Boolean!
+    redundant: Boolean!
+}
+
+type Deploy {
+    id: String!
+    commitMessage: String!
+    boxfileContent: String!
+    buildId: String!
+    authorId: String!
+    appId: String!
+}
+
+type Evar {
+    id: String!
+    title: String!
+    value: String!
+    internal: Boolean!
+    componentId: String!
+}
+
+type Service {
+    id: String!
+    uid: String!
+    name: String!
+    slug: String!
+    url: String!
+    token: String!
+    mode: String!
+    ip: String!
+}
+
+type User {
+    id: String!
+    username: String!
+    email: String!
+    authenticationToken: String!
+    unconfirmedEmail: Boolean!
+}
+
+type AppsConsolesResponse {
+    token: String!
+    url: String!
+    protocol: String!
+}
+
+type AppsDeploysRequest {
+    boxfileContent: String!
+    buildId: String!
+    commitMessage: String!
+}
+
+type AppsEvarsRequest {
+    title: String!
+    value: String!
+}
+
+type AppsTunnelsResponse {
+    token: String!
+    url: String!
+    protocol: String!
+    port: Int!
+}
+
+"the details to create the event with"
+type Event {
+    "the app name"
+    eventableId: String!
+    "the message"
+    message: String!
+    "the action"
+    action: String!
+    "any additional data"
+    meta: String!
+}
+
+type Events422Error {
+    error: String!
+}
+
+type EventsRequest {
+    "the details to create the event with"
+    event: Event!
+}
+
+"the details of the created event"
+type EventsResponse {
+    user: User!
+    eventable: App!
+    "the message"
+    message: String!
+    "the action"
+    action: String!
+    "any meta data passed in"
+    meta: String!
+}
+
+type Response {
+    "the name of the API provider"
+    name: String!
+    "the API version"
+    version: String!
+}
+
+type UserAuthTokenResponse {
+    "the user's authentication token, for accessing this API"
+    authenticationToken: String!
+    "the UUID of the user"
+    id: String!
+}
+
+type UsersAuthTokenResponse {
+    "the user's authentication token, for accessing this API"
+    authenticationToken: String!
+    "the UUID of the user"
+    id: String!
+}
+
+input ListAppsInput {
+    authToken: String!
+}
+
+input GetAppInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    authToken: String!
+}
+
+input ListComponentsInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    authToken: String!
+}
+
+input GetComponentInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    "the component's UUID"
+    component: String!
+    authToken: String!
+}
+
+input ListServiceComponentsInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    "the service's UUID or slug"
+    service: String!
+    authToken: String!
+}
+
+input GetServiceComponentInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    "the service's UUID or slug"
+    service: String!
+    "the component's UUID"
+    component: String!
+    authToken: String!
+}
+
+input ListDeploysInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    authToken: String!
+}
+
+input AppsDeploysRequestInput {
+    boxfileContent: String!
+    buildId: String!
+    commitMessage: String!
+}
+
+input CreateDeployInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    body: AppsDeploysRequestInput!
+    authToken: String!
+}
+
+input GetDeployInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    "the deploy's UUID"
+    deploy: String!
+    authToken: String!
+}
+
+input ListEvarsInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    authToken: String!
+}
+
+input AppsEvarsRequestInput {
+    title: String!
+    value: String!
+}
+
+input CreateEvarInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    body: AppsEvarsRequestInput!
+    authToken: String!
+}
+
+input GetEvarInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    "the evar's UUID"
+    evar: String!
+    authToken: String!
+}
+
+input DeleteEvarInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    "the evar's UUID"
+    evar: String!
+    authToken: String!
+}
+
+"the details to create the event with"
+input EventInput {
+    "the app name"
+    eventableId: String!
+    "the message"
+    message: String!
+    "the action"
+    action: String!
+    "any additional data"
+    meta: String!
+}
+
+input EventsRequestInput {
+    "the details to create the event with"
+    event: EventInput!
+}
+
+input CreateEventInput {
+    body: EventsRequestInput!
+    authToken: String!
+}
+
+input GetOpentunnelInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    "the name of the server or component to tunnel into"
+    id: String!
+    authToken: String!
+}
+
+input GetOpenconsoleInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    "the name of the server or component to console into"
+    id: String!
+    authToken: String!
+}
+
+input ListServicesInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    authToken: String!
+}
+
+input GetServiceInput {
+    "the application's UUID or name"
+    app: String!
+    "the application's team name, if `{app}` is a name"
+    ci: String!
+    "the service's UUID or slug"
+    service: String!
+    authToken: String!
+}
+
+input GetTokenInput {
+    "email address of the user"
+    slug: String!
+    "password of the user"
+    password: String!
+}
+
+input GetTokenFromUsernameInput {
+    "username of the user"
+    slug: String!
+    "password of the user"
+    password: String!
+}
+
+input GetUserInput {
+    "ignored; use \"me\""
+    anything: Anything!
+    authToken: String!
+}
+
+type Query {
+    "List all accessible apps."
+    listApps(input: ListAppsInput!): [App!]
+    "Get information about a specific app."
+    getApp(input: GetAppInput!): App!
+    "List components in a given app."
+    listComponents(input: ListComponentsInput!): [Component!]
+    "Get information about a specific component in a given app."
+    getComponent(input: GetComponentInput!): Component!
+    "List components in a given service of a given app."
+    listServiceComponents(input: ListServiceComponentsInput!): [Component!]
+    "Get information about a specific component in a given service of a given app."
+    getServiceComponent(input: GetServiceComponentInput!): Component!
+    "List deploys in a given app."
+    listDeploys(input: ListDeploysInput!): [Deploy!]
+    "Get information about a specific deploy in a given app."
+    getDeploy(input: GetDeployInput!): Deploy!
+    "List environment variables in a given app."
+    listEvars(input: ListEvarsInput!): [Evar!]
+    "Get information about a specific environment variable in a given app."
+    getEvar(input: GetEvarInput!): Evar!
+    "Create a tunnel, and get the connection parameters."
+    getOpentunnel(input: GetOpentunnelInput!): AppsTunnelsResponse!
+    "Create a console session, and get the connection parameters."
+    getOpenconsole(input: GetOpenconsoleInput!): AppsConsolesResponse!
+    "List services in a given app."
+    listServices(input: ListServicesInput!): [Service!]
+    "Get information about a specific service in a given app."
+    getService(input: GetServiceInput!): Service!
+    "Look up the auth token of the user"
+    getToken(input: GetTokenInput!): UserAuthTokenResponse!
+    "Duplicate of `GET /user_auth_token`, with the `slug` in the path; abandoned with a switch from usernames to emails for login credentials"
+    getTokenFromUsername(input: GetTokenFromUsernameInput!): UsersAuthTokenResponse!
+    "Get the current user"
+    getUser(input: GetUserInput!): User!
+    "The Nanobox API no longer exposes this endpoint, but Microbox will for purposes of detecting the difference in future releases when that starts to matter."
+    getVersion: Response!
+}
+
+type Mutation {
+    "Create a new deploy."
+    createDeploy(input: CreateDeployInput!): Deploy!
+    "Add or set an environment variable."
+    createEvar(input: CreateEvarInput!): Evar!
+    "Delete an environment variable."
+    deleteEvar(input: DeleteEvarInput!): String
+    "Create an event"
+    createEvent(input: CreateEventInput!): EventsResponse!
+}
+
+schema {
+    mutation: Mutation
+    query: Query
+}

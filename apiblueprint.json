@@ -1,0 +1,832 @@
+FORMAT: 1A
+HOST: https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0
+VERSION: 1.0.0
+ANDROIDUSEAPPMANIFEST: FALSE
+APPENDCONTENTHEADERS: TRUE
+GENERATEINTERFACES: FALSE
+COLLECTPARAMETERS: FALSE
+ENABLEADDITIONALMODELPROPERTIES: FALSE
+IOSGENERATECOREDATA: FALSE
+IOSUSEAPPINFOPLIST: FALSE
+NULLIFY404: FALSE
+VALIDATEREQUIREDPARAMETERS: FALSE
+NODEHTTPCLIENT: NODE_REQUEST
+USECOMMONSDKLIBRARY: FALSE
+USECONSTRUCTORSFORCONFIG: FALSE
+USECONTROLLERPOSTFIX: TRUE
+USEENUMPOSTFIX: TRUE
+USEMETHODPREFIX: TRUE
+USEMODELPOSTFIX: FALSE
+TIMEOUT: 0
+ARRAYSERIALIZATION: INDEXED
+GENERATEASYNCCODE: TRUE
+
+# Microbox Core API
+The full API spec for Microbox Core, and other Nanobox-v1-compatible dashboard and coordination servers.
+
+## Authentication
+This API uses Custom Query Parameter for its authentication.
+
+The parameters that are needed to be sent for this type of authentication are as follows:
++ `auth_token`
+
+# Group app
+
+Endpoints that interact directly with the application.
+
+## Apps [/apps]
+
+### listApps [GET]
+List all accessible apps.
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (array[App])
+
+
+
+
+## Apps By App [/apps/{app}{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+
+### getApp [GET]
+Get information about a specific app.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (App)
+
+
+
+
+
+# Group component
+
+Endpoints that interact with application components.
+
+## Apps Components By App [/apps/{app}/components{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+
+### listComponents [GET]
+List components in a given app.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (array[Component])
+
+
+
+
+## Apps Components By App And Component [/apps/{app}/components/{component}{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+    + component (string, required)
+
+        the component's UUID
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+
+### getComponent [GET]
+Get information about a specific component in a given app.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (Component)
+
+
+
+
+## Apps Services Components By App [/apps/{app}/services/{service}/components{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+    + service (string, required)
+
+        the service's UUID or slug
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+
+### listServiceComponents [GET]
+List components in a given service of a given app.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (array[Component])
+
+
+
+
+## Apps Services Components Component [/apps/{app}/services/{service}/components/{component}{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+    + service (string, required)
+
+        the service's UUID or slug
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+    + component (string, required)
+
+        the component's UUID
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+
+### getServiceComponent [GET]
+Get information about a specific component in a given service of a given app.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (Component)
+
+
+
+
+
+# Group deploy
+
+Endpoints for deploying code.
+
+## Apps Deploys By App [/apps/{app}/deploys{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+
+### listDeploys [GET]
+List deploys in a given app.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (array[Deploy])
+
+
+
+### createDeploy [POST]
+Create a new deploy.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Request (application/json)
+
+    + Attributes (Apps Deploys Request)
+
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (Deploy)
+
+
+
+
+## Apps Deploys By App And Deploy [/apps/{app}/deploys/{deploy}{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+    + deploy (string, required)
+
+        the deploy's UUID
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+
+### getDeploy [GET]
+Get information about a specific deploy in a given app.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (Deploy)
+
+
+
+
+
+# Group evar
+
+Endpoints for managing environment variables.
+
+## Apps Evars By App [/apps/{app}/evars{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+
+### listEvars [GET]
+List environment variables in a given app.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (array[Evar])
+
+
+
+### createEvar [POST]
+Add or set an environment variable.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Request (application/json)
+
+    + Attributes (Apps Evars Request)
+
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (Evar)
+
+
+
+
+## Apps Evars By App And Evar [/apps/{app}/evars/{evar}{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+    + evar (string, required)
+
+        the evar's UUID
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+
+### getEvar [GET]
+Get information about a specific environment variable in a given app.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (Evar)
+
+
+
+### deleteEvar [DELETE]
+Delete an environment variable.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 
+
+
+
+
+
+# Group event
+
+Endpoints for interacting with events.
+
+## Events [/events]
+
+### createEvent [POST]
+Create an event
+
++ Request (application/json)
+
+    + Attributes (Events Request)
+
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (Events Response)
+
+
+
++ Response 422 (application/json)
+
+        unprocessable_entity
+
+    + Attributes (Events 422 Error)
+
+
+
+
+
+# Group remote
+
+Endpoints for accessing servers and components.
+
+## Apps Tunnels By App And Id [/apps/{app}/tunnels/{id}{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+    + id (string, required)
+
+        the name of the server or component to tunnel into
+
+        + Sample: data.db
+
+### openTunnel [GET]
+Create a tunnel, and get the connection parameters.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (Apps Tunnels Response)
+
+
+
+
+## Apps Consoles By App And Id [/apps/{app}/consoles/{id}{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+    + id (string, required)
+
+        the name of the server or component to console into
+
+        + Sample: do.1
+
+### openConsole [GET]
+Create a console session, and get the connection parameters.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (Apps Consoles Response)
+
+
+
+
+
+# Group service
+
+Endpoints for interacting with individual services within components.
+
+## Apps Services By App [/apps/{app}/services{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+
+### listServices [GET]
+List services in a given app.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (array[Service])
+
+
+
+
+## Apps Services By App And Service [/apps/{app}/services/{service}{?ci}]
+
++ Parameters
+    + app (string, required)
+
+        the application's UUID or name
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+    + service (string, required)
+
+        the service's UUID or slug
+
+        + Sample: 00000000-0000-0000-0000-000000000000
+
+### getService [GET]
+Get information about a specific service in a given app.
++ Parameters
+    + ci (string, optional)
+
+        the application's team name, if `{app}` is a name
+
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (Service)
+
+
+
+
+
+# Group user
+
+Endpoints that interact with user data.
+
+## User Auth Token [/user_auth_token{?slug,password}]
+
+### getToken [GET]
+Look up the auth token of the user
++ Parameters
+    + slug (string, required)
+
+        email address of the user
+
+        + Sample: johndoe@example.com
+    + password (string, required)
+
+        password of the user
+
+        + Sample: P@ssw0rd
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (User Auth Token Response)
+
+
+
+
+## Users Auth Token By Slug [/users/{slug}/auth_token{?password}]
+
++ Parameters
+    + slug (string, required)
+
+        username of the user
+
+        + Sample: johndoe
+
+### getTokenFromUsername [GET]
+Duplicate of `GET /user_auth_token`, with the `slug` in the path; abandoned with a switch from usernames to emails for login credentials
++ Parameters
+    + password (string, required)
+
+        password of the user
+
+        + Sample: P@ssw0rd
+
++ Response 200 (application/json)
+
+        success
+
+    + Attributes (Users Auth Token Response)
+
+
+
+
+## Users By Anything [/users/{anything}]
+
++ Parameters
+    + anything (enum[string], required)
+
+        ignored; use "me"
+
+        + Members
+            + `me` 
+
+
+### getUser [GET]
+Get the current user
+
++ Response 200 (application/json)
+
+        User object
+
+    + Attributes (User)
+
+
+
+
+
+# Unnammed Endpoint [/]
+
+## getVersion [GET]
+The Nanobox API no longer exposes this endpoint, but Microbox will for purposes of detecting the difference in future releases when that starts to matter.
+
++ Response 200 (application/json)
+
+        A JSON object with the name and version of the API.
+
+    + Attributes (Response)
+
+
+
++ Response 404 
+
+        Returned by Nanobox.
+
+
+
+
+
+# Data Structures
+
+## App (object)
+
+
+### Properties
++ `id`: `00000000-0000-0000-0000-000000000000` (string, optional) 
++ `name`: `example-app` (string, optional) 
++ `timezone`: `UTC` (string, optional) 
++ `state`: `active` (string, optional) 
++ `auto_reconfigure`: `false` (boolean, optional) 
+
+
+## Component (object)
+
+
+### Properties
++ `id`: `00000000-0000-0000-0000-000000000000` (string, optional) 
++ `name`: `data.db` (string, optional) 
++ `uid`: `data.db` (string, optional) 
++ `deploy_strategy`: `inline` (string, optional) 
++ `repair_strategy`: `inline` (string, optional) 
++ `behaviors`: `["migratable","backupable"]` (array[string], optional) 
++ `port`: `5432` (number, optional) 
++ `state`: `active` (string, optional) 
++ `pulse`: `online` (string, optional) 
++ `category`: `data` (string, optional) 
++ `network`: `virt` (string, optional) 
++ `generation_counter`: `2` (number, optional) 
++ `horizontal`: `false` (boolean, optional) 
++ `redundant`: `false` (boolean, optional) 
+
+
+## Deploy (object)
+
+
+### Properties
++ `id`: `00000000-0000-0000-0000-000000000000` (string, optional) 
++ `commit_message` (string, optional) 
++ `boxfile_content`: `--- 
+data.db: 
+  image: nanobox/postgres:9.6 
+run.config: 
+  engine: static` (string, optional) 
++ `build_id`: `MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD` (string, optional) 
++ `author_id`: `00000000-0000-0000-0000-000000000000` (string, optional) 
++ `app_id`: `00000000-0000-0000-0000-000000000000` (string, optional) 
+
+
+## Evar (object)
+
+
+### Properties
++ `id`: `00000000-0000-0000-0000-000000000000` (string, optional) 
++ `title`: `EXAMPLE_EVAR` (string, optional) 
++ `value`: `example value` (string, optional) 
++ `internal`: `false` (boolean, optional) 
++ `component_id` (string, optional) 
+
+
+## Service (object)
+
+
+### Properties
++ `id`: `00000000-0000-0000-0000-000000000000` (string, optional) 
++ `uid`: `logger1` (string, optional) 
++ `name`: `logger` (string, optional) 
++ `slug`: `logger` (string, optional) 
++ `url`: `0.0.0.0` (string, optional) 
++ `token`: `MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMD` (string, optional) 
++ `mode`: `simple` (string, optional) 
++ `ip`: `0.0.0.0` (string, optional) 
+
+
+## User (object)
+
+
+### Properties
++ `id`: `00000000-0000-0000-0000-000000000000` (string, optional) 
++ `username`: `johndoe` (string, optional) 
++ `email`: `johndoe@example.com` (string, optional) 
++ `authentication_token`: `MDAwMDAwMDAwMDAwMDA` (string, optional) 
++ `unconfirmed_email` (boolean, optional) 
+
+
+## Apps Consoles Response (object)
+
+
+### Properties
++ `token`: `MDAwMDAwMD` (string, optional) 
++ `url`: `0.0.0.0:1289` (string, optional) 
++ `protocol`: `ssh` (string, optional) 
+
+
+## Apps Deploys Request (object)
+
+
+### Properties
++ `boxfile_content`: `--- 
+data.db: 
+  image: nanobox/postgres:9.6 
+run.config: 
+  engine: static` (string, optional) 
++ `build_id`: `MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD` (string, optional) 
++ `commit_message` (string, optional) 
+
+
+## Apps Evars Request (object)
+
+
+### Properties
++ `title`: `EXAMPLE_EVAR` (string, optional) 
++ `value`: `example value` (string, optional) 
+
+
+## Apps Tunnels Response (object)
+
+
+### Properties
++ `token`: `MDAwMDAwMD` (string, optional) 
++ `url`: `0.0.0.0:8570` (string, optional) 
++ `protocol`: `docker` (string, optional) 
++ `port`: `5432` (number, optional) 
+
+
+## Event (object)
+the details to create the event with
+
+### Properties
++ `eventable_id`: `example-app` (string, optional) - the app name
++ `message`: `example` (string, optional) - the message
++ `action`: `example` (string, optional) - the action
++ `meta`: `{}` (object, optional) - any additional data
+
+
+## Events 422 Error (object)
+
+
+### Properties
++ `error`: `There was an error!` (string, optional) 
+
+
+## Events Request (object)
+
+
+### Properties
++ `event` (Event, optional) - the details to create the event with
+
+
+## Events Response (object)
+the details of the created event
+
+### Properties
++ `user` (User, optional) 
++ `eventable` (App, optional) 
++ `message`: `example` (string, optional) - the message
++ `action`: `example` (string, optional) - the action
++ `meta`: `{}` (object, optional) - any meta data passed in
+
+
+## Response (object)
+
+
+### Properties
++ `name`: `Microbox API` (string, optional) - the name of the API provider
++ `version`: `1.0.0` (string, optional) - the API version
+
+
+## User Auth Token Response (object)
+
+
+### Properties
++ `authentication_token`: `MDAwMDAwMDAwMDAwMDA` (string, optional) - the user's authentication token, for accessing this API
++ `id`: `00000000-0000-0000-0000-000000000000` (string, optional) - the UUID of the user
+
+
+## Users Auth Token Response (object)
+
+
+### Properties
++ `authentication_token`: `MDAwMDAwMDAwMDAwMDA` (string, optional) - the user's authentication token, for accessing this API
++ `id`: `00000000-0000-0000-0000-000000000000` (string, optional) - the UUID of the user
+
