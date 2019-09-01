@@ -9,6 +9,8 @@
       <xs:element name="Evar" type="tns:Evar" />
       <xs:element name="Service" type="tns:Service" />
       <xs:element name="User" type="tns:User" />
+      <xs:element name="AdaptersRequest" type="tns:AdaptersRequest" />
+      <xs:element name="AdaptersResponse" type="tns:AdaptersResponse" />
       <xs:element name="anything" type="tns:anything" />
       <xs:element name="AppsConsolesResponse" type="tns:AppsConsolesResponse" />
       <xs:element name="AppsDeploysRequest" type="tns:AppsDeploysRequest" />
@@ -43,6 +45,7 @@
       <xs:element name="getTokenFromUsername_Response" type="tns:getTokenFromUsername_Response" />
       <xs:element name="getUser_Response" type="tns:getUser_Response" />
       <xs:element name="getVersion_Response" type="tns:getVersion_Response" />
+      <xs:element name="registerHostingProvider_Response" type="tns:registerHostingProvider_Response" />
       <xs:complexType name="App">
         <xs:sequence>
           <xs:element minOccurs="0" name="id">
@@ -260,6 +263,30 @@
             </xs:simpleType>
           </xs:element>
           <xs:element minOccurs="0" name="unconfirmed_email" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="AdaptersRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="endpoint">
+            <xs:simpleType>
+              <xs:annotation>
+                <xs:documentation>the base URL to use for requests to the adapter</xs:documentation>
+              </xs:annotation>
+              <xs:restriction base="xs:string" />
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="AdaptersResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="unlink_code">
+            <xs:simpleType>
+              <xs:annotation>
+                <xs:documentation>a code used to confirm a request to unregister this adapter is legitimate</xs:documentation>
+              </xs:annotation>
+              <xs:restriction base="xs:string" />
+            </xs:simpleType>
+          </xs:element>
         </xs:sequence>
       </xs:complexType>
       <xs:simpleType name="anything">
@@ -685,6 +712,15 @@
           </xs:element>
         </xs:sequence>
       </xs:complexType>
+      <xs:complexType name="registerHostingProvider_Response">
+        <xs:sequence>
+          <xs:element minOccurs="1" name="response" type="tns:AdaptersResponse">
+            <xs:annotation>
+              <xs:documentation>success</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
     </xs:schema>
   </grammars>
   <resources base="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0">
@@ -699,13 +735,13 @@
       </method>
     </resource>
     <resource id="_appsapp" path="/apps/{app}">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
       <method id="getApp" name="GET">
         <doc title="getApp" xml:lang="en">Get information about a specific app.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -716,13 +752,13 @@
       </method>
     </resource>
     <resource id="_appsappcomponents" path="/apps/{app}/components">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
       <method id="listComponents" name="GET">
         <doc title="listComponents" xml:lang="en">List components in a given app.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -733,16 +769,16 @@
       </method>
     </resource>
     <resource id="_appsappcomponentscomponent" path="/apps/{app}/components/{component}">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
-      <param name="component" style="template" type="xsd:string" required="true">
+      <param name="component" style="template" type="xsd:string" default="" required="true">
         <doc title="component" xml:lang="en">the component's UUID</doc>
       </param>
       <method id="getComponent" name="GET">
         <doc title="getComponent" xml:lang="en">Get information about a specific component in a given app.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -753,16 +789,16 @@
       </method>
     </resource>
     <resource id="_appsappservicesservicecomponents" path="/apps/{app}/services/{service}/components">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
-      <param name="service" style="template" type="xsd:string" required="true">
+      <param name="service" style="template" type="xsd:string" default="" required="true">
         <doc title="service" xml:lang="en">the service's UUID or slug</doc>
       </param>
       <method id="listServiceComponents" name="GET">
         <doc title="listServiceComponents" xml:lang="en">List components in a given service of a given app.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -773,19 +809,19 @@
       </method>
     </resource>
     <resource id="_appsappservicesservicecomponentscomponent" path="/apps/{app}/services/{service}/components/{component}">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
-      <param name="service" style="template" type="xsd:string" required="true">
+      <param name="service" style="template" type="xsd:string" default="" required="true">
         <doc title="service" xml:lang="en">the service's UUID or slug</doc>
       </param>
-      <param name="component" style="template" type="xsd:string" required="true">
+      <param name="component" style="template" type="xsd:string" default="" required="true">
         <doc title="component" xml:lang="en">the component's UUID</doc>
       </param>
       <method id="getServiceComponent" name="GET">
         <doc title="getServiceComponent" xml:lang="en">Get information about a specific component in a given service of a given app.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -796,16 +832,16 @@
       </method>
     </resource>
     <resource id="_appsappdeploys" path="/apps/{app}/deploys">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
       <method id="listDeploys" name="GET">
         <doc title="listDeploys" xml:lang="en">List deploys in a given app.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -817,7 +853,7 @@
       <method id="createDeploy" name="POST">
         <doc title="createDeploy" xml:lang="en">Create a new deploy.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
           <representation element="tns:AppsDeploysRequest" mediaType="application/json" />
@@ -829,16 +865,16 @@
       </method>
     </resource>
     <resource id="_appsappdeploysdeploy" path="/apps/{app}/deploys/{deploy}">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
-      <param name="deploy" style="template" type="xsd:string" required="true">
+      <param name="deploy" style="template" type="xsd:string" default="" required="true">
         <doc title="deploy" xml:lang="en">the deploy's UUID</doc>
       </param>
       <method id="getDeploy" name="GET">
         <doc title="getDeploy" xml:lang="en">Get information about a specific deploy in a given app.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -849,16 +885,16 @@
       </method>
     </resource>
     <resource id="_appsappevars" path="/apps/{app}/evars">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
       <method id="listEvars" name="GET">
         <doc title="listEvars" xml:lang="en">List environment variables in a given app.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -870,7 +906,7 @@
       <method id="createEvar" name="POST">
         <doc title="createEvar" xml:lang="en">Add or set an environment variable.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
           <representation element="tns:AppsEvarsRequest" mediaType="application/json" />
@@ -882,22 +918,22 @@
       </method>
     </resource>
     <resource id="_appsappevarsevar" path="/apps/{app}/evars/{evar}">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
-      <param name="evar" style="template" type="xsd:string" required="true">
+      <param name="evar" style="template" type="xsd:string" default="" required="true">
         <doc title="evar" xml:lang="en">the evar's UUID</doc>
       </param>
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
-      <param name="evar" style="template" type="xsd:string" required="true">
+      <param name="evar" style="template" type="xsd:string" default="" required="true">
         <doc title="evar" xml:lang="en">the evar's UUID</doc>
       </param>
       <method id="getEvar" name="GET">
         <doc title="getEvar" xml:lang="en">Get information about a specific environment variable in a given app.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -909,7 +945,7 @@
       <method id="deleteEvar" name="DELETE">
         <doc title="deleteEvar" xml:lang="en">Delete an environment variable.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -935,16 +971,16 @@
       </method>
     </resource>
     <resource id="_appsapptunnelsid" path="/apps/{app}/tunnels/{id}">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
-      <param name="id" style="template" type="xsd:string" required="true">
+      <param name="id" style="template" type="xsd:string" default="" required="true">
         <doc title="id" xml:lang="en">the name of the server or component to tunnel into</doc>
       </param>
       <method id="openTunnel" name="GET">
         <doc title="openTunnel" xml:lang="en">Create a tunnel, and get the connection parameters.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -955,16 +991,16 @@
       </method>
     </resource>
     <resource id="_appsappconsolesid" path="/apps/{app}/consoles/{id}">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
-      <param name="id" style="template" type="xsd:string" required="true">
+      <param name="id" style="template" type="xsd:string" default="" required="true">
         <doc title="id" xml:lang="en">the name of the server or component to console into</doc>
       </param>
       <method id="openConsole" name="GET">
         <doc title="openConsole" xml:lang="en">Create a console session, and get the connection parameters.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -975,13 +1011,13 @@
       </method>
     </resource>
     <resource id="_appsappservices" path="/apps/{app}/services">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
       <method id="listServices" name="GET">
         <doc title="listServices" xml:lang="en">List services in a given app.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -992,16 +1028,16 @@
       </method>
     </resource>
     <resource id="_appsappservicesservice" path="/apps/{app}/services/{service}">
-      <param name="app" style="template" type="xsd:string" required="true">
+      <param name="app" style="template" type="xsd:string" default="" required="true">
         <doc title="app" xml:lang="en">the application's UUID or name</doc>
       </param>
-      <param name="service" style="template" type="xsd:string" required="true">
+      <param name="service" style="template" type="xsd:string" default="" required="true">
         <doc title="service" xml:lang="en">the service's UUID or slug</doc>
       </param>
       <method id="getService" name="GET">
         <doc title="getService" xml:lang="en">Get information about a specific service in a given app.</doc>
         <request>
-          <param name="ci" style="query" type="xsd:string">
+          <param name="ci" style="query" type="xsd:string" default="">
             <doc title="ci" xml:lang="en">the application's team name, if `{app}` is a name</doc>
           </param>
         </request>
@@ -1015,10 +1051,10 @@
       <method id="getToken" name="GET">
         <doc title="getToken" xml:lang="en">Look up the auth token of the user</doc>
         <request>
-          <param name="slug" style="query" type="xsd:string" required="true">
+          <param name="slug" style="query" type="xsd:string" default="" required="true">
             <doc title="slug" xml:lang="en">email address of the user</doc>
           </param>
-          <param name="password" style="query" type="xsd:string" required="true">
+          <param name="password" style="query" type="xsd:string" default="" required="true">
             <doc title="password" xml:lang="en">password of the user</doc>
           </param>
         </request>
@@ -1029,13 +1065,13 @@
       </method>
     </resource>
     <resource id="_usersslugauth_token" path="/users/{slug}/auth_token">
-      <param name="slug" style="template" type="xsd:string" required="true">
+      <param name="slug" style="template" type="xsd:string" default="" required="true">
         <doc title="slug" xml:lang="en">username of the user</doc>
       </param>
       <method id="getTokenFromUsername" name="GET">
         <doc title="getTokenFromUsername" xml:lang="en">Duplicate of `GET /user_auth_token`, with the `slug` in the path; abandoned with a switch from usernames to emails for login credentials</doc>
         <request>
-          <param name="password" style="query" type="xsd:string" required="true">
+          <param name="password" style="query" type="xsd:string" default="" required="true">
             <doc title="password" xml:lang="en">password of the user</doc>
           </param>
         </request>
@@ -1046,7 +1082,7 @@
       </method>
     </resource>
     <resource id="_usersanything" path="/users/{anything}">
-      <param name="anything" style="template" type="tns:anything" required="true">
+      <param name="anything" style="template" type="tns:anything" default="" required="true">
         <doc title="anything" xml:lang="en">ignored; use "me"</doc>
       </param>
       <method id="getUser" name="GET">
@@ -1068,6 +1104,35 @@
         </response>
         <response status="404">
           <doc title="404" xml:lang="en">Returned by Nanobox.</doc>
+        </response>
+      </method>
+    </resource>
+    <resource id="_adapterstoken" path="/adapters/{token}">
+      <param name="token" style="template" type="xsd:string" default="" required="true">
+        <doc title="token" xml:lang="en">the adapter registration token generated by the dashboard for this adapter</doc>
+      </param>
+      <param name="token" style="template" type="xsd:string" default="" required="true">
+        <doc title="token" xml:lang="en">the adapter registration token used to register this adapter</doc>
+      </param>
+      <method id="registerHostingProvider" name="POST">
+        <doc title="registerHostingProvider" xml:lang="en">Register a hosting provider adapter</doc>
+        <request>
+          <representation element="tns:AdaptersRequest" mediaType="application/json" />
+        </request>
+        <response status="202">
+          <doc title="202" xml:lang="en">success</doc>
+          <representation element="tns:registerHostingProvider_Response" mediaType="application/json" />
+        </response>
+      </method>
+      <method id="unregisterHostingProvider" name="DELETE">
+        <doc title="unregisterHostingProvider" xml:lang="en">Unregister a hosting provider adapter</doc>
+        <request>
+          <param name="unlink_code" style="query" type="xsd:string" default="" required="true">
+            <doc title="unlink_code" xml:lang="en">the unlink_code returned when this adapter was registered</doc>
+          </param>
+        </request>
+        <response status="200">
+          <doc title="200" xml:lang="en">success</doc>
         </response>
       </method>
     </resource>

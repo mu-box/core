@@ -4,217 +4,217 @@ __export_source: apimatic.transformer
 resources:
 - name: Microbox Core API
   _type: workspace
-  _id: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
   description: The full API spec for Microbox Core, and other Nanobox-v1-compatible dashboard and coordination servers.
 - name: production
   data:
     default: https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0
   _type: environment
-  _id: env_64f7b638ca004cac8ee6b407c298b663
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: env_4dc30d5fcbcd4f0384eaa4968d8301f0
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
 - name: environment2
   data:
     default: https://api.mubox.cloud/v1
   _type: environment
-  _id: env_f080a3bf979a473a8f2714ca290ed39a
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: env_3f817ebae2024a1a85d03558562c270e
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
 - name: environment3
   data:
     default: https://api.xn-box-wyc.cloud/v1
   _type: environment
-  _id: env_ee3c0101cfe04680addd8b23a9f4e534
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: env_44424f28bd9a40e388664fb326c2be5c
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
 - name: environment4
   data:
     default: https://api.nanobox.io/v1
   _type: environment
-  _id: env_00aba2eeb187477fba96995a07dfc610
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: env_7e5aec43cb134e859c65d613f9e0837b
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
 - name: app
   _type: request_group
-  _id: fld_d339410b695a46e68703d4a847a434ef
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: fld_45d8974319464c9dbc69cacfb035d3b8
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
   description: Endpoints that interact directly with the application.
 - name: component
   _type: request_group
-  _id: fld_f8e7825e5c2d45b0a76431f830e7c6c8
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: fld_0f6cf2d106844532ad4e68f9e1378269
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
   description: Endpoints that interact with application components.
 - name: deploy
   _type: request_group
-  _id: fld_a2d0241dccbd47e6958a4a1841b4c094
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: fld_43dd4a26ade446f49da39299f256c26e
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
   description: Endpoints for deploying code.
 - name: evar
   _type: request_group
-  _id: fld_b71f5c93a8674efeb138aea55fe57cdb
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: fld_0eef7e7e4d4e450d9e92079202a97f9f
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
   description: Endpoints for managing environment variables.
 - name: event
   _type: request_group
-  _id: fld_e73803b2361c432ca3bb0edb935f2ab5
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: fld_b7c088c913d44a619a4d5b152453d345
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
   description: Endpoints for interacting with events.
 - name: remote
   _type: request_group
-  _id: fld_59287a4abeb74101ac1eda514e6b7936
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: fld_b50b09fe07844af9bcf623609a6c64b0
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
   description: Endpoints for accessing servers and components.
 - name: service
   _type: request_group
-  _id: fld_c171d5250de74dffb421d1f52bb93548
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: fld_de07f1897a654db88e52364cd90cc830
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
   description: Endpoints for interacting with individual services within components.
 - name: user
   _type: request_group
-  _id: fld_2121720841894e818f546e46425b9e1b
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: fld_a6feb8342e8e465ca2fdc8351e1f7a77
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
   description: Endpoints that interact with user data.
 - name: listApps
   method: GET
   url: '{{default}}/apps'
   authentication: {}
   _type: request
-  _id: req_9252df0ece0548a5942a5396fb7660e3
-  parentId: fld_d339410b695a46e68703d4a847a434ef
+  _id: req_277b8c3925af494d8932fbe1794ab756
+  parentId: fld_45d8974319464c9dbc69cacfb035d3b8
   description: List all accessible apps.
 - name: getApp
   method: GET
   url: '{{default}}/apps/{app}'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_8895a0bb5732455cae84f3783997294c
-  parentId: fld_d339410b695a46e68703d4a847a434ef
+  _id: req_2271ffd094a34d898965b29353d7a1df
+  parentId: fld_45d8974319464c9dbc69cacfb035d3b8
   description: Get information about a specific app.
 - name: listComponents
   method: GET
   url: '{{default}}/apps/{app}/components'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_7371c7f46e394fc284e9adfdc2def6e4
-  parentId: fld_f8e7825e5c2d45b0a76431f830e7c6c8
+  _id: req_0c3dbb79cf5743659b0da30d34f0c8ee
+  parentId: fld_0f6cf2d106844532ad4e68f9e1378269
   description: List components in a given app.
 - name: getComponent
   method: GET
   url: '{{default}}/apps/{app}/components/{component}'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_f00c889ab0fb4a9da7bd914fb5f34236
-  parentId: fld_f8e7825e5c2d45b0a76431f830e7c6c8
+  _id: req_ddfc7447ac454048b58c4538a656db03
+  parentId: fld_0f6cf2d106844532ad4e68f9e1378269
   description: Get information about a specific component in a given app.
 - name: listServiceComponents
   method: GET
   url: '{{default}}/apps/{app}/services/{service}/components'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_ba09e5f1160f4a3f8994d85be85eaeea
-  parentId: fld_f8e7825e5c2d45b0a76431f830e7c6c8
+  _id: req_add01ec664574ed49e5801515c2e8c1a
+  parentId: fld_0f6cf2d106844532ad4e68f9e1378269
   description: List components in a given service of a given app.
 - name: getServiceComponent
   method: GET
   url: '{{default}}/apps/{app}/services/{service}/components/{component}'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_0f915510378b4df6a56b6324eef1fbba
-  parentId: fld_f8e7825e5c2d45b0a76431f830e7c6c8
+  _id: req_e05dff2b7de24e8e9628301c6f027020
+  parentId: fld_0f6cf2d106844532ad4e68f9e1378269
   description: Get information about a specific component in a given service of a given app.
 - name: listDeploys
   method: GET
   url: '{{default}}/apps/{app}/deploys'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_504faf74833e494089f8609c55fd26a1
-  parentId: fld_a2d0241dccbd47e6958a4a1841b4c094
+  _id: req_95ebc6d94fd342ff8e15c90ec79a749b
+  parentId: fld_43dd4a26ade446f49da39299f256c26e
   description: List deploys in a given app.
 - name: createDeploy
   method: POST
   url: '{{default}}/apps/{app}/deploys'
   body:
     mimeType: application/json
-    text: '{"boxfile_content":"--- \ndata.db: \n  image: nanobox/postgres:9.6 \nrun.config: \n  engine: static","build_id":"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD","commit_message":"commit_message31"}'
+    text: '{"boxfile_content":"--- \ndata.db: \n  image: nanobox/postgres:9.6 \nrun.config: \n  engine: static","build_id":"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD","commit_message":"commit_message36"}'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_832f93901463453db3bdd89ace5ed407
-  parentId: fld_a2d0241dccbd47e6958a4a1841b4c094
+  _id: req_fadd2c3066054010bd14646b81d2d0c1
+  parentId: fld_43dd4a26ade446f49da39299f256c26e
   description: Create a new deploy.
 - name: getDeploy
   method: GET
   url: '{{default}}/apps/{app}/deploys/{deploy}'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_53675c08f96e4c69bad9ccfe1cb1f463
-  parentId: fld_a2d0241dccbd47e6958a4a1841b4c094
+  _id: req_b15c9aa90aac401b86a0b3241c424d76
+  parentId: fld_43dd4a26ade446f49da39299f256c26e
   description: Get information about a specific deploy in a given app.
 - name: listEvars
   method: GET
   url: '{{default}}/apps/{app}/evars'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_3d60260457c44fc79ad8cdf3bb5eb91b
-  parentId: fld_b71f5c93a8674efeb138aea55fe57cdb
+  _id: req_0733eec6801e4779bcb4e7ac6ea6a25f
+  parentId: fld_0eef7e7e4d4e450d9e92079202a97f9f
   description: List environment variables in a given app.
 - name: createEvar
   method: POST
@@ -224,45 +224,45 @@ resources:
     text: '{"title":"EXAMPLE_EVAR","value":"example value"}'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_1d0f913904204547840e1c4fef9f1050
-  parentId: fld_b71f5c93a8674efeb138aea55fe57cdb
+  _id: req_5561ced8ab534b789af3f810b3984986
+  parentId: fld_0eef7e7e4d4e450d9e92079202a97f9f
   description: Add or set an environment variable.
 - name: getEvar
   method: GET
   url: '{{default}}/apps/{app}/evars/{evar}'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_0ed757e1eec343a68e89f42b0fc53e47
-  parentId: fld_b71f5c93a8674efeb138aea55fe57cdb
+  _id: req_963ed3ed9c7e49a0acd852fc6f15c8a4
+  parentId: fld_0eef7e7e4d4e450d9e92079202a97f9f
   description: Get information about a specific environment variable in a given app.
 - name: deleteEvar
   method: DELETE
   url: '{{default}}/apps/{app}/evars/{evar}'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_d928d996243e4ee283b1a0c85bd7ad61
-  parentId: fld_b71f5c93a8674efeb138aea55fe57cdb
+  _id: req_9fcd45a0385f4a3cba8b59e299c7d1fe
+  parentId: fld_0eef7e7e4d4e450d9e92079202a97f9f
   description: Delete an environment variable.
 - name: createEvent
   method: POST
@@ -272,72 +272,72 @@ resources:
     text: '{"event":{"eventable_id":"example-app","message":"example","action":"example","meta":{}}}'
   parameters:
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_90ab6ea5e0a54513b288bb636e3e9ecd
-  parentId: fld_e73803b2361c432ca3bb0edb935f2ab5
+  _id: req_b3536dc471ac4e4b971ef1dd1a3585a7
+  parentId: fld_b7c088c913d44a619a4d5b152453d345
   description: Create an event
 - name: openTunnel
   method: GET
   url: '{{default}}/apps/{app}/tunnels/{id}'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_576ebb520f1342038930cd4e7bf105c6
-  parentId: fld_59287a4abeb74101ac1eda514e6b7936
+  _id: req_3c9c903c07ed41a8aff3820e790deca5
+  parentId: fld_b50b09fe07844af9bcf623609a6c64b0
   description: Create a tunnel, and get the connection parameters.
 - name: openConsole
   method: GET
   url: '{{default}}/apps/{app}/consoles/{id}'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_c0e34b3044c94c9aa0ba2b15eeb38895
-  parentId: fld_59287a4abeb74101ac1eda514e6b7936
+  _id: req_4f187e31b996462382dc435a35b32768
+  parentId: fld_b50b09fe07844af9bcf623609a6c64b0
   description: Create a console session, and get the connection parameters.
 - name: listServices
   method: GET
   url: '{{default}}/apps/{app}/services'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_d519ea55f9754dd88fa4dd86c72c2726
-  parentId: fld_c171d5250de74dffb421d1f52bb93548
+  _id: req_3bf137bfce31499eab16c1ec3c1f75c7
+  parentId: fld_de07f1897a654db88e52364cd90cc830
   description: List services in a given app.
 - name: getService
   method: GET
   url: '{{default}}/apps/{app}/services/{service}'
   parameters:
   - name: ci
-    value: ci31
+    value: ci36
     disabled: false
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_485d96237b164105a0f1d91d7e5f4488
-  parentId: fld_c171d5250de74dffb421d1f52bb93548
+  _id: req_25e8acb9e9e541178ebe44fcca5dd696
+  parentId: fld_de07f1897a654db88e52364cd90cc830
   description: Get information about a specific service in a given app.
 - name: getToken
   method: GET
@@ -350,8 +350,8 @@ resources:
     value: P@ssw0rd
     disabled: false
   _type: request
-  _id: req_2b4f7aa02ee043a4a6b35be844baa2b6
-  parentId: fld_2121720841894e818f546e46425b9e1b
+  _id: req_3f61de74076b49f8b1e8ab087a3199be
+  parentId: fld_a6feb8342e8e465ca2fdc8351e1f7a77
   description: Look up the auth token of the user
 - name: getTokenFromUsername
   method: GET
@@ -361,25 +361,55 @@ resources:
     value: P@ssw0rd
     disabled: false
   _type: request
-  _id: req_25132921037b4db48a3182d7f29ad1f8
-  parentId: fld_2121720841894e818f546e46425b9e1b
+  _id: req_d6d3f52049004fd48ea59779bd51c79d
+  parentId: fld_a6feb8342e8e465ca2fdc8351e1f7a77
   description: Duplicate of `GET /user_auth_token`, with the `slug` in the path; abandoned with a switch from usernames to emails for login credentials
 - name: getUser
   method: GET
   url: '{{default}}/users/{anything}'
   parameters:
   - name: auth_token
-    value: auth_token31
+    value: auth_token36
     disabled: false
   authentication: {}
   _type: request
-  _id: req_0da3c26946f94aae88170f95e73470aa
-  parentId: fld_2121720841894e818f546e46425b9e1b
+  _id: req_be6c3c1ed5f045e2896c885fcdc94803
+  parentId: fld_a6feb8342e8e465ca2fdc8351e1f7a77
   description: Get the current user
 - name: getVersion
   method: GET
   url: '{{default}}/'
   _type: request
-  _id: req_a2ac08ac99184d73bce61164337993f2
-  parentId: wrk_48baad3b352248f2b04c1ffede2f3d5a
+  _id: req_4b25de0935da42e4aa813f6ac07c1348
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
   description: The Nanobox API no longer exposes this endpoint, but Microbox will for purposes of detecting the difference in future releases when that starts to matter.
+- name: registerHostingProvider
+  method: POST
+  url: '{{default}}/adapters/{token}'
+  body:
+    mimeType: application/json
+    text: '{"endpoint":"https://great-adapter.io/"}'
+  parameters:
+  - name: auth_token
+    value: auth_token36
+    disabled: false
+  authentication: {}
+  _type: request
+  _id: req_ce08ea7a198c4b15838f7146daad832a
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
+  description: Register a hosting provider adapter
+- name: unregisterHostingProvider
+  method: DELETE
+  url: '{{default}}/adapters/{token}'
+  parameters:
+  - name: unlink_code
+    value: unlink_code36
+    disabled: false
+  - name: auth_token
+    value: auth_token36
+    disabled: false
+  authentication: {}
+  _type: request
+  _id: req_f47656bdd3c54aa3b9e7ecf2f852c44e
+  parentId: wrk_98dcb20e691d46d7a3cb7c435ddc9c7d
+  description: Unregister a hosting provider adapter

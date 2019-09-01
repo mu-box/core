@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "Microbox Core API",
-    "_postman_id": "a41993ce-a798-4df6-93dd-cc13ac180667",
+    "_postman_id": "8a29c6df-721f-43c8-b1bd-4dbbc5726ed1",
     "description": "The full API spec for Microbox Core, and other Nanobox-v1-compatible dashboard and coordination servers.",
     "schema": "https://schema.getpostman.com/json/collection/v2.0.0/"
   },
@@ -11,7 +11,7 @@
       "description": "Endpoints that interact directly with the application.",
       "item": [
         {
-          "id": "7b3fe177-8e71-443a-88d6-b20b6baae06b",
+          "id": "53158628-3414-4d5a-afea-c0339d7385f9",
           "name": "listApps",
           "request": {
             "url": {
@@ -45,12 +45,12 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "14d67fcc-185c-4d53-a53a-9357a424df68"
+              "id": "81356147-117f-4105-922a-cca772492cdc"
             }
           ]
         },
         {
-          "id": "27e2bf0c-203b-4658-bb59-c41189b05a57",
+          "id": "5014f552-f52e-4617-bb56-445a80231081",
           "name": "getApp",
           "request": {
             "url": {
@@ -61,7 +61,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -102,7 +102,7 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "b09d54cd-7dc6-422d-8a88-dea8fbe1ce3a"
+              "id": "0f502a34-fba3-41a5-86ae-9752cf7a74cc"
             }
           ]
         }
@@ -113,7 +113,7 @@
       "description": "Endpoints that interact with application components.",
       "item": [
         {
-          "id": "473cf32c-16df-4645-b303-d65deffb3cb2",
+          "id": "d4548954-52eb-4703-94d9-e6c3987fdc16",
           "name": "listComponents",
           "request": {
             "url": {
@@ -124,7 +124,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -165,12 +165,12 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "5ea32e09-723f-4462-8d91-a6acb379453d"
+              "id": "22c067bc-4fdb-49ee-887c-37f38e69bff5"
             }
           ]
         },
         {
-          "id": "d48d5fc3-c63b-45da-a76c-8d917c8855b4",
+          "id": "054f9f27-c96f-4484-94f4-c44888499825",
           "name": "getComponent",
           "request": {
             "url": {
@@ -181,7 +181,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -228,12 +228,12 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "0ffb7268-9940-45c3-8610-38a0bcba2f55"
+              "id": "12ff7a35-fc49-45eb-a353-d69d35a11c27"
             }
           ]
         },
         {
-          "id": "7af22fa7-e716-433c-81e1-b06ff8bda14a",
+          "id": "427d0507-40be-4344-950f-919660d4c813",
           "name": "listServiceComponents",
           "request": {
             "url": {
@@ -244,7 +244,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -291,12 +291,12 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "4991b153-1ff9-4354-8978-1e3a9b2014a6"
+              "id": "4c146388-f9ea-4bda-b916-329af19f92be"
             }
           ]
         },
         {
-          "id": "487a3301-4640-4708-b32f-8e7e75a75681",
+          "id": "c4254f24-f861-43e4-b2fc-e2897dd34a6d",
           "name": "getServiceComponent",
           "request": {
             "url": {
@@ -307,7 +307,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -360,7 +360,7 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "6b7faa11-e1e4-42be-acee-3c6379c8d379"
+              "id": "f51faef4-d3d9-42b9-acce-9472f55738ab"
             }
           ]
         }
@@ -371,7 +371,7 @@
       "description": "Endpoints for deploying code.",
       "item": [
         {
-          "id": "e8cc1d5e-cf68-4c1f-af0c-58d7d9d77ab0",
+          "id": "0db90dfe-ce4c-45f3-af77-284254aea39a",
           "name": "listDeploys",
           "request": {
             "url": {
@@ -382,7 +382,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -419,16 +419,16 @@
                   "disabled": false
                 }
               ],
-              "body": "[\r\n  {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"commit_message\": \"commit_message46\",\r\n    \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n    \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n    \"author_id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"app_id\": \"00000000-0000-0000-0000-000000000000\"\r\n  }\r\n]",
+              "body": "[\r\n  {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"commit_message\": \"commit_message56\",\r\n    \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n    \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n    \"author_id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"app_id\": \"00000000-0000-0000-0000-000000000000\"\r\n  }\r\n]",
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "21a81331-2d68-464c-a0b4-e833a4ff8cc0"
+              "id": "d0bb7e11-739f-4304-9049-ad8830aa75e2"
             }
           ]
         },
         {
-          "id": "bdc26157-0d9f-4dc3-8a2d-f99946f2338e",
+          "id": "1d113b4c-4c53-4423-8a39-4f8ae4be8ce0",
           "name": "createDeploy",
           "request": {
             "url": {
@@ -439,7 +439,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -468,7 +468,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n  \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n  \"commit_message\": \"commit_message46\"\r\n}",
+              "raw": "{\r\n  \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n  \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n  \"commit_message\": \"commit_message56\"\r\n}",
               "disabled": false
             },
             "description": "Create a new deploy."
@@ -482,16 +482,16 @@
                   "disabled": false
                 }
               ],
-              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"commit_message\": \"commit_message46\",\r\n  \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n  \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n  \"author_id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"app_id\": \"00000000-0000-0000-0000-000000000000\"\r\n}",
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"commit_message\": \"commit_message56\",\r\n  \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n  \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n  \"author_id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"app_id\": \"00000000-0000-0000-0000-000000000000\"\r\n}",
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "6d479fe2-7de0-4e0c-b4d7-a5037ab7f977"
+              "id": "57bb50d8-304d-47ad-9444-83e4ef42c841"
             }
           ]
         },
         {
-          "id": "599d024d-997d-446e-b6b3-d7bae124bc04",
+          "id": "64cd880c-a9c6-409c-8c9e-b0e7384672f6",
           "name": "getDeploy",
           "request": {
             "url": {
@@ -502,7 +502,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -545,11 +545,11 @@
                   "disabled": false
                 }
               ],
-              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"commit_message\": \"commit_message46\",\r\n  \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n  \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n  \"author_id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"app_id\": \"00000000-0000-0000-0000-000000000000\"\r\n}",
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"commit_message\": \"commit_message56\",\r\n  \"boxfile_content\": \"--- \\ndata.db: \\n  image: nanobox/postgres:9.6 \\nrun.config: \\n  engine: static\",\r\n  \"build_id\": \"MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD\",\r\n  \"author_id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"app_id\": \"00000000-0000-0000-0000-000000000000\"\r\n}",
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "6ff152ed-9c3f-47a4-a8f3-0444a82641d9"
+              "id": "986a17f3-0629-4dbd-b59d-80ff48d844a0"
             }
           ]
         }
@@ -560,7 +560,7 @@
       "description": "Endpoints for managing environment variables.",
       "item": [
         {
-          "id": "7db39879-a89e-402f-813f-7574ef06ecc2",
+          "id": "8e912d2d-60f9-4339-88bc-3526ad7c3ad3",
           "name": "listEvars",
           "request": {
             "url": {
@@ -571,7 +571,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -608,16 +608,16 @@
                   "disabled": false
                 }
               ],
-              "body": "[\r\n  {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"title\": \"EXAMPLE_EVAR\",\r\n    \"value\": \"example value\",\r\n    \"internal\": false,\r\n    \"component_id\": \"component_id46\"\r\n  }\r\n]",
+              "body": "[\r\n  {\r\n    \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n    \"title\": \"EXAMPLE_EVAR\",\r\n    \"value\": \"example value\",\r\n    \"internal\": false,\r\n    \"component_id\": \"component_id56\"\r\n  }\r\n]",
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "7c6ed02c-0622-4e0e-9250-ee1c813fb374"
+              "id": "159433c5-8992-4dd2-8a9e-f2179f28a237"
             }
           ]
         },
         {
-          "id": "38ccf1fa-836a-4e32-84ee-3e0a30220dac",
+          "id": "9e40982c-a5c6-4c39-a298-5aadf4d5ae17",
           "name": "createEvar",
           "request": {
             "url": {
@@ -628,7 +628,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -671,16 +671,16 @@
                   "disabled": false
                 }
               ],
-              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"title\": \"EXAMPLE_EVAR\",\r\n  \"value\": \"example value\",\r\n  \"internal\": false,\r\n  \"component_id\": \"component_id46\"\r\n}",
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"title\": \"EXAMPLE_EVAR\",\r\n  \"value\": \"example value\",\r\n  \"internal\": false,\r\n  \"component_id\": \"component_id56\"\r\n}",
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "301c7a1b-33fe-4293-bef3-469f92551464"
+              "id": "66d93634-0df1-4708-8da0-38a1a0103354"
             }
           ]
         },
         {
-          "id": "47be4a26-07f9-47f8-80cb-289b717b58a8",
+          "id": "a8d2121f-989b-4d78-8fa0-36c10add1ba2",
           "name": "getEvar",
           "request": {
             "url": {
@@ -691,7 +691,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -734,16 +734,16 @@
                   "disabled": false
                 }
               ],
-              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"title\": \"EXAMPLE_EVAR\",\r\n  \"value\": \"example value\",\r\n  \"internal\": false,\r\n  \"component_id\": \"component_id46\"\r\n}",
+              "body": "{\r\n  \"id\": \"00000000-0000-0000-0000-000000000000\",\r\n  \"title\": \"EXAMPLE_EVAR\",\r\n  \"value\": \"example value\",\r\n  \"internal\": false,\r\n  \"component_id\": \"component_id56\"\r\n}",
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "23bcac48-21ed-4028-8e9f-2a886c4d31ed"
+              "id": "2db4f36b-2083-4656-9bcc-c3dcd79e814a"
             }
           ]
         },
         {
-          "id": "4def23b7-79d4-4423-8f75-abdfddc5c4ed",
+          "id": "aa302a29-127a-4bc5-837c-6e1e032aa1d5",
           "name": "deleteEvar",
           "request": {
             "url": {
@@ -754,7 +754,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -794,7 +794,7 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "b76bf697-1b84-4ce4-ab3f-8d206f723847"
+              "id": "ae884d46-0569-489d-b498-643ddcf99204"
             }
           ]
         }
@@ -805,7 +805,7 @@
       "description": "Endpoints for interacting with events.",
       "item": [
         {
-          "id": "2e1ded03-d979-49eb-9ea0-2bcfe9b23ca1",
+          "id": "f44dfb3f-b735-4de6-8717-dbb65e973d74",
           "name": "createEvent",
           "request": {
             "url": {
@@ -845,7 +845,7 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "2663b6d5-57f0-4690-92d3-c5a0f1d5578a"
+              "id": "f58306d4-241e-45a9-8473-7050a77f9651"
             },
             {
               "header": [
@@ -859,7 +859,7 @@
               "status": "unprocessable_entity",
               "code": 422,
               "name": "Response_422",
-              "id": "d24c8c35-ba0e-4698-a993-0504497733a1"
+              "id": "7f4e5026-f8a6-416c-8303-013830e33176"
             }
           ]
         }
@@ -870,7 +870,7 @@
       "description": "Endpoints for accessing servers and components.",
       "item": [
         {
-          "id": "d026d79d-7b3f-4cb7-b073-fe4ec231deaf",
+          "id": "9b70fe95-e53b-4142-b056-b72faba60f0a",
           "name": "openTunnel",
           "request": {
             "url": {
@@ -881,7 +881,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -928,12 +928,12 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "95318d01-2f6a-425f-9f49-343819a35bf5"
+              "id": "dda89108-7e0d-44af-b531-91c43835d4aa"
             }
           ]
         },
         {
-          "id": "9b84b1e2-f748-4642-af71-3fa684ee305f",
+          "id": "e9338d90-a434-45ac-9b25-143904ea8ecd",
           "name": "openConsole",
           "request": {
             "url": {
@@ -944,7 +944,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -991,7 +991,7 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "9745ab89-0b7b-4229-acf7-2176bde54726"
+              "id": "32fb7181-cdbf-45a3-bad0-2a3eb7e489c2"
             }
           ]
         }
@@ -1002,7 +1002,7 @@
       "description": "Endpoints for interacting with individual services within components.",
       "item": [
         {
-          "id": "c89ab452-b0d5-4dc9-8acc-7a7889a564c4",
+          "id": "582f6e33-6951-468e-9982-7ba19855cff4",
           "name": "listServices",
           "request": {
             "url": {
@@ -1013,7 +1013,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -1054,12 +1054,12 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "2f8d6405-921b-4e57-a75d-adb1b3c9a34d"
+              "id": "cbe9018c-3865-469a-bc21-ed661f8aab00"
             }
           ]
         },
         {
-          "id": "facab178-1ba1-41f6-a8d5-5b1d40e05460",
+          "id": "1fad354f-aaa1-470c-a34c-4323184f1e55",
           "name": "getService",
           "request": {
             "url": {
@@ -1070,7 +1070,7 @@
               "query": [
                 {
                   "key": "ci",
-                  "value": "ci46",
+                  "value": "ci56",
                   "description": "the application's team name, if `{app}` is a name",
                   "disabled": false
                 }
@@ -1117,7 +1117,7 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "e1d5a3ed-f61a-4864-9858-1c9550f568cc"
+              "id": "c29f8c81-27cc-4401-a48a-2859bb907fe3"
             }
           ]
         }
@@ -1128,7 +1128,7 @@
       "description": "Endpoints that interact with user data.",
       "item": [
         {
-          "id": "54e57098-aeec-4eed-862d-3bc744f09250",
+          "id": "9ff56eff-ef73-42c7-9f9a-7b82d5d6b4a9",
           "name": "getToken",
           "request": {
             "url": {
@@ -1179,12 +1179,12 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "10a609dd-6200-4770-84dd-3b7fc1d6c944"
+              "id": "1e6ae526-2250-45fe-9251-b1af7f9e521e"
             }
           ]
         },
         {
-          "id": "84028da1-a62a-4862-ac67-8f991dd468c9",
+          "id": "27082b77-5fc2-47ca-987e-136b77da7de0",
           "name": "getTokenFromUsername",
           "request": {
             "url": {
@@ -1239,12 +1239,12 @@
               "status": "success",
               "code": 200,
               "name": "Response_200",
-              "id": "3f75ca36-4822-4e0c-b99f-06658c16b7ff"
+              "id": "f370036c-1469-4517-b6b9-0df02f31399c"
             }
           ]
         },
         {
-          "id": "da618c26-54f5-48a1-b2af-f73f81d21702",
+          "id": "a6cba2a8-d5e6-4a7b-b182-98542ee87346",
           "name": "getUser",
           "request": {
             "url": {
@@ -1288,14 +1288,14 @@
               "status": "User object",
               "code": 200,
               "name": "Response_200",
-              "id": "05e6667b-74ea-4985-9bb3-8bc384bd1dd4"
+              "id": "5c0f4fdf-ff83-4022-b5b4-9a358040d55b"
             }
           ]
         }
       ]
     },
     {
-      "id": "c7500ebd-1106-4916-9649-0fde3b39d65d",
+      "id": "2322e2d9-ab48-459b-9203-a11789d1ca87",
       "name": "getVersion",
       "request": {
         "url": {
@@ -1332,13 +1332,118 @@
           "status": "A JSON object with the name and version of the API.",
           "code": 200,
           "name": "Response_200",
-          "id": "d1f68dad-5655-4203-8f64-3e6e34ddb809"
+          "id": "4f8c75d9-2262-4004-979b-b2e600ccd7a5"
         },
         {
           "status": "Returned by Nanobox.",
           "code": 404,
           "name": "Response_404",
-          "id": "7f016da0-3579-4da3-b8b6-db246c8869b8"
+          "id": "05eefb06-508c-4007-8d04-cc04a89f7162"
+        }
+      ]
+    },
+    {
+      "id": "3f246646-4323-4984-b4c8-85f42af947a2",
+      "name": "registerHostingProvider",
+      "request": {
+        "url": {
+          "host": "{{default}}",
+          "path": [
+            "adapters/:token"
+          ],
+          "variable": [
+            {
+              "id": "token",
+              "value": "token56",
+              "type": "string",
+              "description": "the adapter registration token generated by the dashboard for this adapter"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "disabled": false
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "disabled": false
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"endpoint\": \"https://great-adapter.io/\"\r\n}",
+          "disabled": false
+        },
+        "description": "Register a hosting provider adapter"
+      },
+      "response": [
+        {
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "disabled": false
+            }
+          ],
+          "body": "{\r\n  \"unlink_code\": \"unlink_code56\"\r\n}",
+          "status": "success",
+          "code": 202,
+          "name": "Response_202",
+          "id": "7694121d-1845-4948-b37a-f1f7c0b2f72e"
+        }
+      ]
+    },
+    {
+      "id": "a300518c-0251-42e9-b09b-8eee67db3673",
+      "name": "unregisterHostingProvider",
+      "request": {
+        "url": {
+          "host": "{{default}}",
+          "path": [
+            "adapters/:token"
+          ],
+          "query": [
+            {
+              "key": "unlink_code",
+              "value": "unlink_code56",
+              "description": "the unlink_code returned when this adapter was registered",
+              "disabled": false
+            }
+          ],
+          "variable": [
+            {
+              "id": "token",
+              "value": "token56",
+              "type": "string",
+              "description": "the adapter registration token used to register this adapter"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "*/*",
+            "disabled": false
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "disabled": false
+        },
+        "description": "Unregister a hosting provider adapter"
+      },
+      "response": [
+        {
+          "header": [],
+          "status": "success",
+          "code": 200,
+          "name": "Response_200",
+          "id": "690fce5d-ecc1-486b-9019-9b7cf27ba4ad"
         }
       ]
     }
@@ -1365,7 +1470,7 @@
     "type": "apikey",
     "apikey": {
       "key": "auth_token",
-      "value": "auth_token46",
+      "value": "auth_token56",
       "in": "query"
     }
   }

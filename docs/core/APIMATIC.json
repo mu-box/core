@@ -1,0 +1,4144 @@
+{
+  "Name": "Microbox Core API",
+  "BaseUri": "https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0",
+  "ServerConfiguration": {
+    "DefaultEnvironment": "production",
+    "DefaultServer": "default",
+    "Environments": [
+      {
+        "Name": "production",
+        "Description": "SwaggerHub API Auto Mocking",
+        "Servers": [
+          {
+            "Name": "default",
+            "Url": "https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0"
+          }
+        ]
+      },
+      {
+        "Name": "environment2",
+        "Description": "The production version of Microbox.",
+        "Servers": [
+          {
+            "Name": "default",
+            "Url": "https://api.mubox.cloud/v1"
+          }
+        ]
+      },
+      {
+        "Name": "environment3",
+        "Description": "The staging version of Microbox.",
+        "Servers": [
+          {
+            "Name": "default",
+            "Url": "https://api.xn-box-wyc.cloud/v1"
+          }
+        ]
+      },
+      {
+        "Name": "environment4",
+        "Description": "The production version of Nanobox.",
+        "Servers": [
+          {
+            "Name": "default",
+            "Url": "https://api.nanobox.io/v1"
+          }
+        ]
+      }
+    ],
+    "Parameters": []
+  },
+  "Description": "The full API spec for Microbox Core, and other Nanobox-v1-compatible dashboard and coordination servers.",
+  "Version": "1.0.0",
+  "Contact": {
+    "Name": "Dan Hunsaker",
+    "Email": "danhunsaker@gmail.com"
+  },
+  "AdditionalHeaders": [],
+  "Authentication": {
+    "Type": "CustomQuery",
+    "AuthType": "CustomQuery",
+    "Parameters": [
+      {
+        "Name": "auth_token",
+        "Description": "",
+        "DefaultValue": ""
+      }
+    ],
+    "Scopes": [],
+    "ParamFormats": {}
+  },
+  "Endpoints": [
+    {
+      "Name": "listApps",
+      "Description": "List all accessible apps.",
+      "HTTPMethod": "GET",
+      "Group": "app",
+      "RequiresAuthentication": true,
+      "Route": "/apps",
+      "Response": {
+        "Optional": false,
+        "Type": "App",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": true,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test listApps",
+          "Description": "List all accessible apps.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "getApp",
+      "Description": "Get information about a specific app.",
+      "HTTPMethod": "GET",
+      "Group": "app",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}",
+      "Response": {
+        "Optional": false,
+        "Type": "App",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test getApp",
+          "Description": "Get information about a specific app.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "listComponents",
+      "Description": "List components in a given app.",
+      "HTTPMethod": "GET",
+      "Group": "component",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/components",
+      "Response": {
+        "Optional": false,
+        "Type": "Component",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": true,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test listComponents",
+          "Description": "List components in a given app.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "getComponent",
+      "Description": "Get information about a specific component in a given app.",
+      "HTTPMethod": "GET",
+      "Group": "component",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/components/{component}",
+      "Response": {
+        "Optional": false,
+        "Type": "Component",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "component",
+          "Description": "the component's UUID",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test getComponent",
+          "Description": "Get information about a specific component in a given app.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "IsNull": false,
+              "Name": "component",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "listServiceComponents",
+      "Description": "List components in a given service of a given app.",
+      "HTTPMethod": "GET",
+      "Group": "component",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/services/{service}/components",
+      "Response": {
+        "Optional": false,
+        "Type": "Component",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": true,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "service",
+          "Description": "the service's UUID or slug",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test listServiceComponents",
+          "Description": "List components in a given service of a given app.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "IsNull": false,
+              "Name": "service",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "getServiceComponent",
+      "Description": "Get information about a specific component in a given service of a given app.",
+      "HTTPMethod": "GET",
+      "Group": "component",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/services/{service}/components/{component}",
+      "Response": {
+        "Optional": false,
+        "Type": "Component",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "service",
+          "Description": "the service's UUID or slug",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "component",
+          "Description": "the component's UUID",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test getServiceComponent",
+          "Description": "Get information about a specific component in a given service of a given app.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "IsNull": false,
+              "Name": "service",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "IsNull": false,
+              "Name": "component",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "listDeploys",
+      "Description": "List deploys in a given app.",
+      "HTTPMethod": "GET",
+      "Group": "deploy",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/deploys",
+      "Response": {
+        "Optional": false,
+        "Type": "Deploy",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": true,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test listDeploys",
+          "Description": "List deploys in a given app.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "createDeploy",
+      "Description": "Create a new deploy.",
+      "HTTPMethod": "POST",
+      "Group": "deploy",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/deploys",
+      "Response": {
+        "Optional": false,
+        "Type": "Deploy",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Body",
+          "Optional": false,
+          "Type": "Apps Deploys Request",
+          "IsSdlNativeType": false,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "body",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "getDeploy",
+      "Description": "Get information about a specific deploy in a given app.",
+      "HTTPMethod": "GET",
+      "Group": "deploy",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/deploys/{deploy}",
+      "Response": {
+        "Optional": false,
+        "Type": "Deploy",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "deploy",
+          "Description": "the deploy's UUID",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test getDeploy",
+          "Description": "Get information about a specific deploy in a given app.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "IsNull": false,
+              "Name": "deploy",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "listEvars",
+      "Description": "List environment variables in a given app.",
+      "HTTPMethod": "GET",
+      "Group": "evar",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/evars",
+      "Response": {
+        "Optional": false,
+        "Type": "Evar",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": true,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test listEvars",
+          "Description": "List environment variables in a given app.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "createEvar",
+      "Description": "Add or set an environment variable.",
+      "HTTPMethod": "POST",
+      "Group": "evar",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/evars",
+      "Response": {
+        "Optional": false,
+        "Type": "Evar",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Body",
+          "Optional": false,
+          "Type": "Apps Evars Request",
+          "IsSdlNativeType": false,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "body",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "getEvar",
+      "Description": "Get information about a specific environment variable in a given app.",
+      "HTTPMethod": "GET",
+      "Group": "evar",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/evars/{evar}",
+      "Response": {
+        "Optional": false,
+        "Type": "Evar",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "evar",
+          "Description": "the evar's UUID",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test getEvar",
+          "Description": "Get information about a specific environment variable in a given app.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "IsNull": false,
+              "Name": "evar",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "deleteEvar",
+      "Description": "Delete an environment variable.",
+      "HTTPMethod": "DELETE",
+      "Group": "evar",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/evars/{evar}",
+      "Response": {
+        "Optional": false,
+        "Type": "Void",
+        "IsSdlNativeType": true,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "evar",
+          "Description": "the evar's UUID",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test deleteEvar",
+          "Description": "Delete an environment variable.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "IsNull": false,
+              "Name": "evar",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "createEvent",
+      "Description": "Create an event",
+      "HTTPMethod": "POST",
+      "Group": "event",
+      "RequiresAuthentication": true,
+      "Route": "/events",
+      "Response": {
+        "Optional": false,
+        "Type": "Events Response",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Body",
+          "Optional": false,
+          "Type": "Events Request",
+          "IsSdlNativeType": false,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "body",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [
+        {
+          "ErrorCode": 422,
+          "ErrorMessage": "unprocessable_entity",
+          "ErrorTypeName": "Events 422 Error",
+          "IsSdlNativeType": false
+        }
+      ],
+      "TestCases": [],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "openTunnel",
+      "Description": "Create a tunnel, and get the connection parameters.",
+      "HTTPMethod": "GET",
+      "Group": "remote",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/tunnels/{id}",
+      "Response": {
+        "Optional": false,
+        "Type": "Apps Tunnels Response",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "data.db",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "id",
+          "Description": "the name of the server or component to tunnel into",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test openTunnel",
+          "Description": "Create a tunnel, and get the connection parameters.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "IsNull": false,
+              "Name": "id",
+              "Value": "data.db"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "openConsole",
+      "Description": "Create a console session, and get the connection parameters.",
+      "HTTPMethod": "GET",
+      "Group": "remote",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/consoles/{id}",
+      "Response": {
+        "Optional": false,
+        "Type": "Apps Consoles Response",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "do.1",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "id",
+          "Description": "the name of the server or component to console into",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test openConsole",
+          "Description": "Create a console session, and get the connection parameters.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "IsNull": false,
+              "Name": "id",
+              "Value": "do.1"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "listServices",
+      "Description": "List services in a given app.",
+      "HTTPMethod": "GET",
+      "Group": "service",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/services",
+      "Response": {
+        "Optional": false,
+        "Type": "Service",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": true,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test listServices",
+          "Description": "List services in a given app.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "getService",
+      "Description": "Get information about a specific service in a given app.",
+      "HTTPMethod": "GET",
+      "Group": "service",
+      "RequiresAuthentication": true,
+      "Route": "/apps/{app}/services/{service}",
+      "Response": {
+        "Optional": false,
+        "Type": "Service",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app",
+          "Description": "the application's UUID or name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ci",
+          "Description": "the application's team name, if `{app}` is a name",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "service",
+          "Description": "the service's UUID or slug",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test getService",
+          "Description": "Get information about a specific service in a given app.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "app",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            },
+            {
+              "IsNull": false,
+              "Name": "service",
+              "Value": "00000000-0000-0000-0000-000000000000"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "getToken",
+      "Description": "Look up the auth token of the user",
+      "HTTPMethod": "GET",
+      "Group": "user",
+      "RequiresAuthentication": false,
+      "Route": "/user_auth_token",
+      "Response": {
+        "Optional": false,
+        "Type": "User Auth Token Response",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "Parameters": [
+        {
+          "ParamFormat": "Query",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "johndoe@example.com",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "slug",
+          "Description": "email address of the user",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "P@ssw0rd",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "password",
+          "Description": "password of the user",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test getToken",
+          "Description": "Look up the auth token of the user",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "slug",
+              "Value": "johndoe@example.com"
+            },
+            {
+              "IsNull": false,
+              "Name": "password",
+              "Value": "P@ssw0rd"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "getTokenFromUsername",
+      "Description": "Duplicate of `GET /user_auth_token`, with the `slug` in the path; abandoned with a switch from usernames to emails for login credentials",
+      "HTTPMethod": "GET",
+      "Group": "user",
+      "RequiresAuthentication": false,
+      "Route": "/users/{slug}/auth_token",
+      "Response": {
+        "Optional": false,
+        "Type": "Users Auth Token Response",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "johndoe",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "slug",
+          "Description": "username of the user",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "P@ssw0rd",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "password",
+          "Description": "password of the user",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [
+        {
+          "Name": "Test getTokenFromUsername",
+          "Description": "Duplicate of `GET /user_auth_token`, with the `slug` in the path; abandoned with a switch from usernames to emails for login credentials",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [
+            {
+              "IsNull": false,
+              "Name": "slug",
+              "Value": "johndoe"
+            },
+            {
+              "IsNull": false,
+              "Name": "password",
+              "Value": "P@ssw0rd"
+            }
+          ],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": true
+    },
+    {
+      "Name": "getUser",
+      "Description": "Get the current user",
+      "HTTPMethod": "GET",
+      "Group": "user",
+      "RequiresAuthentication": true,
+      "Route": "/users/{anything}",
+      "Response": {
+        "Optional": false,
+        "Type": "User",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "User object"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "anything",
+          "IsSdlNativeType": false,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "anything",
+          "Description": "ignored; use \"me\"",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "getVersion",
+      "Description": "The Nanobox API no longer exposes this endpoint, but Microbox will for purposes of detecting the difference in future releases when that starts to matter.",
+      "HTTPMethod": "GET",
+      "RequiresAuthentication": false,
+      "Route": "/",
+      "Response": {
+        "Optional": false,
+        "Type": "Response",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "A JSON object with the name and version of the API."
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "Parameters": [],
+      "Errors": [
+        {
+          "ErrorCode": 404,
+          "ErrorMessage": "Returned by Nanobox."
+        }
+      ],
+      "TestCases": [
+        {
+          "Name": "Test getVersion",
+          "Description": "The Nanobox API no longer exposes this endpoint, but Microbox will for purposes of detecting the difference in future releases when that starts to matter.",
+          "Enabled": true,
+          "ShouldPass": true,
+          "InputParameters": [],
+          "ExpectedStatus": "200",
+          "ExpectedHeaders": [
+            {
+              "CheckValue": true,
+              "Name": "Content-Type",
+              "Value": "application/json"
+            }
+          ],
+          "ExpectedHeadersAllowExtra": true,
+          "ExpectedBodyMatchMode": "NONE",
+          "ExpectedArrayOrderedMatching": false,
+          "ExpectedArrayCheckCount": false,
+          "ResponseMatchSchema": true
+        }
+      ],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "registerHostingProvider",
+      "Description": "Register a hosting provider adapter",
+      "HTTPMethod": "POST",
+      "RequiresAuthentication": true,
+      "Route": "/adapters/{token}",
+      "Response": {
+        "Optional": false,
+        "Type": "Adapters Response",
+        "IsSdlNativeType": false,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 202,
+      "ResponseHeaders": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "Content-Type",
+          "DefaultValue": "application/json"
+        }
+      ],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "token",
+          "Description": "the adapter registration token generated by the dashboard for this adapter",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Body",
+          "Optional": false,
+          "Type": "Adapters Request",
+          "IsSdlNativeType": false,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "body",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    },
+    {
+      "Name": "unregisterHostingProvider",
+      "Description": "Unregister a hosting provider adapter",
+      "HTTPMethod": "DELETE",
+      "RequiresAuthentication": true,
+      "Route": "/adapters/{token}",
+      "Response": {
+        "Optional": false,
+        "Type": "Void",
+        "IsSdlNativeType": true,
+        "Constant": false,
+        "IsStream": false,
+        "IsAttribute": false,
+        "Nullable": false,
+        "IsArray": false,
+        "IsMap": false,
+        "Deprecated": false,
+        "Name": "response",
+        "Description": "success"
+      },
+      "ResponseCode": 200,
+      "ResponseHeaders": [],
+      "HasOptionalQueryParams": false,
+      "HasOptionalFieldParams": false,
+      "CollectParameters": false,
+      "RequiredScopes": [],
+      "Parameters": [
+        {
+          "ParamFormat": "Template",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "token",
+          "Description": "the adapter registration token used to register this adapter",
+          "DefaultValue": ""
+        },
+        {
+          "ParamFormat": "Query",
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "unlink_code",
+          "Description": "the unlink_code returned when this adapter was registered",
+          "DefaultValue": ""
+        }
+      ],
+      "Errors": [],
+      "TestCases": [],
+      "WrapBodyInObject": false,
+      "Deprecated": false
+    }
+  ],
+  "EndpointGroups": [
+    {
+      "Name": "app",
+      "Description": "Endpoints that interact directly with the application."
+    },
+    {
+      "Name": "component",
+      "Description": "Endpoints that interact with application components."
+    },
+    {
+      "Name": "deploy",
+      "Description": "Endpoints for deploying code."
+    },
+    {
+      "Name": "evar",
+      "Description": "Endpoints for managing environment variables."
+    },
+    {
+      "Name": "event",
+      "Description": "Endpoints for interacting with events."
+    },
+    {
+      "Name": "remote",
+      "Description": "Endpoints for accessing servers and components."
+    },
+    {
+      "Name": "service",
+      "Description": "Endpoints for interacting with individual services within components."
+    },
+    {
+      "Name": "user",
+      "Description": "Endpoints that interact with user data."
+    }
+  ],
+  "CustomTypes": [
+    {
+      "Name": "App",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "id",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "example-app",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "name",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "UTC",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "timezone",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "active",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "state",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "Boolean",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "false",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "auto_reconfigure",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Component",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "id",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "data.db",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "name",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "data.db",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "uid",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "inline",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "deploy_strategy",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "inline",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "repair_strategy",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "[\r\n  \"migratable\",\r\n  \"backupable\"\r\n]",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": true,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "behaviors",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "Number",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "5432",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "port",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "active",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "state",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "online",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "pulse",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "data",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "category",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "virt",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "network",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "Number",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "2",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "generation_counter",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "Boolean",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "false",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "horizontal",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "Boolean",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "false",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "redundant",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Deploy",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "id",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "commit_message",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "--- \ndata.db: \n  image: nanobox/postgres:9.6 \nrun.config: \n  engine: static",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "boxfile_content",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "build_id",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "author_id",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "app_id",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Evar",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "id",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "EXAMPLE_EVAR",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "title",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "example value",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "value",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "Boolean",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "false",
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "internal",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "component_id",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Service",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "id",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "logger1",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "uid",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "logger",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "name",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "logger",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "slug",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "0.0.0.0",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "url",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMD",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "token",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "simple",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "mode",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "0.0.0.0",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "ip",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "User",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "id",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "johndoe",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "username",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "johndoe@example.com",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "email",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "MDAwMDAwMDAwMDAwMDA",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "authentication_token",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "Boolean",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "unconfirmed_email",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Adapters Request",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "https://great-adapter.io/",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "endpoint",
+          "Description": "the base URL to use for requests to the adapter",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Adapters Response",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "unlink_code",
+          "Description": "a code used to confirm a request to unregister this adapter is legitimate",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "anything",
+      "ImplementationType": "Enumeration",
+      "Fields": [
+        {
+          "Optional": false,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "me",
+          "Description": "",
+          "DefaultValue": "me"
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Apps Consoles Response",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "MDAwMDAwMD",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "token",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "0.0.0.0:1289",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "url",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "ssh",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "protocol",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Apps Deploys Request",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "--- \ndata.db: \n  image: nanobox/postgres:9.6 \nrun.config: \n  engine: static",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "boxfile_content",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "build_id",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "commit_message",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Apps Evars Request",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "EXAMPLE_EVAR",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "title",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "example value",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "value",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Apps Tunnels Response",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "MDAwMDAwMD",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "token",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "0.0.0.0:8570",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "url",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "docker",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "protocol",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "Number",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "5432",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "port",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Event",
+      "ImplementationType": "Structure",
+      "Description": "the details to create the event with",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "example-app",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "eventable_id",
+          "Description": "the app name",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "example",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "message",
+          "Description": "the message",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "example",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "action",
+          "Description": "the action",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "Object",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "{}",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "meta",
+          "Description": "any additional data",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Events 422 Error",
+      "ImplementationType": "Exception",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "There was an error!",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "error",
+          "Description": "",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Events Request",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "Event",
+          "IsSdlNativeType": false,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "event",
+          "Description": "the details to create the event with",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Events Response",
+      "ImplementationType": "Structure",
+      "Description": "the details of the created event",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "User",
+          "IsSdlNativeType": false,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "user",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "App",
+          "IsSdlNativeType": false,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "eventable",
+          "Description": "",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "example",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "message",
+          "Description": "the message",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "example",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "action",
+          "Description": "the action",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "Object",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "{}",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "meta",
+          "Description": "any meta data passed in",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Response",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "Microbox API",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "name",
+          "Description": "the name of the API provider",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "1.0.0",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "version",
+          "Description": "the API version",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "User Auth Token Response",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "MDAwMDAwMDAwMDAwMDA",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "authentication_token",
+          "Description": "the user's authentication token, for accessing this API",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "id",
+          "Description": "the UUID of the user",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    },
+    {
+      "Name": "Users Auth Token Response",
+      "ImplementationType": "Structure",
+      "Fields": [
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "MDAwMDAwMDAwMDAwMDA",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "authentication_token",
+          "Description": "the user's authentication token, for accessing this API",
+          "DefaultValue": ""
+        },
+        {
+          "Optional": true,
+          "Type": "String",
+          "IsSdlNativeType": true,
+          "Constant": false,
+          "IsStream": false,
+          "IsAttribute": false,
+          "Example": "00000000-0000-0000-0000-000000000000",
+          "Attributes": {},
+          "Nullable": false,
+          "IsArray": false,
+          "IsMap": false,
+          "Deprecated": false,
+          "Name": "id",
+          "Description": "the UUID of the user",
+          "DefaultValue": ""
+        }
+      ],
+      "Deprecated": false
+    }
+  ],
+  "CodeGenSettings": {
+    "SynchronyMode": "Asynchronous",
+    "ModelSerializationScheme": "Json",
+    "ArraySerialization": "Indexed",
+    "Nullify404": false,
+    "UseHttpMethodPrefix": true,
+    "UseModelPrefix": false,
+    "UseExceptionPrefix": true,
+    "UseEnumPrefix": true,
+    "UseControllerPrefix": true,
+    "UseConstructorsForConfig": false,
+    "Timeout": 0.0,
+    "AndroidUseAppManifest": false,
+    "iOSUseAppInfoPlist": false,
+    "iOSGenerateCoreData": false,
+    "CollapseParamsToArray": false,
+    "RunscopeEnabled": false,
+    "AndroidHttpClient": "ANDROID_OK",
+    "JavaHttpClient": "JAVA_OK",
+    "ObjCHttpClient": "UNIREST",
+    "CSharpHttpClient": "UNIREST",
+    "NodeHttpClient": "NODE_REQUEST",
+    "JavaUsePropertiesConfig": false,
+    "PHPHttpClient": "UNIREST",
+    "EnablePHPComposerVersionString": false,
+    "EnableGlobalUserAgent": true,
+    "EnableAdditionalModelProperties": false,
+    "PreserveParameterOrder": true,
+    "ValidateRequiredParameters": false,
+    "AppendContentHeaders": true,
+    "GenerateInterfaces": false,
+    "UseCommonSDKLibrary": false,
+    "ParameterArrayFormat": "ParamArrayWithIndex",
+    "SecurityProtocols": [
+      "Ssl3",
+      "Tls"
+    ],
+    "GenerateTravisConfig": false,
+    "GenerateCircleConfig": false,
+    "GenerateAppveyorConfig": false,
+    "GenerateJenkinsConfig": false,
+    "EnableLogging": false,
+    "EnableHttpCache": false,
+    "Retries": 0,
+    "RetryInterval": 1.0,
+    "GenerateAdvancedDocs": true,
+    "DisableDocs": false,
+    "StoreTimezoneInformation": false,
+    "UnderscoreNumbers": true,
+    "UseSingletonPattern": true,
+    "IgnoreIfNullJson": false,
+    "DisableLinting": false,
+    "SortResources": false,
+    "LiftParameterDescriptionFromCustomType": false,
+    "AllowSkippingSSLCertVerification": false,
+    "ApplyCustomizations": [],
+    "DoNotSplitWords": [],
+    "ReturnCompleteHttpResponse": false,
+    "ThrowForHttpErrorStatusCodes": true,
+    "GenerateModels": true,
+    "GenerateExceptions": true,
+    "ResponseMapping": {
+      "Type": "Simple"
+    },
+    "ForceKeywordArgsInRuby": false,
+    "SymbolizeHashKeysInRuby": false,
+    "UsageExampleEndpoint": {
+      "Description": "",
+      "EndpointGroupName": "",
+      "EndpointName": ""
+    },
+    "IsLatestVersion": false
+  },
+  "Errors": [],
+  "TestGenSettings": {
+    "Configuration": {},
+    "TestTimeout": 30,
+    "PrecisionDelta": 0.01
+  },
+  "ExportSettings": {
+    "ExportExtensions": false,
+    "UseDateTimeOnlyInRaml": false,
+    "SetPostmanParamValuesAsVariables": false
+  }
+}

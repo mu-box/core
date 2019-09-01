@@ -221,6 +221,30 @@
           <xs:element minOccurs="0" name="unconfirmed_email" type="xs:boolean" />
         </xs:sequence>
       </xs:complexType>
+      <xs:complexType name="AdaptersRequest">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="endpoint">
+            <xs:simpleType>
+              <xs:annotation>
+                <xs:documentation>the base URL to use for requests to the adapter</xs:documentation>
+              </xs:annotation>
+              <xs:restriction base="xs:string" />
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="AdaptersResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="unlink_code">
+            <xs:simpleType>
+              <xs:annotation>
+                <xs:documentation>a code used to confirm a request to unregister this adapter is legitimate</xs:documentation>
+              </xs:annotation>
+              <xs:restriction base="xs:string" />
+            </xs:simpleType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
       <xs:simpleType name="anything">
         <xs:restriction base="xs:string">
           <xs:enumeration value="me" />
@@ -465,21 +489,15 @@
       <xs:element name="GET_getApp_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -492,21 +510,15 @@
       <xs:element name="GET_listComponents_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -525,29 +537,20 @@
       <xs:element name="GET_getComponent_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="component">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the component's UUID</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="component" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the component's UUID</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -560,29 +563,20 @@
       <xs:element name="GET_listServiceComponents_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="service">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the service's UUID or slug</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="service" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the service's UUID or slug</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -601,37 +595,25 @@
       <xs:element name="GET_getServiceComponent_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="service">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the service's UUID or slug</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="service" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the service's UUID or slug</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="component">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the component's UUID</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="component" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the component's UUID</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -644,21 +626,15 @@
       <xs:element name="GET_listDeploys_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -677,21 +653,15 @@
       <xs:element name="POST_createDeploy_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
             <xs:element minOccurs="1" name="body" type="tns:AppsDeploysRequest" />
           </xs:sequence>
@@ -705,29 +675,20 @@
       <xs:element name="GET_getDeploy_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="deploy">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the deploy's UUID</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="deploy" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the deploy's UUID</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -740,21 +701,15 @@
       <xs:element name="GET_listEvars_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -773,21 +728,15 @@
       <xs:element name="POST_createEvar_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
             <xs:element minOccurs="1" name="body" type="tns:AppsEvarsRequest" />
           </xs:sequence>
@@ -801,29 +750,20 @@
       <xs:element name="GET_getEvar_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="evar">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the evar's UUID</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="evar" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the evar's UUID</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -836,29 +776,20 @@
       <xs:element name="DELETE_deleteEvar_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="evar">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the evar's UUID</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="evar" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the evar's UUID</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -888,29 +819,20 @@
       <xs:element name="GET_openTunnel_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="id">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the name of the server or component to tunnel into</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="id" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the name of the server or component to tunnel into</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -923,29 +845,20 @@
       <xs:element name="GET_openConsole_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="id">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the name of the server or component to console into</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="id" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the name of the server or component to console into</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -958,21 +871,15 @@
       <xs:element name="GET_listServices_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -991,29 +898,20 @@
       <xs:element name="GET_getService_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="app">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's UUID or name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="app" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's UUID or name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="0" name="ci">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="0" name="ci" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the application's team name, if `{app}` is a name</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="service">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>the service's UUID or slug</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="service" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the service's UUID or slug</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -1026,21 +924,15 @@
       <xs:element name="GET_getToken_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="slug">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>email address of the user</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="slug" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>email address of the user</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="password">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>password of the user</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="password" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>password of the user</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -1053,21 +945,15 @@
       <xs:element name="GET_getTokenFromUsername_InputMessage">
         <xs:complexType>
           <xs:sequence>
-            <xs:element minOccurs="1" name="slug">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>username of the user</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="slug" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>username of the user</xs:documentation>
+              </xs:annotation>
             </xs:element>
-            <xs:element minOccurs="1" name="password">
-              <xs:simpleType>
-                <xs:annotation>
-                  <xs:documentation>password of the user</xs:documentation>
-                </xs:annotation>
-                <xs:restriction base="xs:string" />
-              </xs:simpleType>
+            <xs:element minOccurs="1" name="password" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>password of the user</xs:documentation>
+              </xs:annotation>
             </xs:element>
           </xs:sequence>
         </xs:complexType>
@@ -1106,6 +992,44 @@
       <xs:element name="GET_getVersion_404">
         <xs:annotation>
           <xs:documentation>Returned by Nanobox.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="POST_registerHostingProvider_InputMessage">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" name="token" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the adapter registration token generated by the dashboard for this adapter</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" name="body" type="tns:AdaptersRequest" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="POST_registerHostingProvider_OutputMessage" type="tns:AdaptersResponse">
+        <xs:annotation>
+          <xs:documentation>success</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DELETE_unregisterHostingProvider_InputMessage">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" name="token" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the adapter registration token used to register this adapter</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" name="unlink_code" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>the unlink_code returned when this adapter was registered</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DELETE_unregisterHostingProvider_OutputMessage">
+        <xs:annotation>
+          <xs:documentation>success</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:schema>
@@ -1248,169 +1172,195 @@
   <message name="GET_getVersion_404">
     <part name="GET_getVersion_404" xmlns:q46="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/schemas" element="q46:GET_getVersion_404" />
   </message>
+  <message name="POST_registerHostingProvider_InputMessage">
+    <part name="POST_registerHostingProvider_InputMessage" xmlns:q47="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/schemas" element="q47:POST_registerHostingProvider_InputMessage" />
+  </message>
+  <message name="POST_registerHostingProvider_OutputMessage">
+    <part name="POST_registerHostingProvider_OutputMessage" xmlns:q48="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/schemas" element="q48:POST_registerHostingProvider_OutputMessage" />
+  </message>
+  <message name="DELETE_unregisterHostingProvider_InputMessage">
+    <part name="DELETE_unregisterHostingProvider_InputMessage" xmlns:q49="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/schemas" element="q49:DELETE_unregisterHostingProvider_InputMessage" />
+  </message>
+  <message name="DELETE_unregisterHostingProvider_OutputMessage">
+    <part name="DELETE_unregisterHostingProvider_OutputMessage" xmlns:q50="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/schemas" element="q50:DELETE_unregisterHostingProvider_OutputMessage" />
+  </message>
   <portType name="Microbox_x0020_Core_x0020_API_PortType">
     <operation name="GET_listApps">
       <documentation>List all accessible apps.</documentation>
-      <input xmlns:q47="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q47:GET_listApps_InputMessage" />
-      <output xmlns:q48="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q48:GET_listApps_OutputMessage">
+      <input xmlns:q51="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q51:GET_listApps_InputMessage" />
+      <output xmlns:q52="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q52:GET_listApps_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_getApp">
       <documentation>Get information about a specific app.</documentation>
-      <input xmlns:q49="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q49:GET_getApp_InputMessage" />
-      <output xmlns:q50="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q50:GET_getApp_OutputMessage">
+      <input xmlns:q53="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q53:GET_getApp_InputMessage" />
+      <output xmlns:q54="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q54:GET_getApp_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_listComponents">
       <documentation>List components in a given app.</documentation>
-      <input xmlns:q51="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q51:GET_listComponents_InputMessage" />
-      <output xmlns:q52="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q52:GET_listComponents_OutputMessage">
+      <input xmlns:q55="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q55:GET_listComponents_InputMessage" />
+      <output xmlns:q56="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q56:GET_listComponents_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_getComponent">
       <documentation>Get information about a specific component in a given app.</documentation>
-      <input xmlns:q53="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q53:GET_getComponent_InputMessage" />
-      <output xmlns:q54="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q54:GET_getComponent_OutputMessage">
+      <input xmlns:q57="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q57:GET_getComponent_InputMessage" />
+      <output xmlns:q58="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q58:GET_getComponent_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_listServiceComponents">
       <documentation>List components in a given service of a given app.</documentation>
-      <input xmlns:q55="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q55:GET_listServiceComponents_InputMessage" />
-      <output xmlns:q56="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q56:GET_listServiceComponents_OutputMessage">
+      <input xmlns:q59="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q59:GET_listServiceComponents_InputMessage" />
+      <output xmlns:q60="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q60:GET_listServiceComponents_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_getServiceComponent">
       <documentation>Get information about a specific component in a given service of a given app.</documentation>
-      <input xmlns:q57="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q57:GET_getServiceComponent_InputMessage" />
-      <output xmlns:q58="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q58:GET_getServiceComponent_OutputMessage">
+      <input xmlns:q61="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q61:GET_getServiceComponent_InputMessage" />
+      <output xmlns:q62="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q62:GET_getServiceComponent_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_listDeploys">
       <documentation>List deploys in a given app.</documentation>
-      <input xmlns:q59="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q59:GET_listDeploys_InputMessage" />
-      <output xmlns:q60="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q60:GET_listDeploys_OutputMessage">
+      <input xmlns:q63="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q63:GET_listDeploys_InputMessage" />
+      <output xmlns:q64="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q64:GET_listDeploys_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="POST_createDeploy">
       <documentation>Create a new deploy.</documentation>
-      <input xmlns:q61="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q61:POST_createDeploy_InputMessage" />
-      <output xmlns:q62="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q62:POST_createDeploy_OutputMessage">
+      <input xmlns:q65="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q65:POST_createDeploy_InputMessage" />
+      <output xmlns:q66="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q66:POST_createDeploy_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_getDeploy">
       <documentation>Get information about a specific deploy in a given app.</documentation>
-      <input xmlns:q63="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q63:GET_getDeploy_InputMessage" />
-      <output xmlns:q64="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q64:GET_getDeploy_OutputMessage">
+      <input xmlns:q67="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q67:GET_getDeploy_InputMessage" />
+      <output xmlns:q68="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q68:GET_getDeploy_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_listEvars">
       <documentation>List environment variables in a given app.</documentation>
-      <input xmlns:q65="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q65:GET_listEvars_InputMessage" />
-      <output xmlns:q66="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q66:GET_listEvars_OutputMessage">
+      <input xmlns:q69="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q69:GET_listEvars_InputMessage" />
+      <output xmlns:q70="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q70:GET_listEvars_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="POST_createEvar">
       <documentation>Add or set an environment variable.</documentation>
-      <input xmlns:q67="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q67:POST_createEvar_InputMessage" />
-      <output xmlns:q68="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q68:POST_createEvar_OutputMessage">
+      <input xmlns:q71="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q71:POST_createEvar_InputMessage" />
+      <output xmlns:q72="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q72:POST_createEvar_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_getEvar">
       <documentation>Get information about a specific environment variable in a given app.</documentation>
-      <input xmlns:q69="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q69:GET_getEvar_InputMessage" />
-      <output xmlns:q70="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q70:GET_getEvar_OutputMessage">
+      <input xmlns:q73="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q73:GET_getEvar_InputMessage" />
+      <output xmlns:q74="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q74:GET_getEvar_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="DELETE_deleteEvar">
       <documentation>Delete an environment variable.</documentation>
-      <input xmlns:q71="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q71:DELETE_deleteEvar_InputMessage" />
-      <output xmlns:q72="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q72:DELETE_deleteEvar_OutputMessage">
+      <input xmlns:q75="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q75:DELETE_deleteEvar_InputMessage" />
+      <output xmlns:q76="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q76:DELETE_deleteEvar_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="POST_createEvent">
       <documentation>Create an event</documentation>
-      <input xmlns:q73="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q73:POST_createEvent_InputMessage" />
-      <output xmlns:q74="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q74:POST_createEvent_OutputMessage">
+      <input xmlns:q77="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q77:POST_createEvent_InputMessage" />
+      <output xmlns:q78="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q78:POST_createEvent_OutputMessage">
         <documentation>success</documentation>
       </output>
-      <fault name="POST_createEvent_422" xmlns:q75="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q75:POST_createEvent_422">
+      <fault name="POST_createEvent_422" xmlns:q79="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q79:POST_createEvent_422">
         <documentation>unprocessable_entity</documentation>
       </fault>
     </operation>
     <operation name="GET_openTunnel">
       <documentation>Create a tunnel, and get the connection parameters.</documentation>
-      <input xmlns:q76="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q76:GET_openTunnel_InputMessage" />
-      <output xmlns:q77="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q77:GET_openTunnel_OutputMessage">
+      <input xmlns:q80="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q80:GET_openTunnel_InputMessage" />
+      <output xmlns:q81="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q81:GET_openTunnel_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_openConsole">
       <documentation>Create a console session, and get the connection parameters.</documentation>
-      <input xmlns:q78="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q78:GET_openConsole_InputMessage" />
-      <output xmlns:q79="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q79:GET_openConsole_OutputMessage">
+      <input xmlns:q82="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q82:GET_openConsole_InputMessage" />
+      <output xmlns:q83="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q83:GET_openConsole_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_listServices">
       <documentation>List services in a given app.</documentation>
-      <input xmlns:q80="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q80:GET_listServices_InputMessage" />
-      <output xmlns:q81="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q81:GET_listServices_OutputMessage">
+      <input xmlns:q84="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q84:GET_listServices_InputMessage" />
+      <output xmlns:q85="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q85:GET_listServices_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_getService">
       <documentation>Get information about a specific service in a given app.</documentation>
-      <input xmlns:q82="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q82:GET_getService_InputMessage" />
-      <output xmlns:q83="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q83:GET_getService_OutputMessage">
+      <input xmlns:q86="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q86:GET_getService_InputMessage" />
+      <output xmlns:q87="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q87:GET_getService_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_getToken">
       <documentation>Look up the auth token of the user</documentation>
-      <input xmlns:q84="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q84:GET_getToken_InputMessage" />
-      <output xmlns:q85="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q85:GET_getToken_OutputMessage">
+      <input xmlns:q88="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q88:GET_getToken_InputMessage" />
+      <output xmlns:q89="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q89:GET_getToken_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_getTokenFromUsername">
       <documentation>Duplicate of `GET /user_auth_token`, with the `slug` in the path; abandoned with a switch from usernames to emails for login credentials</documentation>
-      <input xmlns:q86="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q86:GET_getTokenFromUsername_InputMessage" />
-      <output xmlns:q87="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q87:GET_getTokenFromUsername_OutputMessage">
+      <input xmlns:q90="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q90:GET_getTokenFromUsername_InputMessage" />
+      <output xmlns:q91="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q91:GET_getTokenFromUsername_OutputMessage">
         <documentation>success</documentation>
       </output>
     </operation>
     <operation name="GET_getUser">
       <documentation>Get the current user</documentation>
-      <input xmlns:q88="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q88:GET_getUser_InputMessage" />
-      <output xmlns:q89="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q89:GET_getUser_OutputMessage">
+      <input xmlns:q92="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q92:GET_getUser_InputMessage" />
+      <output xmlns:q93="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q93:GET_getUser_OutputMessage">
         <documentation>User object</documentation>
       </output>
     </operation>
     <operation name="GET_getVersion">
       <documentation>The Nanobox API no longer exposes this endpoint, but Microbox will for purposes of detecting the difference in future releases when that starts to matter.</documentation>
-      <input xmlns:q90="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q90:GET_getVersion_InputMessage" />
-      <output xmlns:q91="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q91:GET_getVersion_OutputMessage">
+      <input xmlns:q94="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q94:GET_getVersion_InputMessage" />
+      <output xmlns:q95="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q95:GET_getVersion_OutputMessage">
         <documentation>A JSON object with the name and version of the API.</documentation>
       </output>
-      <fault name="GET_getVersion_404" xmlns:q92="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q92:GET_getVersion_404">
+      <fault name="GET_getVersion_404" xmlns:q96="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q96:GET_getVersion_404">
         <documentation>Returned by Nanobox.</documentation>
       </fault>
     </operation>
+    <operation name="POST_registerHostingProvider">
+      <documentation>Register a hosting provider adapter</documentation>
+      <input xmlns:q97="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q97:POST_registerHostingProvider_InputMessage" />
+      <output xmlns:q98="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q98:POST_registerHostingProvider_OutputMessage">
+        <documentation>success</documentation>
+      </output>
+    </operation>
+    <operation name="DELETE_unregisterHostingProvider">
+      <documentation>Unregister a hosting provider adapter</documentation>
+      <input xmlns:q99="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q99:DELETE_unregisterHostingProvider_InputMessage" />
+      <output xmlns:q100="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" message="q100:DELETE_unregisterHostingProvider_OutputMessage">
+        <documentation>success</documentation>
+      </output>
+    </operation>
   </portType>
-  <binding name="Microbox_x0020_Core_x0020_API_Binding" xmlns:q93="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" type="q93:Microbox_x0020_Core_x0020_API_PortType">
+  <binding name="Microbox_x0020_Core_x0020_API_Binding" xmlns:q101="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" type="q101:Microbox_x0020_Core_x0020_API_PortType">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
     <operation name="GET_listApps">
       <soap:operation soapAction="GET_listApps" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
@@ -1616,10 +1566,28 @@
         <soap:fault use="literal" name="GET_getVersion_404" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
       </fault>
     </operation>
+    <operation name="POST_registerHostingProvider">
+      <soap:operation soapAction="POST_registerHostingProvider" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
+    <operation name="DELETE_unregisterHostingProvider">
+      <soap:operation soapAction="DELETE_unregisterHostingProvider" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <input>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </input>
+      <output>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </output>
+    </operation>
   </binding>
   <service name="Microbox_x0020_Core_x0020_API">
     <documentation>The full API spec for Microbox Core, and other Nanobox-v1-compatible dashboard and coordination servers.</documentation>
-    <port name="default_Port" xmlns:q94="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" binding="q94:Microbox_x0020_Core_x0020_API_Binding">
+    <port name="default_Port" xmlns:q102="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0/wsdl" binding="q102:Microbox_x0020_Core_x0020_API_Binding">
       <soap:address location="https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
     </port>
   </service>

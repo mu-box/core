@@ -218,6 +218,24 @@ types:
         required: false
         displayName: unconfirmed_email
         type: boolean
+  AdaptersRequest:
+    displayName: AdaptersRequest
+    type: object
+    properties:
+      endpoint:
+        required: false
+        displayName: endpoint
+        description: the base URL to use for requests to the adapter
+        type: string
+  AdaptersResponse:
+    displayName: AdaptersResponse
+    type: object
+    properties:
+      unlink_code:
+        required: false
+        displayName: unlink_code
+        description: a code used to confirm a request to unregister this adapter is legitimate
+        type: string
   AppsConsolesResponse:
     displayName: AppsConsolesResponse
     type: object
@@ -406,6 +424,11 @@ types:
     responses:
       200:
         description: success
+        headers:
+          Content-Type:
+            default: application/json
+            displayName: Content-Type
+            type: string
         body:
           application/json:
             displayName: response
@@ -436,6 +459,11 @@ types:
       responses:
         200:
           description: success
+          headers:
+            Content-Type:
+              default: application/json
+              displayName: Content-Type
+              type: string
           body:
             application/json:
               displayName: response
@@ -456,6 +484,11 @@ types:
         responses:
           200:
             description: success
+            headers:
+              Content-Type:
+                default: application/json
+                displayName: Content-Type
+                type: string
             body:
               application/json:
                 displayName: response
@@ -486,6 +519,11 @@ types:
           responses:
             200:
               description: success
+              headers:
+                Content-Type:
+                  default: application/json
+                  displayName: Content-Type
+                  type: string
               body:
                 application/json:
                   displayName: response
@@ -506,6 +544,11 @@ types:
         responses:
           200:
             description: success
+            headers:
+              Content-Type:
+                default: application/json
+                displayName: Content-Type
+                type: string
             body:
               application/json:
                 displayName: response
@@ -531,6 +574,11 @@ types:
         responses:
           200:
             description: success
+            headers:
+              Content-Type:
+                default: application/json
+                displayName: Content-Type
+                type: string
             body:
               application/json:
                 displayName: response
@@ -559,6 +607,11 @@ types:
           responses:
             200:
               description: success
+              headers:
+                Content-Type:
+                  default: application/json
+                  displayName: Content-Type
+                  type: string
               body:
                 application/json:
                   displayName: response
@@ -579,6 +632,11 @@ types:
         responses:
           200:
             description: success
+            headers:
+              Content-Type:
+                default: application/json
+                displayName: Content-Type
+                type: string
             body:
               application/json:
                 displayName: response
@@ -604,6 +662,11 @@ types:
         responses:
           200:
             description: success
+            headers:
+              Content-Type:
+                default: application/json
+                displayName: Content-Type
+                type: string
             body:
               application/json:
                 displayName: response
@@ -632,6 +695,11 @@ types:
           responses:
             200:
               description: success
+              headers:
+                Content-Type:
+                  default: application/json
+                  displayName: Content-Type
+                  type: string
               body:
                 application/json:
                   displayName: response
@@ -674,6 +742,11 @@ types:
         responses:
           200:
             description: success
+            headers:
+              Content-Type:
+                default: application/json
+                displayName: Content-Type
+                type: string
             body:
               application/json:
                 displayName: response
@@ -702,6 +775,11 @@ types:
         responses:
           200:
             description: success
+            headers:
+              Content-Type:
+                default: application/json
+                displayName: Content-Type
+                type: string
             body:
               application/json:
                 displayName: response
@@ -722,6 +800,11 @@ types:
         responses:
           200:
             description: success
+            headers:
+              Content-Type:
+                default: application/json
+                displayName: Content-Type
+                type: string
             body:
               application/json:
                 displayName: response
@@ -752,6 +835,11 @@ types:
           responses:
             200:
               description: success
+              headers:
+                Content-Type:
+                  default: application/json
+                  displayName: Content-Type
+                  type: string
               body:
                 application/json:
                   displayName: response
@@ -772,6 +860,11 @@ types:
             responses:
               200:
                 description: success
+                headers:
+                  Content-Type:
+                    default: application/json
+                    displayName: Content-Type
+                    type: string
                 body:
                   application/json:
                     displayName: response
@@ -802,6 +895,11 @@ types:
               responses:
                 200:
                   description: success
+                  headers:
+                    Content-Type:
+                      default: application/json
+                      displayName: Content-Type
+                      type: string
                   body:
                     application/json:
                       displayName: response
@@ -820,6 +918,11 @@ types:
     responses:
       200:
         description: success
+        headers:
+          Content-Type:
+            default: application/json
+            displayName: Content-Type
+            type: string
         body:
           application/json:
             displayName: response
@@ -853,6 +956,11 @@ types:
     responses:
       200:
         description: success
+        headers:
+          Content-Type:
+            default: application/json
+            displayName: Content-Type
+            type: string
         body:
           application/json:
             displayName: response
@@ -865,6 +973,11 @@ types:
     responses:
       200:
         description: A JSON object with the name and version of the API.
+        headers:
+          Content-Type:
+            default: application/json
+            displayName: Content-Type
+            type: string
         body:
           application/json:
             displayName: response
@@ -873,6 +986,49 @@ types:
       404:
         description: Returned by Nanobox.
         body: {}
+/adapters/{token}:
+  uriParameters:
+    token:
+      required: true
+      displayName: token
+      description: the adapter registration token generated by the dashboard for this adapter
+      type: string
+  post:
+    displayName: registerHostingProvider
+    description: Register a hosting provider adapter
+    body:
+      application/json:
+        displayName: body
+        type: AdaptersRequest
+    securedBy:
+    - auth
+    responses:
+      202:
+        description: success
+        headers:
+          Content-Type:
+            default: application/json
+            displayName: Content-Type
+            type: string
+        body:
+          application/json:
+            displayName: response
+            description: success
+            type: AdaptersResponse
+  delete:
+    displayName: unregisterHostingProvider
+    description: Unregister a hosting provider adapter
+    securedBy:
+    - auth
+    queryParameters:
+      unlink_code:
+        required: true
+        displayName: unlink_code
+        description: the unlink_code returned when this adapter was registered
+        type: string
+    responses:
+      200:
+        description: success
 /users:
   /{slug}/auth_token:
     uriParameters:
@@ -897,6 +1053,11 @@ types:
       responses:
         200:
           description: success
+          headers:
+            Content-Type:
+              default: application/json
+              displayName: Content-Type
+              type: string
           body:
             application/json:
               displayName: response
@@ -919,6 +1080,11 @@ types:
       responses:
         200:
           description: User object
+          headers:
+            Content-Type:
+              default: application/json
+              displayName: Content-Type
+              type: string
           body:
             application/json:
               displayName: response
