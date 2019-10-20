@@ -23,6 +23,21 @@ defmodule AppWeb.Router do
       error_handler: Pow.Phoenix.PlugErrorHandler
   end
 
+  pipeline :superuser do
+    plug :is_superuser
+  end
+
+  defp is_superuser(%{assigns: %{current_user: current_user}} = conn, _) do
+    case current_user do
+      nil  -> Phoenix.Controller.redirect(conn, to: AppWeb.PowRoutes.user_not_authenticated_path(conn))
+      _user -> case current_user.superuser do
+        true  -> conn
+        false -> Phoenix.Controller.redirect(conn, to: AppWeb.PowRoutes.user_already_authenticated_path(conn))
+      end
+    end
+  end
+  defp is_superuser(conn, _), do: Phoenix.Controller.redirect(conn, to: AppWeb.PowRoutes.user_not_authenticated_path(conn))
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -46,6 +61,14 @@ defmodule AppWeb.Router do
     pipe_through [:browser, :protected]
 
     # Add protected routes here
+    get "/dashboard", DashController, :index
+  end
+
+  scope "/", AppWeb do
+    pipe_through [:browser, :superuser]
+
+    # Add superuser routes here
+    get "/super", SuperController, :index
   end
 
   # Other scopes may use custom stacks.

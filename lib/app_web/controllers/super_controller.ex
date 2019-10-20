@@ -1,4 +1,4 @@
-defmodule AppWeb.PageController do
+defmodule AppWeb.SuperController do
   use AppWeb, :controller
 
   def index(conn, _params) do

@@ -1,0 +1,5 @@
+<section class="phx-hero">
+  <h1><%= gettext "Welcome to %{name}!", name: "Microbox" %></h1>
+  <p>An open source clone of Nanobox,<br/>with a focus on feature parity with v1.</p>
+  <p>This is your application dashboard.</p>
+</section>

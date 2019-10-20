@@ -32,40 +32,40 @@ in getting the project up and running.
       - [ ] _2FA_ \*
       - [ ] Settings Management
          - [x] _Connected Social Accounts_ \*
-         - [ ] Hosting Accounts
-         - [ ] Teams
-            - [ ] Membership
-            - [ ] Apps
+         - [ ] Hosting Accounts (#4)
+         - [ ] Teams (#3)
+            - [ ] Membership (#3)
+            - [ ] Apps (#5)
             - [ ] _Permissions_ \*
          - [ ] Plans and Billing
    - [ ] Apps
       - [ ] _Import from Nanobox_ \*
-      - [ ] Create
+      - [ ] Create (#5)
       - [ ] Manage
-         - [ ] Servers
+         - [ ] Servers (#5)
             - [ ] Reboot
             - [ ] Console
-         - [ ] Components
+         - [ ] Components (#5, #8)
             - [ ] Restart
             - [ ] Rebuild
-            - [ ] Move
+            - [ ] Move (#6)
             - [ ] Console
          - [ ] Ownership
          - [ ] Settings
-         - [ ] Evars
-         - [ ] SSL
+         - [ ] Evars (#9)
+         - [ ] SSL (#9)
       - [ ] Monitor
          - [ ] Logs
          - [ ] Stats
-      - [ ] Deploy
+      - [ ] Deploy (#8)
       - [ ] _Migrate_ \*
-      - [ ] Scale
-      - [ ] Destroy
-- [ ] Hosting Provider API
-- [ ] MicroAgent API
-- [ ] DNS API (shaman)
-- [ ] CLI API
-- [ ] Platform Component APIs
+      - [ ] Scale (#6)
+      - [ ] Destroy (#7)
+- [ ] Hosting Provider API (#4, #5, #6, #7, #9)
+- [ ] MicroAgent API (#5, #6, #7)
+- [ ] DNS API (shaman) (#5, #6, #7)
+- [ ] CLI API (#8)
+- [ ] Platform Component APIs (#5, #9)
    - [ ] Portal (load balancer)
    - [ ] Pulse (monitor)
    - [ ] Hoarder (warehouse)

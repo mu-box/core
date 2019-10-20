@@ -7,9 +7,11 @@ defmodule App.Users.User do
     password_hash_methods: {&Argon2.hash_pwd_salt/1, &Argon2.verify_pass/2}
 
   schema "users" do
-    # field :"2fa_secret", :string
-
     pow_user_fields()
+
+    field :superuser, :boolean, default: false
+    # field :2fa_secret, :string
+
     timestamps()
   end
 

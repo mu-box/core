@@ -1,4 +1,4 @@
-defmodule AppWeb.PageController do
+defmodule AppWeb.DashController do
   use AppWeb, :controller
 
   def index(conn, _params) do
