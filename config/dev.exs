@@ -5,7 +5,7 @@ config :app, App.Repo,
   username: System.get_env("DATA_DB_USER"),
   password: System.get_env("DATA_DB_PASS"),
   hostname: System.get_env("DATA_DB_HOST"),
-  database: "app_dev",
+  database: "gonano",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -16,6 +16,7 @@ config :app, App.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :app, AppWeb.Endpoint,
+  url: [host: "microbox.local", port: 80],
   http: [port: 8080],
   debug_errors: true,
   code_reloader: true,

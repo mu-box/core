@@ -12,7 +12,7 @@ config :app,
 
 # Configures the endpoint
 config :app, AppWeb.Endpoint,
-  url: [host: "172.20.0.45"],
+  url: [host: "microbox.cloud", port: 80],
   secret_key_base: "aWXVc7dM7K8NbZmZNb6uAOIXGvjkqyvuBZPvJ3pqzHK5pXrdF8U1Kv9vdSUycovZ",
   render_errors: [view: AppWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: App.PubSub, adapter: Phoenix.PubSub.PG2]
