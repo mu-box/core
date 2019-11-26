@@ -4,7 +4,7 @@
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3162/badge)](https://bestpractices.coreinfrastructure.org/projects/3162)
 
 [![Discord](https://img.shields.io/discord/610589644651888651?logo=discord&style=social)](https://discord.gg/MCDdHfy)
-![GitHub stars](https://img.shields.io/github/stars/mu-box/core?style=social)
+[![GitHub stars](https://img.shields.io/github/stars/mu-box/core?style=social)](https://github.com/mu-box/core)
 
 [![IssueHunt](https://img.shields.io/badge/fund-an_issue-blue)](https://issuehunt.io/o/mu-box)
 [![ko-fi](https://img.shields.io/badge/donate-on_ko--fi-blue)](https://ko-fi.com/microbox)
@@ -32,40 +32,40 @@ in getting the project up and running.
       - [ ] _2FA_ \*
       - [ ] Settings Management
          - [x] _Connected Social Accounts_ \*
-         - [ ] Hosting Accounts (#4)
-         - [ ] Teams (#3)
-            - [ ] Membership (#3)
-            - [ ] Apps (#5)
+         - [ ] Hosting Accounts ([#4][])
+         - [ ] Teams ([#3][])
+            - [ ] Membership ([#3][])
+            - [ ] Apps ([#5][])
             - [ ] _Permissions_ \*
          - [ ] Plans and Billing
    - [ ] Apps
       - [ ] _Import from Nanobox_ \*
-      - [ ] Create (#5)
+      - [ ] Create ([#5][])
       - [ ] Manage
-         - [ ] Servers (#5)
+         - [ ] Servers ([#5][])
             - [ ] Reboot
             - [ ] Console
-         - [ ] Components (#5, #8)
+         - [ ] Components ([#5][], [#8][])
             - [ ] Restart
             - [ ] Rebuild
-            - [ ] Move (#6)
+            - [ ] Move ([#6][])
             - [ ] Console
          - [ ] Ownership
          - [ ] Settings
-         - [ ] Evars (#9)
-         - [ ] SSL (#9)
+         - [ ] Evars ([#9][])
+         - [ ] SSL ([#9][])
       - [ ] Monitor
          - [ ] Logs
          - [ ] Stats
-      - [ ] Deploy (#8)
+      - [ ] Deploy ([#8][])
       - [ ] _Migrate_ \*
-      - [ ] Scale (#6)
-      - [ ] Destroy (#7)
-- [ ] Hosting Provider API (#4, #5, #6, #7, #9)
-- [ ] MicroAgent API (#5, #6, #7)
-- [ ] DNS API (shaman) (#5, #6, #7)
-- [ ] CLI API (#8)
-- [ ] Platform Component APIs (#5, #9)
+      - [ ] Scale ([#6][])
+      - [ ] Destroy ([#7][])
+- [ ] Hosting Provider API ([#4][], [#5][], [#6][], [#7][], [#9][])
+- [ ] MicroAgent API ([#5][], [#6][], [#7][])
+- [ ] DNS API (shaman) ([#5][], [#6][], [#7][])
+- [ ] CLI API ([#8][])
+- [ ] Platform Component APIs ([#5][], [#9][])
    - [ ] Portal (load balancer)
    - [ ] Pulse (monitor)
    - [ ] Hoarder (warehouse)
@@ -76,12 +76,40 @@ in getting the project up and running.
 an initial release, for ensuring the most buy-in from folks looking for Nanobox
 alternatives.
 
-### Domains
+[#3]: https://github.com/mu-box/core/issues/3
+[#4]: https://github.com/mu-box/core/issues/4
+[#5]: https://github.com/mu-box/core/issues/5
+[#6]: https://github.com/mu-box/core/issues/6
+[#7]: https://github.com/mu-box/core/issues/7
+[#8]: https://github.com/mu-box/core/issues/8
+[#9]: https://github.com/mu-box/core/issues/9
+
+## Project Setup
+
+### Local
+
+If you're setting up Microbox Core in your own development environment, the
+easiest (and only supported) way to do it is with the Nanobox CLI. Setting that
+up is beyond the scope of this document, but once it's in place, you only need
+to do a couple of things to get started.
+
+In the directory where you've cloned the Core's code:
+
+```sh
+nanobox dns add local microbox.local
+nanobox run node-start mix phx.server
+```
+
+And you should be off and running!
+
+### Deployed
 
 The section below outlines what Microbox uses. Folks installing and running
 their own copies are free to use whatever works best for them.
 
-#### Root
+#### Domains
+
+##### Root
 
 -   `microbox` is the canonical domain, with `mubox`, `mibox`, `mu-box`, and
     `mi-box` redirecting back to it (get `µbox` too, if the two-scripts thing
@@ -90,12 +118,12 @@ their own copies are free to use whatever works best for them.
     an intentional typo of `xn--box-wyc`, the punycode of `µbox`, which we can't
     actually register because it's a mixed-script name)
 
-#### TLDs
+##### TLDs
 
 -   `.co`/`.com`/`.io`/`.space`/`.site`/`.website` redirect to `.cloud`
 -   `.rocks` for community things
 
-#### SLDs
+##### SLDs
 
 -   `microbox.cloud` for onboarding (explain, register, etc)
 -   `dashboard.microbox.cloud` for the account and app management dashboard
@@ -103,7 +131,7 @@ their own copies are free to use whatever works best for them.
     converted to several other formats besides)
 -   ...
 
-#### FQDs
+##### FQDs
 
 -   `:random_id.:user.microbox.dev` for exposing local dev instances to the
     Internet (not currently supported by Nanobox)
