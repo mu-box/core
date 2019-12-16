@@ -6,8 +6,18 @@ defmodule App.Application do
   use Application
 
   def start(_type, _args) do
+    topologies = [
+      gossip: [
+        strategy: Cluster.Strategy.Gossip,
+        config: [
+          secret: "microbox",
+        ],
+      ]
+    ]
+
     # List all child processes to be supervised
     children = [
+      {Cluster.Supervisor, [topologies, [name: App.ClusterSupervisor]]},
       # Start the Ecto repository
       App.Repo,
       # Start the endpoint when the application starts

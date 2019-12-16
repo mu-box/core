@@ -48,6 +48,7 @@ defmodule App.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       # App deps
+      {:libcluster, "~> 3.1"},                # automatic clustering suport
       # Auth - First factor
       {:pow, "~> 1.0.13"},                    # User management
       {:mint, "~> 0.1.0"},                    # HTTP lib
