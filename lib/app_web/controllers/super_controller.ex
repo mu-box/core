@@ -1,6 +1,6 @@
 defmodule AppWeb.SuperController do
   use AppWeb, :controller
-  alias App.{Repo, Users.User}
+  alias App.{Repo, Accounts.User}
   import Ecto.Query
 
   def index(conn, _params) do

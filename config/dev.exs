@@ -17,7 +17,6 @@ config :app, App.Repo,
 # with webpack to recompile .js and .css sources.
 config :app, AppWeb.Endpoint,
   url: [host: "microbox.local", port: 80],
-  http: [port: 8080],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,

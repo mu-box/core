@@ -1,5 +1,5 @@
-defmodule App.Users.User do
-  use Ecto.Schema
+defmodule App.Accounts.User do
+  use App.Schema
   use Pow.Ecto.Schema
   use PowAssent.Ecto.Schema
   use Pow.Extension.Ecto.Schema,
@@ -11,6 +11,9 @@ defmodule App.Users.User do
 
     field :superuser, :boolean, default: false
     # field :2fa_secret, :string
+
+    has_many :memberships, App.Accounts.TeamMembership
+    has_many :teams, through: [:memberships, :team]
 
     timestamps()
   end

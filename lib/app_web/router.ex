@@ -29,14 +29,20 @@ defmodule AppWeb.Router do
 
   defp is_superuser(%{assigns: %{current_user: current_user}} = conn, _) do
     case current_user do
-      nil  -> Phoenix.Controller.redirect(conn, to: AppWeb.PowRoutes.user_not_authenticated_path(conn))
+      nil  -> redir_and_halt(conn, to: AppWeb.PowRoutes.user_not_authenticated_path(conn))
       _user -> case current_user.superuser do
         true  -> conn
-        false -> Phoenix.Controller.redirect(conn, to: AppWeb.PowRoutes.user_already_authenticated_path(conn))
+        false -> redir_and_halt(conn, to: AppWeb.PowRoutes.user_already_authenticated_path(conn))
       end
     end
   end
-  defp is_superuser(conn, _), do: Phoenix.Controller.redirect(conn, to: AppWeb.PowRoutes.user_not_authenticated_path(conn))
+  defp is_superuser(conn, _), do: redir_and_halt(conn, to: AppWeb.PowRoutes.user_not_authenticated_path(conn))
+
+  defp redir_and_halt(conn, opts) do
+    conn
+    |> Phoenix.Controller.redirect(opts)
+    |> Plug.Conn.halt()
+  end
 
   pipeline :api do
     plug :accepts, ["json"]

@@ -4,22 +4,22 @@
 
 <section>
   <h2>Superusers</h2>
-  <ul>
+  <table>
     <%= for user <- @supers do %>
-      <li>
-        <%= user.email %>
-      </li>
+      <tr>
+        <td><%= user.email %> <%= if user.email_confirmed_at == nil, do: "(unconfirmed)" %></td>
+      </tr>
     <% end %>
-  </ul>
+  </table>
 </section>
 
 <section>
   <h2>Normal Users</h2>
-  <ul>
+  <table>
     <%= for user <- @users do %>
-      <li>
-        <%= user.email %>
-      </li>
+      <tr>
+        <td><%= user.email %> <%= if user.email_confirmed_at == nil, do: "(unconfirmed)" %></td>
+      </tr>
     <% end %>
-  </ul>
+  </table>
 </section>

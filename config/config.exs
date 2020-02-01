@@ -10,9 +10,13 @@ use Mix.Config
 config :app,
   ecto_repos: [App.Repo]
 
+config :app, App.Repo,
+  migration_primary_key: [name: :id, type: :binary_id]
+
 # Configures the endpoint
 config :app, AppWeb.Endpoint,
   url: [host: "microbox.cloud", port: 80],
+  http: [port: 8080],
   secret_key_base: "aWXVc7dM7K8NbZmZNb6uAOIXGvjkqyvuBZPvJ3pqzHK5pXrdF8U1Kv9vdSUycovZ",
   render_errors: [view: AppWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: App.PubSub, adapter: Phoenix.PubSub.PG2]
@@ -26,7 +30,7 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :app, :pow,
-  user: App.Users.User,
+  user: App.Accounts.User,
   repo: App.Repo,
   extensions: [PowResetPassword, PowEmailConfirmation, PowPersistentSession, PowInvitation],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
