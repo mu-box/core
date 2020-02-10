@@ -1,9 +1,9 @@
 openapi: 3.0.0
 # Added by API Auto Mocking Plugin
 servers:
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0
-  - url: https://api.mubox.cloud/v1
+  - url: https://virtserver.swaggerhub.com/danhunsaker/Microbox/1.0.0
+    description: SwaggerHub API Auto Mocking
+  - url: https://api.microbox.cloud/v1
     description: The production version of Microbox.
   - url: https://api.xn-box-wyc.cloud/v1
     description: The staging version of Microbox.

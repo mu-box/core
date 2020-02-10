@@ -1,0 +1,206 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/danhunsaker/logvac-log-aggregation/1.0.0
+  - description: Individual application server
+    url: https://{host}:6360
+    variables:
+      host:
+        default: ''
+        description: The host IP of the server
+info:
+  version: '1.0.0'
+  title: 'LogVac Logging API'
+  description: 'The API spec for the LogVac log aggregation component.'
+paths:
+  /logs:
+    get:
+      summary: List all logs
+      tags: [logs]
+      parameters:
+        - name: id
+          in: query
+          schema:
+            type: string
+        - name: tag
+          in: query
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            type: string
+        - name: start
+          in: query
+          schema:
+            type: number
+        - name: end
+          in: query
+          schema:
+            type: number
+        - name: level
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log'
+    post:
+      summary: Post a log
+      tags: [logs]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Log'
+      responses:
+        200:
+          description: ''
+  '/add-token':
+    get:
+      summary: Add a log read/write token
+      tags: [tokens]
+      security: [User: [], Auth: []]
+      responses:
+        200:
+          description: ''
+  '/remove-token':
+    get:
+      summary: Remove a log read/write token
+      tags: [tokens]
+      security: [User: [], Auth: []]
+      responses:
+        200:
+          description: ''
+  /drains:
+    get:
+      summary: List Drains
+      responses:
+        200:
+          description: ''
+    post:
+      summary: Add a Drain
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Drain'
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: |
+                  success!
+  /drains/{type}:
+    parameters:
+      - name: type
+        in: path
+        schema:
+          type: string
+        description: The type of Drain to operate on
+        required: true
+    put: 
+      summary: Replace a Drain
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Drain'
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: |
+                  success!
+    delete: 
+      summary: Remove a Drain
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: |
+                  success!
+components:
+  schemas:
+    Log:
+      type: object
+      properties:
+        time:
+          type: string
+          description: Timestamp of log (time.Now() on post)
+        id:
+          type: string
+          description: Id or hostname of sender
+        tag:
+          type: string
+          description: Tag for log
+        type:
+          type: string
+          description: Log type (commonly 'app' or 'deploy'. default value configured via log-type)
+        priority:
+          type: integer
+          description: Severity of log (0(trace)-5(fatal))
+        message:
+          type: string
+          description: Log data
+      required:
+        - message
+      example:
+        id: my-app
+        tag: build-1234
+        type: deploy
+        priority: 4
+        message: |-
+          $ mv nanobox/.htaccess .htaccess
+          [✓] SUCCESS
+    Drain:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of service ("papertrail", "datadog")
+        endpoint:
+          type: string
+          description: URI of endpoint
+        id:
+          type: string
+          description: ID to identify this app with external logger
+        key:
+          type: string
+          description: Key or user for authentication
+        secret:
+          type: string
+          description: Password or secret for authentication
+  securitySchemes:
+    User:
+      type: apiKey
+      in: header
+      name: X-User-Token
+    Auth:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+security:
+  - User: []

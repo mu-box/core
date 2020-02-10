@@ -1,0 +1,547 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/danhunsaker/portal-load-balancer/1.0.0
+  - description: Individual application server
+    url: https://{host}:8443
+    variables:
+      host:
+        default: ''
+        description: The host IP of the server
+info:
+  version: '1.0.0'
+  title: 'Portal Load Balancer API'
+  description: 'The API spec for the Portal load balancer component.'
+paths:
+  /services:
+    get:
+      summary: List all services
+      tags: [services]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+    post:
+      summary: Add a service
+      tags: [services]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+    put:
+      summary: Reset the list of services
+      tags: [services]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Service'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+  /services/{service}:
+    parameters:
+      - in: path
+        name: service
+        schema:
+          type: string
+        required: true
+    get:
+      summary: Get information about a service
+      tags: [services]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+    put:
+      summary: Reset the specified service
+      tags: [services]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Service'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+    delete:
+      summary: Delete a service
+      tags: [services]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /services/{service}/servers:
+    parameters:
+      - in: path
+        name: service
+        schema:
+          type: string
+        required: true
+    get:
+      summary: List all servers on a service
+      tags: [servers]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Server'
+    post:
+      summary: Add new server to a service
+      tags: [servers]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Server'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+    put:
+      summary: Reset the list of servers on a service
+      tags: [servers]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Server'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Server'
+  /services/{service}/servers/{server}:
+    parameters:
+      - in: path
+        name: service
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: server
+        schema:
+          type: string
+        required: true
+    get:
+      summary: Get information about a server on a service
+      tags: [servers]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Server'
+    delete:
+      summary: Delete a server from a service
+      tags: [servers]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /routes:
+    get:
+      summary: List all routes
+      tags: [routes]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Route'
+    post:
+      summary: Add new route
+      tags: [routes]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Route'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+    put:
+      summary: Reset the list of routes
+      tags: [routes]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Route'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Route'
+    delete:
+      summary: Delete a route
+      tags: [routes]
+      parameters:
+        - in: query
+          name: subdomain
+          schema:
+            type: string
+        - in: query
+          name: domain
+          schema:
+            type: string
+        - in: query
+          name: path
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /certs:
+    get:
+      summary: List all certs
+      tags: [certificates]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cert'
+    post:
+      summary: Add new cert
+      tags: [certificates]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cert'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cert'
+    put:
+      summary: Reset the list of certs
+      tags: [certificates]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Cert'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cert'
+    delete:
+      summary: Delete a cert
+      description: |
+        Request contains a body with the item to delete. This violates the
+        OpenAPI spec requirements that DELETEs not have a request body, so will
+        be changed in a future (microbox) version.
+      tags: [certificates]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /vips:
+    get:
+      summary: List all vips
+      tags: [virtual IPs]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VIP'
+    post:
+      summary: Add new vip
+      tags: [virtual IPs]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VIP'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VIP'
+    put:
+      summary: Reset the list of vips
+      tags: [virtual IPs]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/VIP'
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VIP'
+    delete:
+      summary: Delete a vip
+      description: |
+        Request contains a body with the item to delete. This violates the
+        OpenAPI spec requirements that DELETEs not have a request body, so will
+        be changed in a future (microbox) version.
+      tags: [virtual IPs]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Success'
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Service:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        host:
+          type: string
+        port:
+          type: integer
+        interface:
+          type: string
+        scheduler:
+          type: string
+        persistence:
+          type: integer
+        netmask:
+          type: string
+        servers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Server'
+      example:
+        id: tcp-127_0_0_3-1234
+        type: tcp
+        host: 127.0.0.3
+        port: 1234
+        interface: eth0
+        scheduler: rr
+        persistence: 0
+        netmask: ''
+        servers: null
+    Server:
+      type: object
+      properties:
+        id:
+          type: string
+        host:
+          type: string
+        port:
+          type: integer
+        forwarder:
+          type: string
+        weight:
+          type: integer
+        upper_threshold:
+          type: integer
+        lower_threshold:
+          type: integer
+      example:
+        id: 192_168_0_1-8080
+        host: 192.168.0.1
+        port: 8080
+        forwarder: m
+        weight: 5
+        upper_threshold: 10
+        lower_threshold: 1
+    Route:
+      type: object
+      properties:
+        subdomain:
+          type: string
+        domain:
+          type: string
+        path:
+          type: string
+        targets:
+          type: array
+          items:
+            type: string
+        fwdpath:
+          type: string
+        page:
+          type: string
+      example:
+        subdomain: ''
+        domain: portal.test
+        path: ''
+        targets: null
+        fwdpath: ''
+        page: |
+          portal works
+    Cert:
+      type: object
+      properties:
+        key:
+          type: string
+        cert:
+          type: string
+      example:
+        key: |-
+          -----BEGIN PRIVATE KEY-----
+          MII.../J8
+          -----END PRIVATE KEY-----
+        cert: |-
+          -----BEGIN CERTIFICATE-----
+          MII...aI=
+          -----END CERTIFICATE-----
+    VIP:
+      type: object
+      properties:
+        ip:
+          type: string
+        interface:
+          type: string
+        alias:
+          type: string
+      example:
+        ip: 192.168.0.100
+        interface: eth0
+        alias: 'eth0:1'
+    Success:
+      type: object
+      properties:
+        msg:
+          type: string
+      example:
+        msg: Success
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+      example:
+        error: No Service Found
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+security:
+  - Token: []

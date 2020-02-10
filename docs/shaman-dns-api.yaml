@@ -1,0 +1,167 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/danhunsaker/shaman-dns/1.0.0
+info:
+  description: API spec for Nanobox's Shaman DNS server
+  version: "1.0.0"
+  title: Shaman DNS API
+  contact:
+    name: Dan Hunsaker
+    email: danhunsaker@gmail.com
+  license:
+    name: MIT License
+    url: https://choosealicense.com/licenses/mit/
+tags:
+  - name: zone
+    description: "The operations that apply to the entire domain list"
+  - name: domain
+    description: "The operations that apply to a single domain"
+paths:
+  /records:
+    post:
+      summary: Adds the domain and full record
+      tags: [domain]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Domain"
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Domain"
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  err:
+                    type: string
+                example: 
+                  err: 'exit status 2: unexpected argument'
+    get:
+      summary: Returns a list of domains we have records for  
+      tags: [zone]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+              example:
+                - nanopack.io
+    put:
+      summary: Update all domains and records (replaces all)
+      tags: [zone]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/Domain"
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Domain"
+  /records/{domain}:
+    parameters:
+      - name: domain
+        in: path
+        required: true
+        description: the domain name
+        schema:
+          type: string
+    get:
+      summary: Returns the records for that domain
+      tags: [domain]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Domain"
+    put:
+      summary: Update domain's records (replaces all)
+      tags: [domain]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Domain"
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Domain"
+    delete:
+      summary: Delete a domain
+      tags: [domain]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                example: 
+                  msg: success
+components:
+  schemas:
+    Domain:
+      type: object
+      properties:
+        domain:
+          type: string
+        records:
+          type: array
+          items:
+            type: object
+            properties:
+              ttl:
+                type: integer
+              class:
+                type: string
+              type:
+                type: string
+              address:
+                type: string
+      example:
+        domain: nanopack.io.
+        records:
+          - ttl: 60
+            class: IN
+            type: A
+            address: 127.0.0.1
+          - ttl: 60
+            class: IN
+            type: A
+            address: 127.0.0.2
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+security:
+  - Token: []

@@ -1,0 +1,123 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/danhunsaker/slurp-sync-coordinator/1.0.0
+  - description: Individual application server
+    url: https://{host}:1566
+    variables:
+      host:
+        default: ''
+        description: The host IP of the server
+info:
+  version: '1.0.0'
+  title: 'Slurp Sync Coordinator API'
+  description: 'The API spec for the Slurp sync coordinator component.'
+paths:
+  /ping:
+    get:
+      summary: Check Slurp health
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              example: |
+                pong
+  /stages:
+    post:
+      summary: Tell slurp about new build
+      description: |
+        This endpoint will set up an SSH user for port 1567, so that an rsync
+        request (to any directory) will sync files to the new build. The SSH
+        username is the `secret` property returned here. If `old-id` is given,
+        Slurp will contact Hoarder on the same system, retrieve the
+        corresponding archive file, and extract it before the sync takes place,
+        allowing for updates to be synced more quickly.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [new-id]
+              properties:
+                new-id:
+                  type: string
+                old-id:
+                  type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  secret:
+                    type: string
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /stages/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+    put:
+      summary: Commit update (done syncing)
+      description: |
+        Tells Slurp to archive the files that have been synced, and pass the
+        archive to Hoarder for long-term storage.
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete temp build dir
+      description: Removes synced files and sync target directory
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Message:
+      type: object
+      properties:
+        msg:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+  securitySchemes:
+    Token:
+      in: header
+      name: X-Auth-Token
+      type: apiKey
+security:
+  - Token: []

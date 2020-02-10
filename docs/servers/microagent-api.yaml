@@ -1,0 +1,566 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/danhunsaker/microagent/1.0.0
+  - description: Individual application server
+    url: https://{host}:8570
+    variables:
+      host:
+        default: ''
+        description: The host IP of the server
+info:
+  version: "1.0.0"
+  title: microagent API
+  license:
+    name: MIT License
+    url: https://choosealicense.com/licenses/mit/
+  contact:
+    email: danhunsaker@gmail.com
+    name: Dan Hunsaker
+  description: The API spec for microagent, and other Nanobox-v1-compatible application server agents.
+tags:
+  - name: members
+    description: Endpoints interacting with member servers of the current cluster.
+  - name: images
+    description: Endpoints interacting with Docker images on the current server.
+  - name: containers
+    description: Endpoints interacting with containers on the current server.
+  - name: jobs
+    description: Endpoints interacting with the current server's assigned jobs.
+  - name: remote
+    description: Endpoints involved in remote access to the current server or its containers.
+paths:
+  /ping:
+    get:
+      summary: Ping the agent to verify it is operational
+      responses:
+        '200':
+          description: '"pong" for nanoagent; "micro" for microagent'
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                microagent:
+                  value: micro
+                nanoagent:
+                  value: pong
+      security: []
+  /members:
+    get:
+      summary: List members of the cluster
+      tags: [members]
+      responses:
+        '200':
+          description: list of servers in the cluster
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ip:
+                      type: string
+                example:
+                  - ip: 127.0.0.1
+                  - ip: 127.0.0.2
+    post:
+      summary: Add a new member to the cluster
+      tags: [members]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ip:
+                  type: string
+      responses:
+        '200':
+          description: _
+    put:
+      summary: Reset the cluster members list
+      tags: [members]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  ip:
+                    type: string
+      responses:
+        '200':
+          description: _
+  /members/{member}:
+    parameters:
+      - name: member
+        in: path
+        required: true
+        description: the IP address of the member server
+        schema:
+          type: string
+    delete:
+      summary: Remove a member from the cluster
+      tags: [members]
+      responses:
+        '200':
+          description: _
+  /pulse:
+    get:
+      summary: Get current Pulse stats
+      responses:
+        '200':
+          description: _
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                _connected:                                      1
+                containerlogger.data.logvac.2.1-cpu_percent:     0.0077541711229946525
+                containerlogger.data.logvac.2.1-ram_percent:     16.0021484375
+                containerlogger.data.logvac.2.1-ram_used:        3.35589376e+08
+                containermesh.data.portal.2.1-cpu_percent:       1.1787363636363635
+                containermesh.data.portal.2.1-ram_percent:       4.6041015625
+                containermesh.data.portal.2.1-ram_used:          9.6555008e+07
+                containermonitor.data.pulse.2.1-cpu_percent:     0.35860294117647057
+                containermonitor.data.pulse.2.1-ram_percent:     3.5439453125
+                containermonitor.data.pulse.2.1-ram_used:        7.432192e+07
+                containerpusher.data.mist.2.1-cpu_percent:       0.010028944444444444
+                containerpusher.data.mist.2.1-ram_percent:       0.26679687500000004
+                containerpusher.data.mist.2.1-ram_used:          5.595136e+06
+                containerwarehouse.data.hoarder.2.1-cpu_percent: 0.013430652173913043
+                containerwarehouse.data.hoarder.2.1-ram_percent: 3.0568359375
+                containerwarehouse.data.hoarder.2.1-ram_used:    6.4106496e+07
+                cpu-cpu_percent:                                 8.108836206669642
+                diskdevvda1-disk_percent:                        39.4254610674276
+                diskdevvda15-disk_percent:                       3.449437571356379
+                ram-ram_percent:                                 29.7111328125
+                swap-swap_percent:                               0
+    post:
+      summary: Register a Pulse stats reporting endpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                host:
+                  type: string
+                  example: 127.0.0.4
+                port:
+                  type: integer
+                  example: 8080
+      responses:
+        '200':
+          description: _
+  /images:
+    get:
+      summary: List the Docker images installed on the server
+      tags: [images]
+      responses:
+        '200':
+          description: _
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Image'
+    post:
+      summary: Install a Docker image on the server
+      tags: [images]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                slug:
+                  type: string
+                  description: the name:tag of the image to install
+      responses:
+        '200':
+          description: _
+  /images/{slug}:
+    parameters:
+      - name: slug
+        in: path
+        required: true
+        description: The name:tag of the Docker image to operate on
+        schema:
+          type: string
+          example: nanobox/logvac:latest
+    get:
+      summary: Fetch info about a specific image on the server, by ID
+      tags: [images]
+      responses:
+        '200':
+          description: _
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Image'
+    delete:
+      summary: Remove an image from the server
+      tags: [images]
+      responses:
+        '200':
+          description: _
+  /containers:
+    get:
+      summary: List the containers on this server
+      tags: [containers]
+      responses:
+        '200':
+          description: _
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Container"
+    post:
+      summary: Launch a container on this server
+      tags: [containers]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                image_slug:
+                  type: string
+                hostname:
+                  type: string
+                domainname:
+                  type: string
+                labels:
+                  type: object
+                  properties:
+                    component:
+                      type: string
+                    generation:
+                      type: string
+                    member:
+                      type: string
+                cmd:
+                  type: string
+                network:
+                  type: string
+                ip:
+                  type: string
+                memory:
+                  type: integer
+                memory_swap:
+                  type: integer
+                cpu_shares:
+                  type: integer
+              example:
+                name: data.storage.1.1
+                image_slug: nanobox/unfs:0.9
+                hostname: data.storage.1.1
+                domainname: ""
+                labels:
+                  component: 00000000-0000-0000-0000-000000000000
+                  generation: 00000000-0000-0000-0000-000000000000
+                  member: 00000000-0000-0000-0000-000000000000
+                cmd: null
+                network: virt
+                ip: 127.0.0.5
+                memory: 0
+                memory_swap: 0
+                cpu_shares: 0
+      responses:
+        '200':
+          description: _
+  /containers/{name}:
+    parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          example: data.storage.1.1
+    get:
+      summary: Get information about a specific container, by name
+      tags: [containers]
+      responses:
+        '200':
+          description: _
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Container"
+    delete:
+      summary: Remove a container from this server
+      tags: [containers]
+      responses:
+        '200':
+          description: _
+  /containers/{name}/start:
+    parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          example: data.storage.1.1
+    put:
+      summary: Start a container, by name
+      tags: [containers]
+      responses:
+        '200':
+          description: _
+  /containers/{name}/stop:
+    parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          example: data.storage.1.1
+    put:
+      summary: Stop a container, by name
+      tags: [containers]
+      responses:
+        '200':
+          description: _
+  /containers/{name}/restart:
+    parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          example: data.storage.1.1
+    put:
+      summary: Restart a container, by name
+      tags: [containers]
+      responses:
+        '200':
+          description: _
+  /jobs:
+    get:
+      summary: List the currently registered jobs
+      tags: [jobs]
+      responses:
+        '200':
+          description: _
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Job"
+    post:
+      summary: Register a job to run a script
+      tags: [jobs]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                container:
+                  type: string
+                script:
+                  type: string
+                payload:
+                  type: string
+      responses:
+        '200':
+          description: _
+  /jobs/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get information about a specific job, by ID
+      tags: [jobs]
+      responses:
+        '200':
+          description: _
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Job"
+    delete:
+      summary: Remove a job, by ID
+      tags: [jobs]
+      responses:
+        '200':
+          description: _
+  /setup-tunnel:
+    post:
+      summary: Open a tunnel session which has to be claimed in the next 15 seconds
+      tags: [remote]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  description: secret token needed to establish the tunnel
+                container:
+                  description: docker container to establish a tunnel into
+                forward_port:
+                  description: the port to establish a tunnel to inside the container
+      responses:
+        '200':
+          description: _
+  /setup-exec:
+    post:
+      summary: Open an exec session which has to be claimed in the next 15 seconds
+      tags: [remote]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  description: secret token needed to establish a secure console
+                container:
+                  description: docker container to establish the console into
+      responses:
+        '200':
+          description: _
+  /setup-ssh:
+    post:
+      summary: Open an ssh session which has to be claimed in the next 15 seconds
+      tags: [remote]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  description: secret token needed to establish an ssh session
+      responses:
+        '200':
+          description: _
+components:
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: X-Token
+  schemas:
+    Container:
+      type: object
+      properties:
+        id:
+          type: string
+        network:
+          type: string
+        networkname:
+          type: string
+        name:
+          type: string
+        labels:
+          type: object
+          properties:
+            component:
+              type: string
+            generation:
+              type: string
+            member:
+              type: string
+        hostname:
+          type: string
+        domainname:
+          type: string
+        cmd:
+          type: string
+        image_slug:
+          type: string
+        ip:
+          type: string
+        binds:
+          type: object
+        memory:
+          type: integer
+        memory_swap:
+          type: integer
+        status:
+          type: string
+        cpu_shares:
+          type: integer
+      example:
+        id: data.storage.1.1
+        network: virt
+        networkname: ""
+        name: data.storage.1.1
+        labels:
+          component: 00000000-0000-0000-0000-000000000000
+          generation: 00000000-0000-0000-0000-000000000000
+          member: 00000000-0000-0000-0000-000000000000
+        hostname: data.storage.1.1
+        domainname: ""
+        cmd: null
+        image_slug: nanobox/unfs:0.9
+        ip: 127.0.0.5
+        binds: null
+        memory: 0
+        memory_swap: 0
+        status: running
+        cpu_shares: 0
+    Image:
+      type: object
+      properties:
+        id:
+          type: string
+        slug:
+          type: string
+        repo_tags:
+          type: array
+          items:
+            type: string
+        size:
+          type: integer
+        virtual_size:
+          type: integer
+        status:
+          type: string
+      example:
+        id: sha256:76e2e00e3b633ef8de439d9eccf63e8cc514d583e1847dd2db009c0861d35249
+        slug: nanobox/logvac:latest
+        repo_tags:
+          - nanobox/logvac:latest
+        size: 346998892
+        virtual_size: 346998892
+        status: complete
+    Job:
+      type: object
+      properties:
+        id:
+          type: string
+        container:
+          type: string
+        script:
+          type: string
+        payload:
+          type: object
+      example:
+        id: 00000000-0000-0000-0000-000000000000
+        container: data.storage.1.1
+        script: update
+        payload:
+          hook_ref: stable
+          before_deploy: []
+          after_deploy: []
+security:
+  - Token: []

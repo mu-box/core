@@ -1,0 +1,769 @@
+openapi: 3.0.0
+servers:
+  - url: https://virtserver.swaggerhub.com/danhunsaker/adapters/1.0.0
+    description: SwaggerHub API Auto Mocking
+info:
+  title: Nanobox Adapter API
+  description: An API for deploying Nanobox apps to a cloud provider.
+  contact:
+    name: Dan Hunsaker
+    email: danhunsaker@gmail.com
+  license:
+    name: MIT
+    url: 'http://choosealicense.com/licenses/mit/'
+  version: 1.0.0
+externalDocs:
+  description: Official documentation here
+  url: 'https://docs.nanobox.io/providers/create/'
+paths:
+  /keys:
+    post:
+      tags:
+        - keys
+      summary: Create SSH Key
+      description: >-
+        <p>The `/keys` route is used to authorize Nanobox with the user's
+        account that will be ordering servers. After ordering a server, Nanobox
+        needs to SSH into the server to provision it. Nanobox will pre-generate
+        an SSH key for the user's account and the authorization route allows
+        Nanobox to register this key with the user's account on this provider so
+        that Nanobox can access the server after it is ordered.</p> <p>NOTE:
+        This route is *not* required if your provider uses passwords for SSH
+        instead of SSH keys, assuming the Install Server Key endpoint is
+        implemented instead.</p>
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#create-ssh-key'
+      operationId: create-ssh-key
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                required:
+                  - id
+                properties:
+                  id:
+                    description: fingerprint or key identifier to use when ordering servers
+                    type: string
+                type: object
+              examples:
+                response:
+                  value:
+                    id: provider-key-ID
+        default:
+          $ref: '#/components/responses/default'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - id
+                - key
+              properties:
+                id:
+                  description: the user-friendly name of the key
+                  type: string
+                key:
+                  description: >-
+                    The public key to register with the user's account. It is
+                    assumed that this public key will be installed on every
+                    server launched by this integration.
+                  type: string
+              type: object
+        description: Key ID and contents to save
+        required: true
+  '/keys/{id}':
+    get:
+      tags:
+        - keys
+      summary: Query SSH Key
+      description: >-
+        <p>The `GET /keys/{id}` route is used by Nanobox to query the existence
+        of previously created key.</p> <p>NOTE: This route is *not* required if
+        your provider uses passwords for SSH instead of SSH keys, assuming the
+        Install Server Key endpoint is implemented instead.</p>
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#query-ssh-key'
+      operationId: query-ssh-key
+      parameters:
+        - name: id
+          in: path
+          description: the key id
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                required:
+                  - id
+                  - name
+                  - public_key
+                properties:
+                  id:
+                    description: fingerprint or key identifier to use when ordering servers
+                    type: string
+                  name:
+                    description: the user-friendly name of the key
+                    type: string
+                  public_key:
+                    description: contents of public key
+                    type: string
+                type: object
+              examples:
+                response:
+                  value:
+                    id: provider-key-ID
+                    name: nanobox-provider-account-ID
+                    public_key: CONTENTS OF PUBLIC KEY
+        default:
+          $ref: '#/components/responses/default'
+    delete:
+      tags:
+        - keys
+      summary: Delete SSH Key
+      description: >-
+        <p>The `DELETE /keys/{id}` route is used to cancel a key that was
+        previously created via Nanobox.</p> <p>NOTE: This route is *not*
+        required if your provider uses passwords for SSH instead of SSH keys,
+        assuming the Install Server Key endpoint is implemented instead.</p>
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#delete-ssh-key'
+      operationId: delete-ssh-key
+      parameters:
+        - name: id
+          in: path
+          description: the key id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        default:
+          $ref: '#/components/responses/default'
+  /meta:
+    get:
+      tags:
+        - meta
+      summary: Gathering Metadata
+      description: >-
+        The `/meta` route is used to provide Nanobox with various pieces of
+        metadata that will be used for displaying information in the dashboard
+        and for requesting authentication information from the users.
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#meta'
+      operationId: meta
+      security:
+        - {}
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                required:
+                  - id
+                  - name
+                  - server_nick_name
+                  - default_region
+                  - default_size
+                  - can_reboot
+                  - can_rename
+                  - internal_iface
+                  - external_iface
+                  - ssh_user
+                  - ssh_auth_method
+                  - ssh_key_method
+                  - bootstrap_script
+                  - credential_fields
+                properties:
+                  id:
+                    description: some unique identifier
+                    type: string
+                  name:
+                    description: display name used in the dashboard
+                    type: string
+                  server_nick_name:
+                    description: what this provider calls their servers
+                    type: string
+                  default_region:
+                    description: the default region to launch servers when not specified
+                    type: string
+                  default_size:
+                    description: default server size to use when creating an app
+                    type: string
+                  default_plan:
+                    description: >-
+                      the id of the default plan in which the default size is
+                      ordered
+                    type: string
+                  can_reboot:
+                    description: >-
+                      boolean to determine if we can reboot the server through
+                      the api
+                    type: boolean
+                  can_rename:
+                    description: >-
+                      boolean to determine if we can rename the server through
+                      the api
+                    type: boolean
+                  internal_iface:
+                    description: Internal interface. e.g. eth1
+                    type: string
+                  external_iface:
+                    description: External interface. e.g. eth0
+                    type: string
+                  ssh_user:
+                    description: >-
+                      The ssh user Nanobox can use for ssh access to bootstrap
+                      the server. e.g. root
+                    type: string
+                  ssh_auth_method:
+                    description: >-
+                      will either be 'key' or 'password'. When set to 'key',
+                      Nanobox will behave in accordance with the
+                      <code>ssh_key_method</code> value. When set to 'password',
+                      Nanobox will use the Install Server Key endpoint to
+                      install the SSH key manually via the adapter, instead of
+                      passing it in the create server step.
+                    type: string
+                    enum:
+                      - key
+                      - password
+                  ssh_key_method:
+                    description: >-
+                      will either be 'reference' or 'object'. When set to
+                      'reference', Nanobox will first create the SSH key in the
+                      user's provider account, then pass a reference to it when
+                      servers are created. When set to 'object', Nanobox will
+                      pass the actual public SSH key that should be installed on
+                      the server.
+                    type: string
+                    enum:
+                      - reference
+                      - object
+                  bootstrap_script:
+                    description: >-
+                      The script that should be used to bootstrap the server.
+                      e.g.
+                      https://s3.amazonaws.com/tools.nanobox.io/bootstrap/ubuntu.sh
+                    type: string
+                  credential_fields:
+                    description: >-
+                      array of hashes that includes field keys and labels
+                      necessary to authenticate with the provider
+                    type: array
+                    items:
+                      required:
+                        - key
+                        - label
+                      properties:
+                        key:
+                          description: >-
+                            suffix for Auth- headers used to identify each auth
+                            field
+                          type: string
+                        label:
+                          description: text to display to the user for each auth field
+                          type: string
+                      type: object
+                  instructions:
+                    description: >-
+                      string that contains instructions for how to setup
+                      authentication with the provider
+                    type: string
+                type: object
+              examples:
+                response:
+                  value:
+                    id: do
+                    name: Digital Ocean
+                    server_nick_name: Droplet
+                    default_region: sfo1
+                    default_size: 512mb
+                    default_plan: standard
+                    can_reboot: true
+                    can_rename: true
+                    internal_iface: eth1
+                    external_iface: eth0
+                    ssh_user: root
+                    ssh_auth_method: key
+                    ssh_key_method: reference
+                    bootstrap_script: >-
+                      https://s3.amazonaws.com/tools.nanobox.io/bootstrap/ubuntu.sh
+                    credential_fields:
+                      - key: access-token
+                        label: Access Token
+                    instructions: >-
+                      <a href='//cloud.digitalocean.com/settings/api/tokens'
+                      target='_blank'>Create a Personal Access Token</a> in your
+                      Digital Ocean Account that has read/write access, then add
+                      the token here or view the <a
+                      href='//www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2#how-to-generate-a-personal-access-token'
+                      target='_blank'>full guide</a>
+  /catalog:
+    get:
+      tags:
+        - meta
+      summary: Requesting the Catalog
+      description: >-
+        The `/catalog` route is used to provide Nanobox with a catalog of server
+        sizes and options, within the available geographic regions.
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#catalog'
+      operationId: catalog
+      security:
+        - {}
+      responses:
+        '200':
+          description: >-
+            The response data should be a list (array) of regions. Each region
+            should contain a list of plans. It is not necessary to have multiple
+            regions, however the structure will be the same regardless.
+            Additionally, your integration may only have one classification of
+            server types, or you may have high-cpu, high-ram, or high-IO
+            options. A plan is a grouping of server sizes within a
+            classification.
+          content:
+            application/json:
+              schema:
+                description: Each region in the catalog consists of the following
+                type: array
+                items:
+                  required:
+                    - id
+                    - name
+                    - plans
+                  properties:
+                    id:
+                      description: >-
+                        unique region identifier to be used when ordering a
+                        server
+                      type: string
+                    name:
+                      description: the visual identifier for the customer
+                      type: string
+                    plans:
+                      description: >-
+                        A grouping of server sizes within a classification. Each
+                        plan consists of the following
+                      type: array
+                      items:
+                        required:
+                          - id
+                          - name
+                          - specs
+                        properties:
+                          id:
+                            description: unique plan identifier
+                            type: string
+                          name:
+                            description: >-
+                              the classification of the server options within
+                              this plan. The name should indicate to the user
+                              what kinds of workloads these server options are
+                              ideal for. For instance: "Standard" or "High CPU"
+                            type: string
+                          specs:
+                            description: >-
+                              the list of server options within this plan. Each
+                              spec should have the following fields
+                            type: array
+                            items:
+                              required:
+                                - id
+                                - ram
+                                - cpu
+                                - disk
+                                - transfer
+                                - dollars_per_hr
+                                - dollars_per_mo
+                              properties:
+                                id:
+                                  description: >-
+                                    a unique identifier that will be used when
+                                    ordering a server
+                                  type: string
+                                ram:
+                                  description: >-
+                                    a visual indication to the user informing
+                                    the amount of RAM is provided
+                                  type: integer
+                                cpu:
+                                  description: >-
+                                    a visual indication to the user informing
+                                    the amount of CPUs or CPU cores
+                                  type: integer
+                                disk:
+                                  description: >-
+                                    a visual indication to the user informing
+                                    the amount or size of disk
+                                  type: integer
+                                transfer:
+                                  description: >-
+                                    a visual indication to the user informing
+                                    the amount of data transfer allowed per
+                                    month for this server
+                                  type: integer
+                                dollars_per_hr:
+                                  description: >-
+                                    a visual indication to the user informing
+                                    the cost of running this server per hour
+                                  type: number
+                                  format: currency
+                                dollars_per_mo:
+                                  description: >-
+                                    a visual indication to the user informing
+                                    the cost of running this server per month
+                                  type: number
+                                  format: currency
+                              type: object
+                        type: object
+                  type: object
+              examples:
+                response:
+                  value:
+                    - id: sfo1
+                      name: San Francisco 1
+                      plans:
+                        - id: standard
+                          name: Standard Configuration
+                          specs:
+                            - id: 512mb
+                              ram: 512
+                              cpu: 1
+                              disk: 20
+                              transfer: 1
+                              dollars_per_hr: 0.00744
+                              dollars_per_mo: 5
+                            - id: 1gb
+                              ram: 1024
+                              cpu: 1
+                              disk: 30
+                              transfer: 2
+                              dollars_per_hr: 0.01488
+                              dollars_per_mo: 10
+  /verify:
+    post:
+      tags:
+        - meta
+      summary: Verify the account credentials
+      description: >-
+        The `/verify` route is used to verify a user's account credentials. The
+        `credential_fields` specified in the metadata will be provided in the
+        dashboard and required to be filled before the user can use this
+        provider. After the credentials are provided, Nanobox will call this
+        route to verify that the account credentials provided by the user are
+        valid.
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#verify'
+      operationId: verify
+      responses:
+        '200':
+          description: successful operation
+        default:
+          $ref: '#/components/responses/default'
+  /servers:
+    post:
+      tags:
+        - servers
+      summary: Order Server
+      description: >-
+        The `/servers` route is how Nanobox submits a request to order a new
+        server. This route SHOULD NOT hold open the request until the server is
+        ready. The request should return immediately once the order has been
+        submitted with an identifier that Nanobox can use to followup on the
+        order status.
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#order-server'
+      operationId: order-server
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                required:
+                  - id
+                properties:
+                  id:
+                    description: unique id of the server
+                    type: string
+                type: object
+              examples:
+                response:
+                  value:
+                    id: provider-server-ID
+        default:
+          $ref: '#/components/responses/default'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - region
+                - size
+              properties:
+                name:
+                  description: >-
+                    Nanobox-generated name used to identify the machine visually
+                    as ordered by Nanobox
+                  type: string
+                region:
+                  description: >-
+                    the region wherein to launch the server, which will match
+                    the region `id` from the catalog
+                  type: string
+                size:
+                  description: >-
+                    the size of server to provision, which will match an `id`
+                    provided in the aforementioned catalog
+                  type: string
+                ssh_key:
+                  description: id of the SSH key created during the `/keys` request
+                  type: string
+              type: object
+        description: Server creation data
+        required: true
+  '/servers/{id}':
+    get:
+      tags:
+        - servers
+      summary: Query Server
+      description: >-
+        The `GET /servers/{id}` route is used by Nanobox to query state about a
+        previously ordered server. This state is used to inform Nanobox when the
+        server is ready to be provisioned and also how to connect to the server.
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#query-server'
+      operationId: query-server
+      parameters:
+        - name: id
+          in: path
+          description: the server id
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                required:
+                  - id
+                  - status
+                  - name
+                  - external_ip
+                  - internal_ip
+                properties:
+                  id:
+                    description: the server id
+                    type: string
+                  status:
+                    description: >-
+                      the status or availability of the server. (active
+                      indicates server is ready)
+                    type: string
+                  name:
+                    description: name of the server
+                    type: string
+                  external_ip:
+                    description: external or public IP of the server
+                    type: string
+                  internal_ip:
+                    description: internal or private IP of the server
+                    type: string
+                type: object
+              examples:
+                response:
+                  value:
+                    id: provider-server-ID
+                    status: active
+                    name: nanobox.io-cool-app-do.1.1
+                    external_ip: 192.0.2.15
+                    internal_ip: 192.168.0.15
+        default:
+          $ref: '#/components/responses/default'
+    delete:
+      tags:
+        - servers
+      summary: Cancel Server
+      description: >-
+        The `DELETE /servers/{id}` route is used to cancel a server that was
+        previously ordered via Nanobox. This route SHOULD NOT hold open the
+        request until the server is completely canceled. It should return
+        immediately once the order to cancel has been submitted.
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#cancel-server'
+      operationId: cancel-server
+      parameters:
+        - name: id
+          in: path
+          description: the server id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        default:
+          $ref: '#/components/responses/default'
+  '/servers/{id}/keys':
+    patch:
+      tags:
+        - keys
+        - servers
+      summary: Install Server Key
+      description: >-
+        <p>The `/servers/{id}/keys` route is used to authorize Nanobox with a
+        server that was previously ordered via Nanobox. Nanobox will
+        pre-generate an SSH key for the user's account, and this route allows
+        Nanobox to register that key with the server so that Nanobox can access
+        it after it is ordered.</p> <p>NOTE: This route is *only* required if
+        your provider uses passwords for SSH instead of SSH keys.</p>
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#install-ssh-key'
+      operationId: install-server-key
+      parameters:
+        - name: id
+          in: path
+          description: the server id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        default:
+          $ref: '#/components/responses/default'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - id
+                - key
+              properties:
+                id:
+                  description: the user-friendly name of the key
+                  type: string
+                key:
+                  description: The public key to register on the server.
+                  type: string
+              type: object
+        description: Key ID and contents to save
+        required: true
+  '/servers/{id}/reboot':
+    patch:
+      tags:
+        - servers
+      summary: Reboot Server
+      description: >-
+        The `/servers/{id}/reboot` route is used to reboot a server that was
+        previously ordered via Nanobox. This route SHOULD NOT hold open the
+        request until the server is completely rebooted. It should return
+        immediately once the order to reboot has been submitted
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#reboot-server'
+      operationId: reboot-server
+      parameters:
+        - name: id
+          in: path
+          description: the server id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        default:
+          $ref: '#/components/responses/default'
+  '/servers/{id}/rename':
+    patch:
+      tags:
+        - servers
+      summary: Rename Server
+      description: >-
+        The `/servers/{id}/rename` route is used to rename a server that was
+        previously ordered via Nanobox. This route SHOULD NOT hold open the
+        request until the server is completely renamed. It should return
+        immediately once the order to rename has been submitted.
+      externalDocs:
+        description: Official documentation here
+        url: 'https://docs.nanobox.io/providers/create/#rename-server'
+      operationId: rename-server
+      parameters:
+        - name: id
+          in: path
+          description: the server id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        default:
+          $ref: '#/components/responses/default'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+              properties:
+                name:
+                  description: the new name of the server
+                  type: string
+              type: object
+        description: New server name
+        required: true
+security:
+  - Auth-Token: []
+tags:
+  - name: meta
+    description: Endpoints related to the provider
+  - name: keys
+    description: Endpoints related to SSH key management
+  - name: servers
+    description: Endpoints related to server management
+components:
+  responses:
+    default:
+      description: Error
+      content:
+        application/json:
+          schema:
+            required:
+              - errors
+            properties:
+              errors:
+                description: >-
+                  On Failure: Should return a json body with an errors node and
+                  a non 2xx status code.
+                type: array
+                items:
+                  type: string
+            type: object
+  securitySchemes:
+    Auth-Token:
+      name: Auth-Token
+      in: header
+      type: apiKey

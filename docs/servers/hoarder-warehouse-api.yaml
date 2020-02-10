@@ -1,0 +1,114 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/danhunsaker/hoarder-warehouse/1.0.0
+  - description: Individual application server
+    url: https://{host}:7410
+    variables:
+      host:
+        default: ''
+        description: The host IP of the server
+info:
+  version: '1.0.0'
+  title: 'Hoarder Data Warehouse API'
+  description: 'The API spec for the Hoarder data warehouse component.'
+paths:
+  /ping:
+    get:
+      summary: Check Hoarder status
+      security: []
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              example: |
+                pong
+  /blobs:
+    get:
+      summary: List all blobs
+      tags: [blobs]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    Name:
+                      type: string
+                    Size:
+                      type: integer
+                    ModTime:
+                      type: string
+              example:
+                - Name: app-Al4eXxxs183nGacj8ITfhaNJn235pM.tgz
+                  Size: 490020874
+                  ModTime: '2020-01-17T04:43:58.319309789Z'
+  /blobs/{name}:
+    parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Retrieve a blob
+      tags: [blobs]
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              example: test
+    post:
+      summary: Publish a new blob
+      tags: [blobs]
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: data
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              example: "'test' created!"
+    put:
+      summary: Update an existing blob
+      tags: [blobs]
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+            example: data
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              example: "'test' created!"
+    delete:
+      summary: Remove an existing blob
+      tags: [blobs]
+      responses:
+        200:
+          description: ''
+          content:
+            text/plain:
+              example: "'test' destroyed!"
+components:
+  securitySchemes:
+    Token:
+      type: apiKey
+      name: X-Auth-Token
+      in: header
+security:
+ - Token: []

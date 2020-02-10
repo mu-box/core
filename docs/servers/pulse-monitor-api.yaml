@@ -1,0 +1,412 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/danhunsaker/pulse-monitor/1.0.0
+  - description: Individual application server
+    url: https://{host}:5531
+    variables:
+      host:
+        default: ''
+        description: The host IP of the server
+info:
+  version: '1.0.0'
+  title: 'Pulse Monitor API'
+  description: 'The API spec for the Pulse system monitoring component.'
+tags:
+  - name: stats
+    description: Endpoints related to retrieving server/component stats
+  - name: alerts
+    description: Only available if Kapacitor is configured
+paths:
+  /keys:
+    get:
+      summary: Returns list of stats being recorded
+      tags: [stats]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /tags:
+    get:
+      summary: Returns list of filterable tags
+      tags: [stats]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+  /latest/{stat}:
+    parameters:
+      - name: stat
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: verb
+        in: query
+        required: false
+        description: Alter the results by applying an InfluxDB query function
+        schema:
+          type: string
+      - name: component
+        in: query
+        required: false
+        description: '[tag] Filter results to a single component'
+        schema:
+          type: string
+      - name: generation
+        in: query
+        required: false
+        description: '[tag] Filter results to a single component generation'
+        schema:
+          type: string
+      - name: host
+        in: query
+        required: false
+        description: '[tag] Filter results to a single host'
+        schema:
+          type: string
+      - name: member
+        in: query
+        required: false
+        description: '[tag] Filter results to a single member'
+        schema:
+          type: string
+    get:
+      summary: Returns latest stat (averages if multiple filters applied)
+      tags: [stats]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stat'
+  /hourly/{stat}:
+    parameters:
+      - name: stat
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: verb
+        in: query
+        required: false
+        description: Alter the results by applying an InfluxDB query function
+        schema:
+          type: string
+      - name: backfill
+        in: query
+        required: false
+        description: Fill gaps in data with value passed
+        schema:
+          type: string
+      - name: start
+        in: query
+        required: false
+        description: The time of the earliest records to retun
+        schema:
+          type: string
+      - name: stop
+        in: query
+        required: false
+        description: The time of the latest records to return
+        schema:
+          type: string
+      - name: component
+        in: query
+        required: false
+        description: '[tag] Filter results to a single component'
+        schema:
+          type: string
+      - name: generation
+        in: query
+        required: false
+        description: '[tag] Filter results to a single component generation'
+        schema:
+          type: string
+      - name: host
+        in: query
+        required: false
+        description: '[tag] Filter results to a single host'
+        schema:
+          type: string
+      - name: member
+        in: query
+        required: false
+        description: '[tag] Filter results to a single member'
+        schema:
+          type: string
+    get:
+      summary: Returns hourly averages for stat
+      tags: [stats]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stat'
+  /daily/{stat}:
+    parameters:
+      - name: stat
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: verb
+        in: query
+        required: false
+        description: Alter the results by applying an InfluxDB query function
+        schema:
+          type: string
+      - name: backfill
+        in: query
+        required: false
+        description: Fill gaps in data with value passed
+        schema:
+          type: string
+      - name: start
+        in: query
+        required: false
+        description: The time of the earliest records to retun
+        schema:
+          type: string
+      - name: stop
+        in: query
+        required: false
+        description: The time of the latest records to return
+        schema:
+          type: string
+      - name: component
+        in: query
+        required: false
+        description: '[tag] Filter results to a single component'
+        schema:
+          type: string
+      - name: generation
+        in: query
+        required: false
+        description: '[tag] Filter results to a single component generation'
+        schema:
+          type: string
+      - name: host
+        in: query
+        required: false
+        description: '[tag] Filter results to a single host'
+        schema:
+          type: string
+      - name: member
+        in: query
+        required: false
+        description: '[tag] Filter results to a single member'
+        schema:
+          type: string
+    get:
+      summary: Returns averages for stat across the course of a day
+      tags: [stats]
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    time:
+                      type: string
+                    value:
+                      type: number
+                  example:
+                    time: '07:30'
+                    value: 30.574734042658736
+  /alerts:
+    get:
+      summary: Retrieve a list of kapacitor alerts
+      tags: [alerts]
+      responses:
+        404:
+          description: Kapacitor isn't configured
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Alert'
+    post:
+      summary: Add a kapacitor alert
+      tags: [alerts]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Alert'
+      responses:
+        404:
+          description: Kapacitor isn't configured
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+      callbacks:
+        Alerts:
+          "{$request.body#/post}":
+            post:
+              security: []
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        message:
+                          type: string
+                        details:
+                          type: string
+                        time:
+                          type: string
+                        duration:
+                          type: integer
+                        level:
+                          type: string
+                        data:
+                          type: object
+                          properties:
+                            series:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  columns:
+                                    type: array
+                                    items:
+                                      type: string
+                                  values:
+                                    type: array
+                                    items:
+                                      type: array
+                                      items:
+                                        type: string
+                    example:
+                      id: '[do.1] cpu_percent'
+                      message: '[do.1] cpu_percent is CRITICAL value:0.11818333333333335'
+                      details: |
+                        {&#34;Name&#34;:&#34;cpu_percent&#34;,&#34;TaskName&#34;:&#34;fe64d9d7-5b35-43f0-a57c-52a6ead3a361&#34;,&#34;Group&#34;:&#34;nil&#34;,&#34;Tags&#34;:null,&#34;ID&#34;:&#34;[do.1] cpu_percent&#34;,&#34;Fields&#34;:{&#34;mean_cpu_percent&#34;:0.11818333333333335},&#34;Level&#34;:&#34;CRITICAL&#34;,&#34;Time&#34;:&#34;2017-04-14T20:12:03.972677173Z&#34;,&#34;Message&#34;:&#34;[do.1] cpu_percent is CRITICAL value:0.11818333333333335&#34;}
+                      time: '2017-04-14T20:12:03.972677173Z'
+                      duration: 0
+                      level: CRITICAL
+                      data:
+                        series:
+                          - name: cpu_percent
+                            columns:
+                              - time
+                              - mean_cpu_percent
+                            values:
+                              -
+                                - '2017-04-14T20:12:03.972677173Z'
+                                - 0.11818333333333335
+              responses:
+                200:
+                  description: ''
+  /alerts/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Retrieve a kapacitor alert
+      tags: [alerts]
+      responses:
+        404:
+          description: Kapacitor isn't configured
+        200:
+          description: ''
+    delete:
+      summary: Delete a kapacitor alert
+      tags: [alerts]
+      responses:
+        404:
+          description: Kapacitor isn't configured
+        200:
+          description: ''
+components:
+  schemas:
+    Stat:
+      type: object
+      properties:
+        time:
+          type: integer
+        value:
+          type: number
+      example:
+        time: 1580969820000
+        value: 31.26549230769231
+    Alert:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID used to identify this alert internally
+        tags:
+          type: object
+          description: Tag(s) to filter the alerts by
+        metric:
+          type: string
+          description: Metric to watch and alert on
+        operator:
+          type: string
+          description: Comparison (eq, ne, lt, le, gt, ge)
+          default: '>'
+        threshold:
+          type: string
+          description: Minimum value to alert at
+        duration:
+          type: string
+          description: How long the metric should be above the threshold before sending the alert
+          default: '5m'
+        level:
+          type: string
+          description: Alert level
+          default: 'crit'
+        post:
+          type: string
+          description: URL to send the alert to
+      example:
+        tags:
+          host: abcd
+        metric: cpu_percent
+        level: crit
+        threshold: '0.80'
+        duration: 30s
+        post: 'http://127.0.0.1/alert'
+  securitySchemes:
+    Token:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+security:
+  - Token: []
