@@ -1,0 +1,14 @@
+- user provides name, provider, and server size
+- add app to DB (details, initial evars, etc)
+- order server
+    - contact provider (via adapter) to order the desired server
+    - poll provider until it reports server is ready
+    - use SSH to connect to the new server and run the bootstrap script
+- setup platform components
+    - instruct agent to install images for platform components
+    - instruct agent to create containers for platform components
+    - configure platform components
+    - start platform components
+- set up DNS records for new app
+- set services and routes in Portal, and add any additional evars
+- report creation complete

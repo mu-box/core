@@ -127,13 +127,12 @@ their own copies are free to use whatever works best for them.
 
 -   `microbox.cloud` for onboarding (explain, register, etc)
 -   `dashboard.microbox.cloud` for the account and app management dashboard
--   `api.microbox.cloud` for the API documented in `docs/core/openapi.yaml` (and
-    converted to several other formats besides)
+-   `api.microbox.cloud` for the API documented in `docs/core-api.yaml`
 -   ...
 
 ##### FQDs
 
--   `:random_id.:user.microbox.dev` for exposing local dev instances to the
+-   `:guid.:user.microbox.dev` for exposing local dev instances to the
     Internet (not currently supported by Nanobox)
 -   `:app.:user.microbox.app` for apps
 -   `:instance.:app.:team.microbox.team` for team apps
