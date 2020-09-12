@@ -487,6 +487,20 @@ components:
           type: string
         page:
           type: string
+        endpoint:
+          type: string
+        expected_code:
+          type: integer
+        expected_body:
+          type: string
+        expected_header:
+          type: string
+        host:
+          type: string
+        timeout:
+          type: integer
+        attempts:
+          type: integer
       example:
         subdomain: ''
         domain: portal.test
@@ -495,6 +509,13 @@ components:
         fwdpath: ''
         page: |
           portal works
+        endpoint: ''
+        expected_code: 0
+        expected_body: ''
+        expected_header: ''
+        host: ''
+        timeout: 0
+        attempts: 0
     Cert:
       type: object
       properties:

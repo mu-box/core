@@ -1,9 +1,10 @@
-defmodule App.Accounts.TeamRole do
+defmodule App.Accounts.Role do
   use App.Schema
   import Ecto.Changeset
 
   schema "team_roles" do
     field :name, :string
+    field :permissions, :map
 
     has_many :memberships, App.Accounts.TeamMembership
 
@@ -11,9 +12,9 @@ defmodule App.Accounts.TeamRole do
   end
 
   @doc false
-  def changeset(team_role, attrs) do
-    team_role
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+  def changeset(role, attrs) do
+    role
+    |> cast(attrs, [:name, :permissions])
+    |> validate_required([:name, :permissions])
   end
 end

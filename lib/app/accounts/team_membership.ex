@@ -5,7 +5,7 @@ defmodule App.Accounts.TeamMembership do
   schema "team_memberships" do
     belongs_to :team, App.Accounts.Team
     belongs_to :user, App.Accounts.User
-    belongs_to :team_role, App.Accounts.TeamRole
+    belongs_to :role, App.Accounts.Role
 
     timestamps()
   end
@@ -15,5 +15,6 @@ defmodule App.Accounts.TeamMembership do
     team_membership
     |> cast(attrs, [])
     |> validate_required([])
+    |> unique_constraint([:team, :user])
   end
 end

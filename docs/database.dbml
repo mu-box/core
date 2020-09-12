@@ -1,0 +1,436 @@
+table users {
+  id uuid [pk]
+  username varchar [null, unique]
+  email varchar
+  totp_secret varchar [null]
+  last_totp varchar
+  password_hash varchar [null]
+  email_confirmation_token varchar [null, unique]
+  email_confirmed_at timestamp [null]
+  unconfirmed_email varchar [null]
+  invitation_token varchar [null, unique]
+  invitation_accepted_at timestamp [null]
+  invited_by_id uuid [null, ref: > users.id]
+  superuser boolean [default: false]
+  authentication_token varchar
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+table user_identities {
+  id uuid [pk]
+  provider varchar
+  uid varchar
+  user uuid [null, ref: > users.id]
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (provider, uid) [unique]
+  }
+}
+
+table teams {
+  id uuid [pk]
+  name varchar
+  slug varchar [unique]
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+table roles {
+  id uuid [pk]
+  name varchar [unique]
+  permissions json
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+table team_memberships {
+  id uuid [pk]
+  team_id uuid [ref: > teams.id]
+  user_id uuid [ref: > users.id]
+  role_id uuid [ref: > roles.id]
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (team_id, user_id) [unique]
+  }
+}
+
+table hosting_adapters {
+  id uuid [pk]
+  user_id uuid [ref: > users.id]
+  global boolean [default: false]
+  endpoint varchar [null]
+  unlink_code varchar [null]
+  api varchar [null]
+  name varchar [null]
+  server_nick_name varchar [null]
+  default_region varchar [null]
+  default_size varchar [null]
+  can_reboot boolean [null]
+  can_rename boolean [null]
+  internal_iface varchar [null]
+  external_iface varchar [null]
+  ssh_user varchar [null]
+  ssh_auth_method varchar [null]
+  ssh_key_method varchar [null]
+  bootstrap_script varchar [null]
+  instructions text [null]
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+table team_adapters {
+  id uuid [pk]
+  team_id uuid [ref: > teams.id]
+  hosting_adapter_id uuid [ref: > hosting_adapters.id]
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (team_id, hosting_adapter_id) [unique]
+  }
+}
+
+table hosting_credential_fields {
+  id uuid [pk]
+  hosting_adapter_id uuid [ref: > hosting_adapters.id]
+  key varchar
+  label varchar
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (hosting_adapter_id, key) [unique]
+  }
+}
+
+table hosting_regions {
+  id uuid [pk]
+  hosting_adapter_id uuid [ref: > hosting_adapters.id]
+  region varchar
+  name varchar
+  active boolean [default: true]
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (hosting_adapter_id, region) [unique]
+  }
+}
+
+table hosting_plans {
+  id uuid [pk]
+  hosting_region_id uuid [ref: > hosting_regions.id]
+  plan varchar
+  name varchar
+  active boolean [default: true]
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (hosting_region_id, plan) [unique]
+  }
+}
+
+table hosting_specs {
+  id uuid [pk]
+  hosting_plan_id uuid [ref: > hosting_plans.id]
+  spec varchar
+  ram integer
+  cpu integer
+  disk integer
+  transfer integer
+  dollars_per_hr decimal
+  dollars_per_mo decimal
+  active boolean [default: true]
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (hosting_plan_id, spec) [unique]
+  }
+}
+
+table hosting_accounts {
+  id uuid [pk]
+  user_id uuid [null, ref: > users.id]
+  team_id uuid [null, ref: > teams.id]
+  hosting_adapter_id uuid [ref: > hosting_adapters.id]
+  name varchar
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (user_id, team_id, name) [unique]
+  }
+}
+
+table hosting_account_credentials {
+  id uuid [pk]
+  hosting_account_id uuid [ref: > hosting_accounts.id]
+  hosting_credential_field_id uud [ref: > hosting_credential_fields.id]
+  value varchar
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (hosting_account_id, hosting_credential_field_id) [unique]
+  }
+}
+
+table apps {
+  id uuid [pk]
+  user_id uuid [null, ref: > users.id]
+  team_id uuid [null, ref: > teams.id]
+  name varchar
+  timezone varchar
+  state varchar
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (user_id, team_id, name) [unique]
+  }
+}
+
+table instances {
+  id uuid [pk]
+  app_id uuid [ref: > apps.id]
+  name varchar [default: 'default']
+  auto_reconfigure boolean [default: false]
+  keep_deploys integer [default: 2]
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (app_id, name) [unique]
+  }
+}
+
+table instance_access {
+  id uuid [pk]
+  instance_id uuid [ref: > instances.id]
+  user_id uuid [ref: > users.id]
+  role_id uuid [ref: > roles.id]
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (instance_id, user_id) [unique]
+  }
+}
+
+table servers {
+  id uuid [pk]
+  instance_id uuid [ref: > instances.id]
+  hosting_account_id uuid [ref: > hosting_accounts.id]
+  specs_id uuid [ref: > hosting_specs.id]
+  server varchar
+  status varchar
+  name varchar
+  external_ip varchar
+  internal_ip varchar
+  token varchar
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (instance_id, server) [unique]
+  }
+}
+
+table services {
+  id uuid [pk]
+  instance_id uuid [ref: > instances.id]
+  uid varchar
+  name varchar
+  slug varchar
+  url varchar
+  token varchar
+  mode varchar
+  ip varchar
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (instance_id, uid) [unique]
+  }
+}
+
+table components {
+  id uuid [pk]
+  instance_id uuid [null, ref: > instances.id]
+  service_id uuid [null, ref: > services.id]
+  name varchar
+  category varchar
+  uid varchar
+  current_generation integer
+  deploy_strategy varchar [default: 'inline']
+  repair_strategy varchar [default: 'inline']
+  behaviors json
+  port integer
+  horizontal boolean
+  redundant boolean
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (instance_id, service_id, name) [unique]
+  }
+}
+
+table component_generations {
+  id uuid [pk]
+  component_id uuid [null, ref: > components.id]
+  image varchar
+  counter integer
+  state varchar
+  pulse varchar
+  network varchar
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (component_id, counter) [unique]
+  }
+}
+
+table component_servers {
+  id uuid [pk]
+  generation_id uuid [ref: > component_generations.id]
+  server_id uuid [ref: > servers.id]
+  instance_counter integer [default: 1]
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (generation_id, server_id) [unique]
+  }
+}
+
+table deploys {
+  id uuid [pk]
+  instance_id uuid [ref: > instances.id]
+  user_id uuid [ref: > users.id]
+  commit_message text
+  boxfile_content text
+  build_id varchar
+  log longtext
+  success boolean [default: true]
+  available boolean [default: true]
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+table scales {
+  id uuid [pk]
+  instance_id uuid [ref: > instances.id]
+  user_id uuid [ref: > users.id]
+  log longtext
+  type varchar [note: "vertical, horizontal, or migration"]
+  success boolean [default: true]
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+table evars {
+  id uuid [pk]
+  instance_id uuid [ref: > instances.id]
+  title varchar
+  value varchar
+  internal boolean [default: false]
+  component_id uuid [null, ref: > components.id]
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (instance_id, title) [unique]
+  }
+}
+
+table keys {
+  id uuid [pk]
+  instance_id uuid [ref: > instances.id]
+  hosting_id varchar
+  title varchar
+  public varchar
+  private text
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+table certs {
+  id uuid [pk]
+  instance_id uuid [ref: > instances.id]
+  domain varchar
+  email varchar
+  organization varchar
+  department varchar
+  city varchar
+  state varchar
+  country varchar
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+table cert_bundles {
+  id uuid [pk]
+  cert_id uuid [ref: > certs.id]
+  type varchar
+  key text [null]
+  challenge json [null]
+  csr text [null]
+  authority text [null]
+  cert text [null]
+  active boolean [default: false]
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+table backup_configs {
+  id uuid [pk]
+  component_id uuid [ref: > components.id]
+  schedule varchar
+  warehouse boolean [default: true]
+  minio boolean [default: false]
+  s3 boolean [default: false]
+  digitalocean boolean [default: false]
+  googlecloud boolean [default: false]
+  glacier boolean [default: false]
+  keep integer [default: 2]
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+table log_drains {
+  id uuid [pk]
+  instance_id uuid [ref: > instances.id]
+  type varchar
+  endpoint varchar
+  identifier varchar
+  key varchar [null]
+  secret varchar [null]
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (instance_id, type) [unique]
+  }
+}
+
+table alert_settings {
+  id uuid [pk]
+  instance_id uuid [ref: > instances.id]
+  tags json
+  metric varchar
+  threshold varchar
+  duration varchar
+  level varchar
+  endpoint varchar
+  inserted_at timestamp
+  updated_at timestamp
+}

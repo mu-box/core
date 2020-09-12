@@ -1,0 +1,31 @@
+- user chooses what to move, what size the new server(s) will be, and how many to create
+- order new server(s)
+    - contact provider (via adapter) to order the desired server
+    - poll provider until it reports server is ready
+    - use SSH to connect to the new server and run the bootstrap script
+- if moving components include code components
+    - setup new code components
+        - instruct agent to install image for code components
+        - instruct agent to create containers for code components
+        - configure code components
+        - load /data and /app into code components from warehouse archives
+        - start code components
+    - update services and routes in Portal, as well as any additional evars
+    - destroy old code components
+        - stop code components
+        - instruct agent to remove containers for code components
+- if moving components include data components
+    - setup new data components
+        - instruct agent to install images for data components
+        - instruct agent to create containers for data components
+        - configure data components
+    - perform initial migration
+    - stop old data components
+    - perform final migration
+    - start new data components
+    - update evars on all code components
+    - (if determined to be necessary) restart all code components
+    - destroy old data components
+        - instruct agent to remove containers for data components
+- cancel old server(s)
+    - contact provider (via adapter) to cancel the desired server

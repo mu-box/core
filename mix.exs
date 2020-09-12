@@ -50,6 +50,7 @@ defmodule App.MixProject do
       # App deps
       {:libcluster, "~> 3.1"},                # automatic clustering suport
       # Auth - First factor
+      {:argon2_elixir, "~> 2.3"},
       {:pow, "~> 1.0.13"},                    # User management
       {:mint, "~> 0.1.0"},                    # HTTP lib
       {:castore, "~> 0.1.0"},                 # SSL support for mint

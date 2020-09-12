@@ -115,7 +115,7 @@ paths:
           type: string
         description: The type of Drain to operate on
         required: true
-    put: 
+    put:
       summary: Replace a Drain
       requestBody:
         content:
@@ -131,7 +131,7 @@ paths:
                 type: string
                 example: |
                   success!
-    delete: 
+    delete:
       summary: Remove a Drain
       responses:
         200:

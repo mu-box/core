@@ -15,7 +15,7 @@
             <%= if @current_user do %>
               <li>
                 <!-- <img src="<%= #@current_user.avatar %>" class="img-circle" alt="Logged in as <%= #@current_user.name %>" /> -->
-                <span><%= link @current_user.email, to: Routes.pow_registration_path(@conn, :edit) %></span>
+                <span><%= link @current_user.username, to: Routes.pow_registration_path(@conn, :edit) %></span>
               </li>
               <li>
                 <span><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></span>

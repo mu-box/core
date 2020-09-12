@@ -11,6 +11,10 @@
   <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset) %>
   <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
 
+  <%= label f, :email %>
+  <%= text_input f, :email %>
+  <%= error_tag f, :email %>
+
   <%= if @changeset.data.unconfirmed_email do %>
   <div>
     <p>Click the link in the confirmation email to change your email to <%= @changeset.data.unconfirmed_email %></span>.</p>
@@ -25,9 +29,9 @@
   <%= password_input f, :password %>
   <%= error_tag f, :password %>
 
-  <%= label f, :confirm_password %>
-  <%= password_input f, :confirm_password %>
-  <%= error_tag f, :confirm_password %>
+  <%= label f, :password_confirmation %>
+  <%= password_input f, :password_confirmation %>
+  <%= error_tag f, :password_confirmation %>
 
   <div>
     <%= submit "Update" %>

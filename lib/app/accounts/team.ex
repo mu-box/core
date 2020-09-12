@@ -4,6 +4,7 @@ defmodule App.Accounts.Team do
 
   schema "teams" do
     field :name, :string
+    field :slug, :string
 
     has_many :memberships, App.Accounts.TeamMembership
     has_many :users, through: [:memberships, :user]
@@ -14,7 +15,7 @@ defmodule App.Accounts.Team do
   @doc false
   def changeset(team, attrs) do
     team
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :slug])
+    |> validate_required([:name, :slug])
   end
 end

@@ -5,21 +5,43 @@
 <section>
   <h2>Superusers</h2>
   <table>
-    <%= for user <- @supers do %>
+    <thead>
       <tr>
-        <td><%= user.email %> <%= if user.email_confirmed_at == nil, do: "(unconfirmed)" %></td>
+        <th>Username</th>
+        <th>Email Address</th>
+        <th>Joined</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <%= for user <- @supers do %>
+        <tr>
+          <td><%= user.username %></td>
+          <td><%= user.email %> <%= if user.email_confirmed_at == nil, do: "(unconfirmed)" %></td>
+          <td><%= user.inserted_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 </section>
 
 <section>
   <h2>Normal Users</h2>
   <table>
-    <%= for user <- @users do %>
+    <thead>
       <tr>
-        <td><%= user.email %> <%= if user.email_confirmed_at == nil, do: "(unconfirmed)" %></td>
+        <th>Username</th>
+        <th>Email Address</th>
+        <th>Joined</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <%= for user <- @users do %>
+        <tr>
+          <td><%= user.username %></td>
+          <td><%= user.email %> <%= if user.email_confirmed_at == nil, do: "(unconfirmed)" %></td>
+          <td><%= user.inserted_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 </section>

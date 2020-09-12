@@ -77,9 +77,7 @@ paths:
                     type: string
                     example: MDAwMDAwMDAwMDAwMDA
                   id:
-                    description: the UUID of the user
-                    type: string
-                    example: 00000000-0000-0000-0000-000000000000
+                    $ref: '#/components/schemas/Uuid'
       tags:
         - user
   /users/{slug}/auth_token:
@@ -117,9 +115,7 @@ paths:
                     type: string
                     example: MDAwMDAwMDAwMDAwMDA
                   id:
-                    description: the UUID of the user
-                    type: string
-                    example: 00000000-0000-0000-0000-000000000000
+                    $ref: '#/components/schemas/Uuid'
       tags:
         - user
   /users/{anything}:
@@ -975,6 +971,130 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/App'
+  /apps/{app}/internal_monitor:
+    get:
+      operationId: monitorApp
+      summary: app data for external monitoring service
+      parameters:
+        - $ref: '#/components/parameters/app'
+        - $ref: '#/components/parameters/team'
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    $ref: '#/components/schemas/Uuid'
+                  name:
+                    type: string
+                    example: my-cool-app
+                  state:
+                    type: string
+                    example: active
+                  dashboard_url:
+                    type: string
+                    example: 'http://dashboard.nanobox.io/apps/f76a11e5-ab8c-4f3f-8602-4b267353c17d'
+                  platform:
+                    type: object
+                    properties:
+                      id:
+                        $ref: '#/components/schemas/Uuid'
+                      region:
+                        type: string
+                        example: sfo2
+                      vip:
+                        type: string
+                        example: 1.2.3.4
+                      state:
+                        type: string
+                        example: active
+                      hosts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              $ref: '#/components/schemas/Uuid'
+                            state:
+                              type: string
+                              example: active
+                            status:
+                              type: string
+                              example: online
+                            name:
+                              type: string
+                              example: do.1.1
+                            external_ip:
+                              type: string
+                              example: 1.2.3.4
+                            internal_ip:
+                              type: string
+                              example: 5.6.7.8
+                            vip:
+                              type: string
+                              example: 192.168.0.3
+                            token:
+                              type: string
+                              example: o4HWwj9mfONL86teG1PdZMJDT3FKqcnCp7vlbIr52EsBaUuRxh
+                            server_name:
+                              type: string
+                              example: nanobox-do.1.1
+                            size_id:
+                              type: string
+                              example: 512mb
+                      services:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              $ref: '#/components/schemas/Uuid'
+                            uid:
+                              type: string
+                              example: monitor1
+                            name:
+                              type: string
+                              example: monitor
+                            token:
+                              type: string
+                              example: o4HWwj9mfONL86teG1PdZMJDT3FKqcnCp7vlbIr52EsBaUuRxh
+                            url:
+                              type: string
+                              example: 1.2.3.4
+                            port:
+                              type: string
+                              example: 1234
+                            ip:
+                              type: string
+                              example: 1.2.3.4
+                      sequences_errored:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              $ref: '#/components/schemas/Uuid'
+                            state:
+                              type: string
+                              example: processing
+                            status:
+                              type: string
+                              example: errored
+                            handle:
+                              type: string
+                              example: app.activate
+                            title:
+                              type: string
+                              example: App Activate
+                            current_task:
+                              type: string
+                              example: activate_platform
+                            locked:
+                              type: boolean
+                              example: false
   /apps/{app}/components:
     get:
       operationId: listComponents
@@ -1006,8 +1126,7 @@ paths:
           required: true
           description: the component's UUID
           schema:
-            type: string
-            example: 00000000-0000-0000-0000-000000000000
+            $ref: '#/components/schemas/Uuid'
       responses:
         '200':
           description: success
@@ -1078,8 +1197,7 @@ paths:
           required: true
           description: the deploy's UUID
           schema:
-            type: string
-            example: 00000000-0000-0000-0000-000000000000
+            $ref: '#/components/schemas/Uuid'
       responses:
         '200':
           description: success
@@ -1147,8 +1265,7 @@ paths:
           required: true
           description: the evar's UUID
           schema:
-            type: string
-            example: 00000000-0000-0000-0000-000000000000
+            $ref: '#/components/schemas/Uuid'
       responses:
         '200':
           description: success
@@ -1169,8 +1286,7 @@ paths:
           required: true
           description: the evar's UUID
           schema:
-            type: string
-            example: 00000000-0000-0000-0000-000000000000
+            $ref: '#/components/schemas/Uuid'
       responses:
         '200':
           description: success
@@ -1261,8 +1377,7 @@ paths:
           required: true
           description: the component's UUID
           schema:
-            type: string
-            example: 00000000-0000-0000-0000-000000000000
+            $ref: '#/components/schemas/Uuid'
       responses:
         '200':
           description: success
@@ -1344,12 +1459,8 @@ components:
   securitySchemes:
     AuthToken:
       type: apiKey
-      in: query
-      name: auth_token
-    CallbackToken:
-      type: apiKey
       in: header
-      name: X-Callback-Token
+      name: X-Auth-Token
   parameters:
     app:
       name: app
@@ -1370,8 +1481,7 @@ components:
     App:
       properties:
         id:
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
+          $ref: '#/components/schemas/Uuid'
         name:
           type: string
           example: example-app
@@ -1388,8 +1498,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
+          $ref: '#/components/schemas/Uuid'
         name:
           type: string
           example: data.db
@@ -1435,8 +1544,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
+          $ref: '#/components/schemas/Uuid'
         commit_message:
           type: string
           example: ""
@@ -1447,17 +1555,14 @@ components:
           type: string
           example: MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD
         author_id:
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
+          $ref: '#/components/schemas/Uuid'
         app_id:
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
+          $ref: '#/components/schemas/Uuid'
     Evar:
       type: object
       properties:
         id:
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
+          $ref: '#/components/schemas/Uuid'
         title:
           type: string
           example: EXAMPLE_EVAR
@@ -1474,8 +1579,7 @@ components:
       type: object
       properties:
         id:
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
+          $ref: '#/components/schemas/Uuid'
         uid:
           type: string
           example: logger1
@@ -1498,10 +1602,10 @@ components:
           type: string
           example: 0.0.0.0
     User:
+      type: object
       properties:
         id:
-          type: string
-          example: 00000000-0000-0000-0000-000000000000
+          $ref: '#/components/schemas/Uuid'
         username:
           type: string
           example: johndoe
@@ -1512,8 +1616,12 @@ components:
           type: string
           example: MDAwMDAwMDAwMDAwMDA
         unconfirmed_email:
-          type: boolean
+          type: string
           example: null
+    Uuid:
+      type: string
+      format: uuid
+      example: 00000000-0000-0000-0000-000000000000
 security:
   - AuthToken: []
 tags:
