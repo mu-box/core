@@ -20,6 +20,8 @@ defmodule App.Accounts.User do
 
     has_many :memberships, App.Accounts.TeamMembership
     has_many :teams, through: [:memberships, :team]
+    has_many :hosting_adapters, App.Hosting.Adapter
+    has_many :hosting_accounts, App.Hosting.Account
 
     timestamps()
   end
