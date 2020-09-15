@@ -9,3 +9,18 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias App.Accounts
+
+roles = [
+  %{
+    name: "Owner",
+    permissions: %{
+      # TODO
+    }
+  },
+]
+
+Enum.each(roles, fn(data) ->
+  Accounts.create_role!(data)
+end)

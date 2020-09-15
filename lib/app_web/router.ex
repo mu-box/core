@@ -27,6 +27,15 @@ defmodule AppWeb.Router do
     plug :is_superuser
   end
 
+  pipeline :check_totp do
+    plug AppWeb.TOTPPlug
+  end
+
+  pipeline :require_totp do
+    plug AppWeb.Require2FAForUserPlug
+    plug AppWeb.TOTPPlug
+  end
+
   defp is_superuser(%{assigns: %{current_user: current_user}} = conn, _) do
     case current_user do
       nil  -> redir_and_halt(conn, to: AppWeb.PowRoutes.user_not_authenticated_path(conn))
@@ -48,8 +57,15 @@ defmodule AppWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/" do
+  scope "/", AppWeb do
     pipe_through :browser
+
+    resources "/register-totp", TOTPRegistrationController, only: [:new, :create, :delete]
+    resources "/totp-phase", TOTPVerificationController, only: [:new, :create]
+  end
+
+  scope "/" do
+    pipe_through [:browser, :check_totp]
 
     pow_routes()
     pow_extension_routes()
@@ -64,14 +80,14 @@ defmodule AppWeb.Router do
   end
 
   scope "/", AppWeb do
-    pipe_through [:browser, :protected]
+    pipe_through [:browser, :protected, :check_totp]
 
     # Add protected routes here
     get "/dashboard", DashController, :index
   end
 
   scope "/", AppWeb do
-    pipe_through [:browser, :superuser]
+    pipe_through [:browser, :superuser, :require_totp]
 
     # Add superuser routes here
     get "/super", SuperController, :index

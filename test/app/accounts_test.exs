@@ -6,9 +6,18 @@ defmodule App.AccountsTest do
   describe "teams" do
     alias App.Accounts.Team
 
-    @valid_attrs %{}
-    @update_attrs %{}
-    @invalid_attrs %{}
+    @valid_attrs %{
+      name: "A Team",
+      slug: "a-team"
+    }
+    @update_attrs %{
+      name: "A Different Team",
+      slug: "a-different-team"
+    }
+    @invalid_attrs %{
+      name: nil,
+      slug: nil
+    }
 
     def team_fixture(attrs \\ %{}) do
       {:ok, team} =

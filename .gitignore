@@ -34,6 +34,7 @@ node_modules/
 /priv/static/
 
 evars.local
+.env
 
 .elixir_ls/
 

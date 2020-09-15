@@ -17,7 +17,7 @@
 
   <%= if @changeset.data.unconfirmed_email do %>
   <div>
-    <p>Click the link in the confirmation email to change your email to <%= @changeset.data.unconfirmed_email %></span>.</p>
+    <p>Click the link in the confirmation email to change your email to <%= @changeset.data.unconfirmed_email %>.</p>
   </div>
   <% end %>
 
@@ -36,6 +36,16 @@
   <div>
     <%= submit "Update" %>
   </div>
+
+  <%= if @changeset.data.totp_secret do %>
+  <div>
+    <p>Two-factor auth is enabled. <%= link("Disable it now", to: Routes.totp_registration_path(@conn, :delete, "me"), method: :delete) %>.</p>
+  </div>
+  <% else %>
+  <div>
+    <p>Two-factor auth not enabled. <%= link("Enable it now", to: Routes.totp_registration_path(@conn, :new)) %>.</p>
+  </div>
+  <% end %>
 
   <ul>
     <%= for link <- PowAssent.Phoenix.ViewHelpers.provider_links(@conn), do: content_tag(:li, link) %>

@@ -6,9 +6,63 @@ defmodule App.HostingTest do
   describe "adapters" do
     alias App.Hosting.Adapter
 
-    @valid_attrs %{api: "some api", bootstrap_script: "some bootstrap_script", can_reboot: true, can_rename: true, default_region: "some default_region", default_size: "some default_size", endpoint: "some endpoint", external_iface: "some external_iface", global: true, instructions: "some instructions", internal_iface: "some internal_iface", name: "some name", server_nick_name: "some server_nick_name", ssh_auth_method: "some ssh_auth_method", ssh_key_method: "some ssh_key_method", ssh_user: "some ssh_user", unlink_code: "some unlink_code"}
-    @update_attrs %{api: "some updated api", bootstrap_script: "some updated bootstrap_script", can_reboot: false, can_rename: false, default_region: "some updated default_region", default_size: "some updated default_size", endpoint: "some updated endpoint", external_iface: "some updated external_iface", global: false, instructions: "some updated instructions", internal_iface: "some updated internal_iface", name: "some updated name", server_nick_name: "some updated server_nick_name", ssh_auth_method: "some updated ssh_auth_method", ssh_key_method: "some updated ssh_key_method", ssh_user: "some updated ssh_user", unlink_code: "some updated unlink_code"}
-    @invalid_attrs %{api: nil, bootstrap_script: nil, can_reboot: nil, can_rename: nil, default_region: nil, default_size: nil, endpoint: nil, external_iface: nil, global: nil, instructions: nil, internal_iface: nil, name: nil, server_nick_name: nil, ssh_auth_method: nil, ssh_key_method: nil, ssh_user: nil, unlink_code: nil}
+    @valid_attrs %{
+      api: "some api",
+      bootstrap_script: "some bootstrap_script",
+      can_reboot: true,
+      can_rename: true,
+      default_region: "some default_region",
+      default_size: "some default_size",
+      endpoint: "some endpoint",
+      external_iface: "some external_iface",
+      global: true,
+      instructions: "some instructions",
+      internal_iface: "some internal_iface",
+      name: "some name",
+      server_nick_name: "some server_nick_name",
+      ssh_auth_method: "some ssh_auth_method",
+      ssh_key_method: "some ssh_key_method",
+      ssh_user: "some ssh_user",
+      unlink_code: "some unlink_code"
+    }
+    @update_attrs %{
+      api: "some updated api",
+      bootstrap_script: "some updated bootstrap_script",
+      can_reboot: false,
+      can_rename: false,
+      default_region: "some updated default_region",
+      default_size: "some updated default_size",
+      endpoint: "some updated endpoint",
+      external_iface: "some updated external_iface",
+      global: false,
+      instructions: "some updated instructions",
+      internal_iface: "some updated internal_iface",
+      name: "some updated name",
+      server_nick_name: "some updated server_nick_name",
+      ssh_auth_method: "some updated ssh_auth_method",
+      ssh_key_method: "some updated ssh_key_method",
+      ssh_user: "some updated ssh_user",
+      unlink_code: "some updated unlink_code"
+    }
+    @invalid_attrs %{
+      api: nil,
+      bootstrap_script: nil,
+      can_reboot: nil,
+      can_rename: nil,
+      default_region: nil,
+      default_size: nil,
+      endpoint: nil,
+      external_iface: nil,
+      global: nil,
+      instructions: nil,
+      internal_iface: nil,
+      name: nil,
+      server_nick_name: nil,
+      ssh_auth_method: nil,
+      ssh_key_method: nil,
+      ssh_user: nil,
+      unlink_code: nil
+    }
 
     def adapter_fixture(attrs \\ %{}) do
       {:ok, adapter} =
@@ -91,63 +145,6 @@ defmodule App.HostingTest do
     test "change_adapter/1 returns a adapter changeset" do
       adapter = adapter_fixture()
       assert %Ecto.Changeset{} = Hosting.change_adapter(adapter)
-    end
-  end
-
-  describe "team_adapters" do
-    alias App.Hosting.TeamAdapter
-
-    @valid_attrs %{}
-    @update_attrs %{}
-    @invalid_attrs %{}
-
-    def team_adapter_fixture(attrs \\ %{}) do
-      {:ok, team_adapter} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Hosting.create_team_adapter()
-
-      team_adapter
-    end
-
-    test "list_team_adapters/0 returns all team_adapters" do
-      team_adapter = team_adapter_fixture()
-      assert Hosting.list_team_adapters() == [team_adapter]
-    end
-
-    test "get_team_adapter!/1 returns the team_adapter with given id" do
-      team_adapter = team_adapter_fixture()
-      assert Hosting.get_team_adapter!(team_adapter.id) == team_adapter
-    end
-
-    test "create_team_adapter/1 with valid data creates a team_adapter" do
-      assert {:ok, %TeamAdapter{} = team_adapter} = Hosting.create_team_adapter(@valid_attrs)
-    end
-
-    test "create_team_adapter/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Hosting.create_team_adapter(@invalid_attrs)
-    end
-
-    test "update_team_adapter/2 with valid data updates the team_adapter" do
-      team_adapter = team_adapter_fixture()
-      assert {:ok, %TeamAdapter{} = team_adapter} = Hosting.update_team_adapter(team_adapter, @update_attrs)
-    end
-
-    test "update_team_adapter/2 with invalid data returns error changeset" do
-      team_adapter = team_adapter_fixture()
-      assert {:error, %Ecto.Changeset{}} = Hosting.update_team_adapter(team_adapter, @invalid_attrs)
-      assert team_adapter == Hosting.get_team_adapter!(team_adapter.id)
-    end
-
-    test "delete_team_adapter/1 deletes the team_adapter" do
-      team_adapter = team_adapter_fixture()
-      assert {:ok, %TeamAdapter{}} = Hosting.delete_team_adapter(team_adapter)
-      assert_raise Ecto.NoResultsError, fn -> Hosting.get_team_adapter!(team_adapter.id) end
-    end
-
-    test "change_team_adapter/1 returns a team_adapter changeset" do
-      team_adapter = team_adapter_fixture()
-      assert %Ecto.Changeset{} = Hosting.change_team_adapter(team_adapter)
     end
   end
 end

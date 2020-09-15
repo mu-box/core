@@ -7,6 +7,21 @@
 # General application configuration
 use Mix.Config
 
+# run shell command to "source .env" to load the environment variables.
+try do                                     # wrap in "try do"
+  File.stream!("./.env")                   # in case .env file does not exist.
+    |> Stream.map(&String.trim_trailing/1) # remove excess whitespace
+    |> Enum.each(fn line -> line           # loop through each line
+      |> String.replace("export ", "")     # remove "export" from line
+      |> String.split("=", parts: 2)       # split on *first* "=" (equals sign)
+      |> Enum.reduce(fn(value, key) ->     # stackoverflow.com/q/33055834/1148249
+        System.put_env(key, value)         # set each environment variable
+      end)
+    end)
+rescue
+  _ -> IO.puts "no .env file found!"
+end
+
 config :app,
   ecto_repos: [App.Repo]
 
@@ -17,7 +32,7 @@ config :app, App.Repo,
 config :app, AppWeb.Endpoint,
   url: [host: "microbox.cloud", port: 80],
   http: [port: 8080],
-  secret_key_base: "aWXVc7dM7K8NbZmZNb6uAOIXGvjkqyvuBZPvJ3pqzHK5pXrdF8U1Kv9vdSUycovZ",
+  secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: AppWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: App.PubSub, adapter: Phoenix.PubSub.PG2]
 
@@ -28,6 +43,16 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+# Set the Encryption Keys as an "Application Variable" accessible in aes.ex
+config :app, Encryption.AES,
+  keys: System.get_env("ENCRYPTION_KEYS") # get the ENCRYPTION_KEYS env variable
+    |> String.replace("'", "")  # remove single-quotes around key list in .env
+    |> String.split(",")        # split the CSV list of keys
+    |> Enum.map(fn key -> :base64.decode(key) end) # decode the key.
+
+config :argon2_elixir,
+  argon2_type: 2
 
 config :app, :pow,
   user: App.Accounts.User,

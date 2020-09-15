@@ -29,7 +29,7 @@ in getting the project up and running.
       - [x] Registration
       - [x] Login
       - [x] Social Login
-      - [ ] _2FA_ \*
+      - [x] _2FA_ \*
       - [ ] Settings Management
          - [x] _Connected Social Accounts_ \*
          - [ ] Hosting Accounts ([#4][])
