@@ -394,4 +394,43 @@ defmodule App.Accounts do
   def change_role(%Role{} = role) do
     Role.changeset(role, %{})
   end
+
+  def can_access_team(current_user, team, permission, want) do
+    user = get_user!(current_user.id)
+    case user.superuser do
+      true -> true
+      false ->
+        team_id = team.id
+        case user.memberships do
+          [%TeamMembership{team_id: ^team_id} = membership] ->
+            membership
+            |> Repo.preload([:role])
+            |> case do
+              %TeamMembership{role: %Role{permissions: %{^permission => have}}} ->
+                case want do
+                  "admin" ->
+                    case have do
+                      "admin" -> true
+                      _else -> false
+                    end
+                  "write" ->
+                    case have do
+                      "admin" -> true
+                      "write" -> true
+                      _else -> false
+                    end
+                  "read" ->
+                    case have do
+                      "admin" -> true
+                      "write" -> true
+                      "read" -> true
+                      _else -> false
+                    end
+                end
+              _else -> false
+            end
+          _else -> false
+        end
+    end
+  end
 end
