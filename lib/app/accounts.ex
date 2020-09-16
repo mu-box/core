@@ -400,9 +400,14 @@ defmodule App.Accounts do
     case user.superuser do
       true -> true
       false ->
-        team_id = team.id
-        case user.memberships do
-          [%TeamMembership{team_id: ^team_id} = membership] ->
+        case Enum.find(user.memberships, nil, fn (membership) ->
+          team_id = team.id
+          case membership do
+            %{team_id: ^team_id} -> true
+            _else -> false
+          end
+        end) do
+          %TeamMembership{} = membership ->
             membership
             |> Repo.preload([:role])
             |> case do
