@@ -426,6 +426,8 @@ defmodule App.Accounts do
                       "read" -> true
                       _else -> false
                     end
+                  "any" -> true
+                  _else -> false
                 end
               _else -> false
             end

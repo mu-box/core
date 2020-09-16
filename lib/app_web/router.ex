@@ -89,11 +89,11 @@ defmodule AppWeb.Router do
     end
   end
 
-  scope "/", AppWeb do
+  scope "/super", AppWeb do
     pipe_through [:browser, :superuser, :require_totp]
 
     # Add superuser routes here
-    get "/super", SuperController, :index
+    get "/", SuperController, :index
   end
 
   # Other scopes may use custom stacks.

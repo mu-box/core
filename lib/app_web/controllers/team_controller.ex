@@ -35,7 +35,14 @@ defmodule AppWeb.TeamController do
 
   def show(conn, %{"id" => id}) do
     team = Accounts.get_team!(id) |> App.Repo.preload([:memberships])
-    render(conn, "show.html", team: team)
+    case App.Accounts.can_access_team(Pow.Plug.current_user(conn), team, "scope", "any") do
+      true ->
+        render(conn, "show.html", team: team)
+      _else ->
+        conn
+        |> put_flash(:info, "That page is not available.")
+        |> redirect(to: Routes.dash_path(conn, :index))
+    end
   end
 
   def edit(conn, %{"id" => id}) do

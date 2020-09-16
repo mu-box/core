@@ -59,7 +59,7 @@
     <tbody>
       <%= for team <- @teams |> App.Repo.preload([:memberships]) do %>
         <tr>
-          <td><%= team.name %></td>
+          <td><%= link team.name, to: Routes.team_path(@conn, :show, team.id) %></td>
           <td><%= length(team.memberships) %></td>
           <td><%= team.inserted_at %></td>
         </tr>

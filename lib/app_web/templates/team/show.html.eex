@@ -13,16 +13,26 @@
       <%= for membership <- @team.memberships |> App.Repo.preload([:user, :role]) do %>
         <li>
           <%= membership.user.username %>
-          (<%= link membership.role.name, to: Routes.team_membership_path(@conn, :edit, @team, membership) %>)
+          (
+            <%= if App.Accounts.can_access_team(@current_user, @team, "scope", "admin") do %>
+              <%= link membership.role.name, to: Routes.team_membership_path(@conn, :edit, @team, membership) %>
+            <%= else %>
+              <%= membership.role.name %>
+            <% end %>
+          )
         </li>
       <% end %>
-      <li>
-        <%= link "Add A Member", to: Routes.team_membership_path(@conn, :new, @team) %>
-      </li>
+      <%= if App.Accounts.can_access_team(@current_user, @team, "scope", "admin") do %>
+        <li>
+          <%= link "Add A Member", to: Routes.team_membership_path(@conn, :new, @team) %>
+        </li>
+      <% end %>
     </ul>
   </li>
 </ul>
 
-<span><%= link "Edit", to: Routes.team_path(@conn, :edit, @team) %></span>
-<span><%= link "Delete", to: Routes.team_path(@conn, :delete, @team), method: :delete %></span>
+<%= if App.Accounts.can_access_team(@current_user, @team, "scope", "admin") do %>
+  <span><%= link "Edit", to: Routes.team_path(@conn, :edit, @team) %></span>
+  <span><%= link "Delete", to: Routes.team_path(@conn, :delete, @team), method: :delete %></span>
+<% end %>
 <span><%= link "Back", to: Routes.dash_path(@conn, :index) %></span>
