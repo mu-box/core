@@ -3,7 +3,8 @@ table users {
   username varchar [null, unique]
   email varchar
   totp_secret varchar [null]
-  last_totp varchar
+  last_totp varchar [null]
+  totp_backup json [null]
   password_hash varchar [null]
   email_confirmation_token varchar [null, unique]
   email_confirmed_at timestamp [null]
@@ -13,6 +14,7 @@ table users {
   invited_by_id uuid [null, ref: > users.id]
   superuser boolean [default: false]
   authentication_token varchar
+  braintree_id varchar [null]
   inserted_at timestamp
   updated_at timestamp
 }
@@ -34,6 +36,7 @@ table teams {
   id uuid [pk]
   name varchar
   slug varchar [unique]
+  braintree_id varchar [null]
   inserted_at timestamp
   updated_at timestamp
 }
@@ -431,6 +434,40 @@ table alert_settings {
   duration varchar
   level varchar
   endpoint varchar
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+table plans {
+  type varchar
+  level varchar
+  period varchar
+  amount decimal
+  inserted_at timestamp
+  updated_at timestamp
+
+  indexes {
+    (type, level) [pk]
+  }
+}
+
+table subscriptions {
+  id uuid [pk]
+  user_id uuid [ref: > users.id, null]
+  team_id uuid [ref: > teams.id, null]
+  plan_type varchar
+  plan_level varchar
+  due_on date
+  inserted_at timestamp
+  updated_at timestamp
+}
+
+ref: subscriptions.(plan_type, plan_level) > plans.(type, level)
+
+table payments {
+  id uuid [pk]
+  subscription_id uuid [ref: > subscriptions.id]
+  transaction_id varchar
   inserted_at timestamp
   updated_at timestamp
 }

@@ -12,7 +12,7 @@ defmodule App.Hosting.TeamAdapter do
   @doc false
   def changeset(team_adapter, attrs) do
     team_adapter
-    |> cast(attrs, [])
-    |> validate_required([])
+    |> cast(attrs, [:team_id, :hosting_adapter_id])
+    |> validate_required([:team_id, :hosting_adapter_id])
   end
 end

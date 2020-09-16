@@ -16,11 +16,82 @@ roles = [
   %{
     name: "Owner",
     permissions: %{
-      # TODO
+      scope: :admin,
+      scale: :admin,
+      deploy: :admin,
+      evars: :admin,
+      certs: :admin,
+      billing: :admin,
+    }
+  },
+  %{
+    name: "DevOps",
+    permissions: %{
+      scope: :write,
+      scale: :write,
+      deploy: :write,
+      evars: :admin,
+      certs: :admin,
+      billing: :none,
+    }
+  },
+  %{
+    name: "SysAdmin",
+    permissions: %{
+      scope: :write,
+      scale: :write,
+      deploy: :read,
+      evars: :admin,
+      certs: :admin,
+      billing: :none,
+    }
+  },
+  %{
+    name: "Developer",
+    permissions: %{
+      scope: :read,
+      scale: :read,
+      deploy: :write,
+      evars: :none,
+      certs: :none,
+      billing: :none,
+    }
+  },
+  %{
+    name: "Auditor",
+    permissions: %{
+      scope: :read,
+      scale: :read,
+      deploy: :read,
+      evars: :none,
+      certs: :none,
+      billing: :none,
+    }
+  },
+  %{
+    name: "External",
+    permissions: %{
+      scope: :none,
+      scale: :none,
+      deploy: :none,
+      evars: :none,
+      certs: :none,
+      billing: :none,
+    }
+  },
+  %{
+    name: "Billing",
+    permissions: %{
+      scope: :none,
+      scale: :none,
+      deploy: :none,
+      evars: :none,
+      certs: :none,
+      billing: :admin,
     }
   },
 ]
 
 Enum.each(roles, fn(data) ->
-  Accounts.create_role!(data)
+  Accounts.create_role(data)
 end)

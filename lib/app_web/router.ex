@@ -84,6 +84,9 @@ defmodule AppWeb.Router do
 
     # Add protected routes here
     get "/dashboard", DashController, :index
+    resources "/teams", TeamController, except: [:index] do
+      resources "/roles", MembershipController, except: [:index, :show]
+    end
   end
 
   scope "/", AppWeb do

@@ -16,7 +16,7 @@ defmodule App.Hosting.Plan do
   @doc false
   def changeset(plan, attrs) do
     plan
-    |> cast(attrs, [:plan, :name, :active])
-    |> validate_required([:plan, :name, :active])
+    |> cast(attrs, [:hosting_region_id, :plan, :name, :active])
+    |> validate_required([:hosting_region_id, :plan, :name, :active])
   end
 end

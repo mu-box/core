@@ -18,7 +18,7 @@ defmodule App.Accounts do
 
   """
   def list_users do
-    Repo.all(from u in User, where: u.superuser == false) |> Repo.preload([:hosting_accounts, :hosting_adapters, :teams])
+    Repo.all(from u in User, where: u.superuser == false, preload: [:hosting_accounts, :hosting_adapters, :teams])
   end
 
   @doc """
@@ -31,7 +31,7 @@ defmodule App.Accounts do
 
   """
   def super_users do
-    Repo.all(from u in User, where: u.superuser == true) |> Repo.preload([:hosting_accounts, :hosting_adapters, :teams])
+    Repo.all(from u in User, where: u.superuser == true, preload: [:hosting_accounts, :hosting_adapters, :teams])
   end
 
   @doc """
@@ -49,6 +49,30 @@ defmodule App.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id) |> Repo.preload([:hosting_accounts, :hosting_adapters, :teams])
+
+  @doc """
+  Gets a single user by its name.
+
+  Raises if the User does not exist.
+
+  ## Examples
+
+      iex> get_user_by_name!("danhunsaker")
+      %User{username: "danhunsaker"}
+
+  """
+  def get_user_by_name!(name), do: Repo.get_by!(User, [username: name])
+
+  @doc """
+  Gets a single user by its name.
+
+  ## Examples
+
+      iex> get_user_by_name("danhunsaker")
+      %User{username: "danhunsaker"}
+
+  """
+  def get_user_by_name(name), do: Repo.get_by(User, [username: name])
 
   @doc """
   Deletes a user.
@@ -172,6 +196,99 @@ defmodule App.Accounts do
     Team.changeset(team, %{})
   end
 
+  alias App.Accounts.TeamMembership
+
+  @doc """
+  Returns the list of team_memberships.
+
+  ## Examples
+
+      iex> list_team_memberships()
+      [%TeamMembership{}, ...]
+
+  """
+  def list_team_memberships do
+    Repo.all(TeamMembership)
+  end
+
+  @doc """
+  Gets a single team_membership.
+
+  Raises if the TeamMembership does not exist.
+
+  ## Examples
+
+      iex> get_team_membership!(123)
+      %TeamMembership{}
+
+  """
+  def get_team_membership!(id), do: Repo.get!(TeamMembership, id)
+
+  @doc """
+  Creates a team_membership.
+
+  ## Examples
+
+      iex> create_team_membership(%{field: value})
+      {:ok, %TeamMembership{}}
+
+      iex> create_team_membership(%{field: bad_value})
+      {:error, ...}
+
+  """
+  def create_team_membership(attrs \\ %{}) do
+    %TeamMembership{}
+    |> TeamMembership.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a team_membership.
+
+  ## Examples
+
+      iex> update_team_membership(team_membership, %{field: new_value})
+      {:ok, %TeamMembership{}}
+
+      iex> update_team_membership(team_membership, %{field: bad_value})
+      {:error, ...}
+
+  """
+  def update_team_membership(%TeamMembership{} = team_membership, attrs) do
+    team_membership
+    |> TeamMembership.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a TeamMembership.
+
+  ## Examples
+
+      iex> delete_team_membership(team_membership)
+      {:ok, %TeamMembership{}}
+
+      iex> delete_team_membership(team_membership)
+      {:error, ...}
+
+  """
+  def delete_team_membership(%TeamMembership{} = team_membership) do
+    Repo.delete(team_membership)
+  end
+
+  @doc """
+  Returns a data structure for tracking team_membership changes.
+
+  ## Examples
+
+      iex> change_team_membership(team_membership)
+      %Todo{...}
+
+  """
+  def change_team_membership(%TeamMembership{} = team_membership) do
+    TeamMembership.changeset(team_membership, %{})
+  end
+
   alias App.Accounts.Role
 
   @doc """
@@ -199,6 +316,19 @@ defmodule App.Accounts do
 
   """
   def get_role!(id), do: Repo.get!(Role, id)
+
+  @doc """
+  Gets a single role by its name.
+
+  Raises if the Role does not exist.
+
+  ## Examples
+
+      iex> get_role_by_name!("Owner")
+      %Role{name: "Owner"}
+
+  """
+  def get_role_by_name!(name), do: Repo.get_by!(Role, [name: name])
 
   @doc """
   Creates a role.

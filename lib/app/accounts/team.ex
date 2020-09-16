@@ -16,8 +16,21 @@ defmodule App.Accounts.Team do
 
   @doc false
   def changeset(team, attrs) do
-    team
-    |> cast(attrs, [:name, :slug])
-    |> validate_required([:name, :slug])
+    team = team
+    |> cast(attrs, [:name])
+    |> validate_required([:name])
+
+    if Map.has_key?(team.changes, :name) do
+      team.changes.name
+    else
+      team.data.name
+    end
+    |> case do
+      nil ->
+        team
+      name ->
+        team
+        |> put_change(:slug, Slug.slugify(name))
+    end
   end
 end

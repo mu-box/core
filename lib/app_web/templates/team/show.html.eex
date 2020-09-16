@@ -1,0 +1,28 @@
+<h1>Show Team</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @team.name %>
+  </li>
+
+  <li>
+    <strong>Members:</strong>
+    <ul>
+      <%= for membership <- @team.memberships |> App.Repo.preload([:user, :role]) do %>
+        <li>
+          <%= membership.user.username %>
+          (<%= link membership.role.name, to: Routes.team_membership_path(@conn, :edit, @team, membership) %>)
+        </li>
+      <% end %>
+      <li>
+        <%= link "Add A Member", to: Routes.team_membership_path(@conn, :new, @team) %>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<span><%= link "Edit", to: Routes.team_path(@conn, :edit, @team) %></span>
+<span><%= link "Delete", to: Routes.team_path(@conn, :delete, @team), method: :delete %></span>
+<span><%= link "Back", to: Routes.dash_path(@conn, :index) %></span>

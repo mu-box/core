@@ -19,7 +19,7 @@ defmodule App.Hosting.Spec do
   @doc false
   def changeset(spec, attrs) do
     spec
-    |> cast(attrs, [:spec, :ram, :cpu, :disk, :transfer, :dollars_per_hr, :dollars_per_mo, :active])
-    |> validate_required([:spec, :ram, :cpu, :disk, :transfer, :dollars_per_hr, :dollars_per_mo, :active])
+    |> cast(attrs, [:hosting_plan_id, :spec, :ram, :cpu, :disk, :transfer, :dollars_per_hr, :dollars_per_mo, :active])
+    |> validate_required([:hosting_plan_id, :spec, :ram, :cpu, :disk, :transfer, :dollars_per_hr, :dollars_per_mo, :active])
   end
 end

@@ -16,7 +16,7 @@ defmodule App.Hosting.Region do
   @doc false
   def changeset(region, attrs) do
     region
-    |> cast(attrs, [:region, :name, :active])
-    |> validate_required([:region, :name, :active])
+    |> cast(attrs, [:hosting_adapter_id, :region, :name, :active])
+    |> validate_required([:hosting_adapter_id, :region, :name, :active])
   end
 end

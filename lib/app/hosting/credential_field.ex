@@ -13,7 +13,7 @@ defmodule App.Hosting.CredentialField do
   @doc false
   def changeset(credential_field, attrs) do
     credential_field
-    |> cast(attrs, [:key, :label])
-    |> validate_required([:key, :label])
+    |> cast(attrs, [:hosting_adapter_id, :key, :label])
+    |> validate_required([:hosting_adapter_id, :key, :label])
   end
 end

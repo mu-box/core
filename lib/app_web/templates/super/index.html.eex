@@ -45,3 +45,25 @@
     </tbody>
   </table>
 </section>
+
+<section>
+  <h2>Teams</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Members</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for team <- @teams |> App.Repo.preload([:memberships]) do %>
+        <tr>
+          <td><%= team.name %></td>
+          <td><%= length(team.memberships) %></td>
+          <td><%= team.inserted_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

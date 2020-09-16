@@ -49,6 +49,7 @@ defmodule App.MixProject do
       {:plug_cowboy, "~> 2.0"},
       # App deps
       {:libcluster, "~> 3.1"},                # automatic clustering suport
+      {:slugify, "~> 1.3"},                   # convert names into slugs as needed
       # Auth - First factor
       {:argon2_elixir, "~> 2.3"},
       {:pow, "~> 1.0.13"},                    # User management

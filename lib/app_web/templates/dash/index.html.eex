@@ -1,3 +1,13 @@
 <section class="phx-hero">
   <p>This is your application dashboard.</p>
 </section>
+
+<section>
+  <h2>Teams</h2>
+  <ul>
+    <%= for team <- @current_user.teams do %>
+      <li><%= link team.name, to: Routes.team_path(@conn, :show, team.id) %></li>
+    <% end %>
+    <li><%= link "Create A New Team", to: Routes.team_path(@conn, :new) %></li>
+  </ul>
+</section>

@@ -2,7 +2,7 @@ defmodule App.Accounts.Role do
   use App.Schema
   import Ecto.Changeset
 
-  schema "team_roles" do
+  schema "roles" do
     field :name, :string
     field :permissions, :map
 

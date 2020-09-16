@@ -16,7 +16,7 @@ defmodule App.Hosting.Account do
   @doc false
   def changeset(account, attrs) do
     account
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:user_id, :team_id, :hosting_adapter_id, :name])
+    |> validate_required([:hosting_adapter_id, :name])
   end
 end
