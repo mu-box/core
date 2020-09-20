@@ -13,6 +13,7 @@ defmodule App.Accounts.User do
   schema "users" do
     field :email, :string, null: false
     field :superuser, :boolean, default: false
+    field :authentication_token, :string, null: false, default: ""
     # 2FA support:
     field :totp_secret, EncryptedField
     field :last_totp, :string
@@ -36,6 +37,28 @@ defmodule App.Accounts.User do
     |> validate_required([:email])
   end
 
+  def auth_token_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:authentication_token])
+    |> validate_required([:authentication_token])
+  end
+
+  def add_auth_token(user) do
+    user
+    |> cast(%{}, [])
+    |> put_change(:authentication_token, generate_auth_token())
+  end
+
+  defp generate_auth_token() do
+    token = :crypto.strong_rand_bytes(15)
+    |> Base.url_encode64(padding: false)
+
+    case App.Accounts.get_user_by_auth_token(token) do
+      nil -> token
+      _else -> generate_auth_token()
+    end
+  end
+
   def last_totp_changeset(user, attrs) do
     user
     |> cast(attrs, [:last_totp])
@@ -51,7 +74,6 @@ defmodule App.Accounts.User do
         false -> Argon2.hash_pwd_salt code
       end
     end))
-    |> validate_required([])
   end
 
   def add_totp_secret(user) do
@@ -60,7 +82,7 @@ defmodule App.Accounts.User do
     |> put_change(:totp_secret, Elixir2fa.random_secret())
     |> put_change(:totp_backup,
       Stream.repeatedly(fn -> :rand.uniform(9999999999) end)
-      |> Stream.uniq
+      |> Stream.uniq()
       |> Enum.take(10)
       |> Enum.map(fn num -> num |> Integer.to_string |> String.pad_leading(10, "0") end)
     )

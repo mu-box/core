@@ -75,6 +75,30 @@ defmodule App.Accounts do
   def get_user_by_name(name), do: Repo.get_by(User, [username: name])
 
   @doc """
+  Gets a single user by its auth_token.
+
+  Raises if the User does not exist.
+
+  ## Examples
+
+  iex> get_user_by_auth_token!("MDAwMDAwMDAwMDAwMDA")
+  %User{authentication_token: "MDAwMDAwMDAwMDAwMDA"}
+
+  """
+  def get_user_by_auth_token!(auth_token), do: Repo.get_by!(User, [authentication_token: auth_token])
+
+  @doc """
+  Gets a single user by its auth_token.
+
+  ## Examples
+
+  iex> get_user_by_auth_token("MDAwMDAwMDAwMDAwMDA")
+  %User{authentication_token: "MDAwMDAwMDAwMDAwMDA"}
+
+  """
+  def get_user_by_auth_token(auth_token), do: Repo.get_by(User, [authentication_token: auth_token])
+
+  @doc """
   Deletes a user.
 
   ## Examples
@@ -395,13 +419,16 @@ defmodule App.Accounts do
     Role.changeset(role, %{})
   end
 
-  def can_access_team(current_user, team, permission, want) do
-    user = get_user!(current_user.id)
+  @doc """
+  Returns a boolean indicating whether the user has the requested team permission
+  """
+  def can_access_team(user, team, permission, want) do
+    user = user |> Repo.preload([:memberships])
+    team_id = team.id
     case user.superuser do
       true -> true
       false ->
         case Enum.find(user.memberships, nil, fn (membership) ->
-          team_id = team.id
           case membership do
             %{team_id: ^team_id} -> true
             _else -> false

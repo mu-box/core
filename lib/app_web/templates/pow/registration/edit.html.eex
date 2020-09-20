@@ -36,18 +36,24 @@
   <div>
     <%= submit "Update" %>
   </div>
-
-  <%= if @changeset.data.totp_secret do %>
-  <div>
-    <p>Two-factor auth is enabled. <%= link("Disable it now", to: Routes.totp_registration_path(@conn, :delete, "me"), method: :delete) %>.</p>
-  </div>
-  <% else %>
-  <div>
-    <p>Two-factor auth not enabled. <%= link("Enable it now", to: Routes.totp_registration_path(@conn, :new)) %>.</p>
-  </div>
-  <% end %>
-
-  <ul>
-    <%= for link <- PowAssent.Phoenix.ViewHelpers.provider_links(@conn), do: content_tag(:li, link) %>
-  </ul>
 <% end %>
+
+<label>Authentication token</label>
+<input type="text" value="<%= @changeset.data.authentication_token %>" readonly>
+<div>
+  <p><%= link "Regenerate token", to: Routes.dash_path(@conn, :regenerate_token), method: :put %></p>
+</div>
+
+<%= if @changeset.data.totp_secret do %>
+<div>
+  <p>Two-factor auth is enabled. <%= link("Disable it now", to: Routes.totp_registration_path(@conn, :delete, "me"), method: :delete) %>.</p>
+</div>
+<% else %>
+<div>
+  <p>Two-factor auth not enabled. <%= link("Enable it now", to: Routes.totp_registration_path(@conn, :new)) %>.</p>
+</div>
+<% end %>
+
+<ul>
+  <%= for link <- PowAssent.Phoenix.ViewHelpers.provider_links(@conn), do: content_tag(:li, link) %>
+</ul>

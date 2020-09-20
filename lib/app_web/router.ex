@@ -57,6 +57,32 @@ defmodule AppWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :need_auth_token do
+    plug :check_auth_token
+  end
+
+  defp check_auth_token(conn, _) do
+    conn
+    |> get_req_header("x-auth-token")
+    |> List.first()
+    |> case do
+      nil -> error_and_halt(conn, 401, "User not provided")
+      token ->
+        case App.Accounts.get_user_by_auth_token(token) do
+          nil -> error_and_halt(conn, 401, "User not found")
+          user -> conn |> assign(:current_user, user)
+        end
+    end
+  end
+
+  defp error_and_halt(conn, code, message) do
+    conn
+    |> put_status(code)
+    |> put_view(AppWeb.APIView)
+    |> render("error.json", message: message)
+    |> Plug.Conn.halt()
+  end
+
   scope "/", AppWeb do
     pipe_through :browser
 
@@ -84,6 +110,7 @@ defmodule AppWeb.Router do
 
     # Add protected routes here
     get "/dashboard", DashController, :index
+    put "/dashboard/regen_token", DashController, :regenerate_token
     resources "/teams", TeamController, except: [:index] do
       resources "/roles", MembershipController, except: [:index, :show]
     end
@@ -97,7 +124,17 @@ defmodule AppWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", AppWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", AppWeb.API do
+    pipe_through :api
+
+    get "/", MiscController, :version
+    get "/user_auth_token", UserController, :token
+    get "/users/:slug/auth_token", UserController, :token
+  end
+
+  scope "/api", AppWeb.API do
+    pipe_through [:api, :need_auth_token]
+
+    get "/users/:me", UserController, :show
+  end
 end
