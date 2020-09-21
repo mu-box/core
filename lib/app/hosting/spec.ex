@@ -5,7 +5,7 @@ defmodule App.Hosting.Spec do
   schema "hosting_specs" do
     belongs_to :hosting_plan, App.Hosting.Plan
     field :active, :boolean, default: true
-    field :cpu, :integer
+    field :cpu, :decimal
     field :disk, :integer
     field :dollars_per_hr, :decimal
     field :dollars_per_mo, :decimal

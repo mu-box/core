@@ -1,4 +1,4 @@
-defmodule AppWeb.API.ChangesetView do
+defmodule AppWeb.ChangesetView do
   use AppWeb, :view
 
   @doc """

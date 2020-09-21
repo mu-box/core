@@ -16,7 +16,7 @@
           (
             <%= if App.Accounts.can_access_team(@current_user, @team, "scope", "admin") do %>
               <%= link membership.role.name, to: Routes.team_membership_path(@conn, :edit, @team, membership) %>
-            <%= else %>
+            <% else %>
               <%= membership.role.name %>
             <% end %>
           )

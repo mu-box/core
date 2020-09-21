@@ -3,7 +3,7 @@ defmodule App.Repo.Migrations.CreateHostingCredentialFields do
 
   def change do
     create table(:hosting_credential_fields) do
-      add :hosting_adapter_id, references(:hosting_adapters, on_delete: :nothing), null: false
+      add :hosting_adapter_id, references(:hosting_adapters, on_delete: :delete_all), null: false
       add :key, :string, null: false
       add :label, :string, null: false
 

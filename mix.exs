@@ -50,10 +50,11 @@ defmodule App.MixProject do
       # App deps
       {:libcluster, "~> 3.1"},                # automatic clustering suport
       {:slugify, "~> 1.3"},                   # convert names into slugs as needed
+      {:httpoison, "~> 1.7"},                 # HTTP lib, for accessing external APIs
       # Auth - First factor
-      {:argon2_elixir, "~> 2.3"},
+      {:argon2_elixir, "~> 2.3"},             # Password hashing
       {:pow, "~> 1.0.13"},                    # User management
-      {:mint, "~> 0.1.0"},                    # HTTP lib
+      {:mint, "~> 0.1.0"},                    # Pow's HTTP lib dep
       {:castore, "~> 0.1.0"},                 # SSL support for mint
       {:redix, "~> 0.9.2"},                   # Caching
       {:pow_assent, "~> 0.3.2"},              # External services

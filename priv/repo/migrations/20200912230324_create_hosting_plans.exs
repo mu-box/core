@@ -3,7 +3,7 @@ defmodule App.Repo.Migrations.CreateHostingPlans do
 
   def change do
     create table(:hosting_plans) do
-      add :hosting_region_id, references(:hosting_regions, on_delete: :nothing), null: false
+      add :hosting_region_id, references(:hosting_regions, on_delete: :delete_all), null: false
       add :plan, :string, null: false
       add :name, :string, null: false
       add :active, :boolean, default: true, null: false

@@ -114,6 +114,7 @@ defmodule AppWeb.Router do
     resources "/teams", TeamController, except: [:index] do
       resources "/roles", MembershipController, except: [:index, :show]
     end
+    resources "/adapters", AdapterController, only: [:create]
   end
 
   scope "/super", AppWeb do
@@ -136,5 +137,7 @@ defmodule AppWeb.Router do
     pipe_through [:api, :need_auth_token]
 
     get "/users/:me", UserController, :show
+    post "/adapters/:id", AdapterController, :register
+    delete "/adapters/:id", AdapterController, :unregister
   end
 end

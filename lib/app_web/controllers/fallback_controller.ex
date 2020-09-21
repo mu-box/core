@@ -1,4 +1,4 @@
-defmodule AppWeb.API.FallbackController do
+defmodule AppWeb.FallbackController do
   @moduledoc """
   Translates controller action results into valid `Plug.Conn` responses.
 
@@ -11,5 +11,12 @@ defmodule AppWeb.API.FallbackController do
     |> put_status(:not_found)
     |> put_view(AppWeb.ErrorView)
     |> render(:"404")
+  end
+
+  def call(conn, {:error, %{errors: _errors} = changeset}) do
+    conn
+    |> put_status(:conflict)
+    |> put_view(AppWeb.ChangesetView)
+    |> render("error.json", %{changeset: changeset})
   end
 end

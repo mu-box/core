@@ -3,10 +3,10 @@ defmodule App.Repo.Migrations.CreateHostingSpecs do
 
   def change do
     create table(:hosting_specs) do
-      add :hosting_plan_id, references(:hosting_plans, on_delete: :nothing), null: false
+      add :hosting_plan_id, references(:hosting_plans, on_delete: :delete_all), null: false
       add :spec, :string, null: false
       add :ram, :integer, null: false
-      add :cpu, :integer, null: false
+      add :cpu, :decimal, null: false
       add :disk, :integer, null: false
       add :transfer, :integer, null: false
       add :dollars_per_hr, :decimal, null: false

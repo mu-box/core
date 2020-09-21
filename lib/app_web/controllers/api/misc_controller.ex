@@ -1,7 +1,7 @@
 defmodule AppWeb.API.MiscController do
   use AppWeb, :controller
 
-  action_fallback AppWeb.API.FallbackController
+  action_fallback AppWeb.FallbackController
 
   def version(conn, _params) do
     conn

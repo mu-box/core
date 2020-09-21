@@ -11,3 +11,20 @@
     <li><%= link "Create A New Team", to: Routes.team_path(@conn, :new) %></li>
   </ul>
 </section>
+
+<section>
+  <h2>Hosting Adapters</h2>
+  <ul>
+    <%= for adapter <- @current_user.hosting_adapters do %>
+      <%= if adapter.name do %>
+        <li><%= adapter.name %></li>
+      <% else %>
+        <li>Register at <%= Routes.adapter_url(@conn, :register, adapter.id) %></li>
+      <% end %>
+    <% end %>
+  </ul>
+  <%= form_for :current_user, Routes.adapter_path(@conn, :create), fn f -> %>
+    <input type="hidden" name="user_id" value="<%= @current_user.id %>">
+    <%= submit "Create A New Adapter" %>
+  <% end %>
+</section>

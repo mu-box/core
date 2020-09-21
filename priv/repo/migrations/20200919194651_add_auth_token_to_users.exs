@@ -1,4 +1,4 @@
-defmodule App.Repo.Migrations.AddTotpToUsers do
+defmodule App.Repo.Migrations.AddAuthTokenToUsers do
   use Ecto.Migration
 
   def change do

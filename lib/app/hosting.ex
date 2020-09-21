@@ -99,7 +99,9 @@ defmodule App.Hosting do
 
   """
   def delete_adapter(%Adapter{} = adapter) do
-    Repo.delete(adapter)
+    adapter
+    |> Adapter.changeset(%{})
+    |> Repo.delete()
   end
 
   @doc """

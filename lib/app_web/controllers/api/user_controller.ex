@@ -3,7 +3,7 @@ defmodule AppWeb.API.UserController do
 
   alias App.Accounts
 
-  action_fallback AppWeb.API.FallbackController
+  action_fallback AppWeb.FallbackController
 
   def token(conn, %{"slug" => username, "password" => password}) do
     case user = Accounts.get_user_by_name(username) do

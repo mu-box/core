@@ -5,7 +5,7 @@ defmodule App.Repo.Migrations.CreateUserIdentities do
     create table(:user_identities) do
       add :provider, :string, null: false
       add :uid, :string, null: false
-      add :user_id, references("users", on_delete: :nothing)
+      add :user_id, references("users", on_delete: :delete_all)
 
       timestamps()
     end
