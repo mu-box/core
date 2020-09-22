@@ -16,8 +16,10 @@ defmodule AppWeb.API.AdapterController do
       |> render("error.json", message: "Already registered.")
     else
       with {:ok, %Adapter{} = adapter} <- Hosting.update_adapter(adapter, %{endpoint: endpoint, unlink_code: Adapter.generate_unlink_code()}) do
-        # TODO Make this asynchronous?
-        Adapter.populate_config(adapter)
+        %{adapter_id: adapter.id}
+        |> App.Workers.UpdateAdapters.new(priority: 1)
+        |> Oban.insert()
+
         render(conn, "adapter.json", adapter: adapter)
       end
     end

@@ -17,3 +17,6 @@ config :app, AppWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :app, Oban,
+  crontab: false, queues: false, plugins: false

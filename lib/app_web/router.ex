@@ -125,7 +125,7 @@ defmodule AppWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", AppWeb.API do
+  scope "/api/v1", AppWeb.API do
     pipe_through :api
 
     get "/", MiscController, :version
@@ -133,7 +133,7 @@ defmodule AppWeb.Router do
     get "/users/:slug/auth_token", UserController, :token
   end
 
-  scope "/api", AppWeb.API do
+  scope "/api/v1", AppWeb.API do
     pipe_through [:api, :need_auth_token]
 
     get "/users/:me", UserController, :show

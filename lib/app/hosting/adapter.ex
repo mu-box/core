@@ -86,7 +86,10 @@ defmodule App.Hosting.Adapter do
             |> populate_catalog(adapter)
           {:error, err} ->
             Logger.error(adapter.endpoint <> "/catalog: " <> Atom.to_string(err.reason))
+            {:error, err}
         end
+      else
+        {:error, "Populating adapter metadata failed. See log for more details."}
       end
     end
   end
@@ -134,8 +137,9 @@ defmodule App.Hosting.Adapter do
 
   defp populate_catalog(regions, adapter) do
     case regions do
-      [{"errors", errors}] ->
+      %{"errors" => errors} ->
         Logger.error(adapter.endpoint <> "/catalog (JSON): " <> Enum.join(errors, " // "))
+        {:error, errors}
       regions ->
         Enum.each(regions, fn (region_data) ->
           region = App.Repo.get_by(App.Hosting.Region, [hosting_adapter_id: adapter.id, region: region_data["id"]]) || %App.Hosting.Region{}
@@ -166,7 +170,7 @@ defmodule App.Hosting.Adapter do
                 cpu: spec_data["cpu"],
                 disk: spec_data["disk"],
                 transfer: case is_float(spec_data["transfer"]) do
-                  true -> Kernel.trunc(spec_data["transfer"])
+                  true -> trunc(spec_data["transfer"])
                   false -> case is_integer(spec_data["transfer"]) do
                     true -> spec_data["transfer"]
                     false -> 0
@@ -180,6 +184,7 @@ defmodule App.Hosting.Adapter do
             end)
           end)
         end)
+        :ok
     end
   end
 end

@@ -24,7 +24,8 @@ defmodule App.Application do
       AppWeb.Endpoint,
       # Starts a worker by calling: App.Worker.start_link(arg)
       # {App.Worker, arg},
-      {Redix, host: System.get_env("DATA_CACHE_HOST"), name: :redix}
+      {Redix, host: System.get_env("DATA_CACHE_HOST"), name: :redix},
+      {Oban, oban_config()},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -38,5 +39,10 @@ defmodule App.Application do
   def config_change(changed, _new, removed) do
     AppWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  # Conditionally disable crontab, queues, or plugins here.
+  defp oban_config do
+    Application.get_env(:app, Oban)
   end
 end

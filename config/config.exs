@@ -44,6 +44,14 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :app, Oban,
+  repo: App.Repo,
+  plugins: [{Oban.Plugins.Pruner, max_age: 86_400}],
+  queues: [default: 100],
+  crontab: [
+    {"@daily", App.Workers.UpdateAdapters}
+  ]
+
 # Set the Encryption Keys as an "Application Variable" accessible in aes.ex
 config :app, Encryption.AES,
   keys: System.get_env("ENCRYPTION_KEYS") # get the ENCRYPTION_KEYS env variable
