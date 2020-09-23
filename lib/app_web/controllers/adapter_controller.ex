@@ -1,7 +1,7 @@
 defmodule AppWeb.AdapterController do
   use AppWeb, :controller
 
-  alias App.Hosting
+  alias App.{Accounts, Hosting}
 
   def create(conn, %{"user_id" => user_id}) do
     case Hosting.create_adapter(%{"user_id" => user_id}) do
@@ -13,5 +13,52 @@ defmodule AppWeb.AdapterController do
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
+  end
+
+  def share_form(conn, %{"adapter_id" => adapter_id}) do
+    user = Pow.Plug.current_user(conn) |> App.Repo.preload([:teams])
+    adapter = Hosting.get_adapter!(adapter_id)
+    render(conn, "share.html", teams: user.teams |> Enum.reject(fn (team) ->
+      team = team
+      |> App.Repo.preload([:hosting_adapters])
+
+      team.hosting_adapters
+      |> Enum.any?(fn (a) -> a.id == adapter_id end)
+    end), adapter: adapter)
+  end
+
+  def share(conn, %{"adapter_id" => adapter_id, "adapter" => %{"team_id" => team_id}}) do
+    # Just ensure these actually exist, first...
+    Hosting.get_adapter!(adapter_id)
+    Accounts.get_team!(team_id)
+
+    %Hosting.TeamAdapter{}
+    |> Hosting.TeamAdapter.changeset(%{hosting_adapter_id: adapter_id, team_id: team_id})
+    |> App.Repo.insert()
+
+    redirect(conn, to: Routes.dash_path(conn, :index))
+  end
+
+  def unshare_form(conn, %{"adapter_id" => adapter_id}) do
+    user = Pow.Plug.current_user(conn) |> App.Repo.preload([:teams])
+    adapter = Hosting.get_adapter!(adapter_id)
+    render(conn, "unshare.html", teams: user.teams |> Enum.filter(fn (team) ->
+      team = team
+      |> App.Repo.preload([:hosting_adapters])
+
+      team.hosting_adapters
+      |> Enum.any?(fn (a) -> a.id == adapter_id end)
+    end), adapter: adapter)
+  end
+
+  def unshare(conn, %{"adapter_id" => adapter_id, "adapter" => %{"team_id" => team_id}}) do
+    # Just ensure these actually exist, first...
+    Hosting.get_adapter!(adapter_id)
+    Accounts.get_team!(team_id)
+
+    App.Repo.get_by!(Hosting.TeamAdapter, hosting_adapter_id: adapter_id, team_id: team_id)
+    |> App.Repo.delete()
+
+    redirect(conn, to: Routes.dash_path(conn, :index))
   end
 end

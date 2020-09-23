@@ -1,7 +1,6 @@
 <h1>Show Team</h1>
 
 <ul>
-
   <li>
     <strong>Name:</strong>
     <%= @team.name %>
@@ -26,6 +25,29 @@
         <li>
           <%= link "Add A Member", to: Routes.team_membership_path(@conn, :new, @team) %>
         </li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li>
+    <strong>Adapters:</strong>
+    <ul>
+      <%= for adapter <- @team.hosting_adapters |> App.Repo.preload([:user]) do %>
+        <li>
+          <%= adapter.name %>
+          (
+            <%= if adapter.global do %>
+              Global
+            <% else %>
+              Shared by <%= adapter.user.username %>
+            <% end %>
+          )
+        </li>
+      <% end %>
+      <%= for adapter <- @global_adapters do %>
+        <%= unless Enum.any?(@team.hosting_adapters, fn (x) -> x.id == adapter.id end) do %>
+          <li><%= adapter.name %> ( Global )</li>
+        <% end %>
       <% end %>
     </ul>
   </li>

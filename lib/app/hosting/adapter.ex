@@ -24,7 +24,7 @@ defmodule App.Hosting.Adapter do
     field :ssh_user, :string
     field :unlink_code, :string
 
-    many_to_many :teams, App.Accounts.Team, join_through: App.Hosting.TeamAdapter
+    many_to_many :teams, App.Accounts.Team, join_through: App.Hosting.TeamAdapter, join_keys: [hosting_adapter_id: :id, team_id: :id]
     has_many :fields, App.Hosting.CredentialField, foreign_key: :hosting_adapter_id
     has_many :regions, App.Hosting.Region, foreign_key: :hosting_adapter_id
 

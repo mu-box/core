@@ -8,7 +8,9 @@ defmodule App.Accounts.Team do
 
     has_many :memberships, App.Accounts.TeamMembership
     has_many :users, through: [:memberships, :user]
-    many_to_many :hosting_adapters, App.Hosting.Adapter, join_through: App.Hosting.TeamAdapter
+    many_to_many :hosting_adapters, App.Hosting.Adapter,
+      join_through: App.Hosting.TeamAdapter,
+      join_keys: [team_id: :id, hosting_adapter_id: :id]
     has_many :hosting_accounts, App.Hosting.Account
 
     timestamps()

@@ -67,3 +67,34 @@
     </tbody>
   </table>
 </section>
+
+<section>
+  <h2>Adapters</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Regions</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for adapter <- @adapters |> App.Repo.preload([:regions]) do %>
+        <tr>
+          <td>
+            <%= adapter.name %>
+            (
+              <%= if adapter.global do %>
+                <%= link "Make Nonglobal", to: Routes.super_path(@conn, :make_local, adapter), method: :delete %>
+              <% else %>
+                <%= link "Make Global", to: Routes.super_path(@conn, :make_global, adapter), method: :post %>
+              <% end %>
+            )
+          </td>
+          <td><%= length(adapter.regions) %></td>
+          <td><%= adapter.inserted_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

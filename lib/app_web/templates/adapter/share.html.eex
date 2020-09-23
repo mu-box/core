@@ -1,0 +1,16 @@
+<h1>Share This Adapter With A Team</h1>
+
+<%= form_for :adapter, Routes.adapter_adapter_path(@conn, :share, @adapter), fn f -> %>
+  <%= label f, :adapter %>
+  <%= @adapter.name %>
+
+  <%= label f, :team_id %>
+  <%= select f, :team_id, Enum.map(@teams, fn (team) -> [value: team.id, key: team.name] end) %>
+  <%= error_tag f, :team_id %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>
+
+<span><%= link "Back", to: Routes.dash_path(@conn, :index) %></span>

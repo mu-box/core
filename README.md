@@ -33,10 +33,10 @@ in getting the project up and running.
       - [ ] Settings Management
          - [x] _Connected Social Accounts_ \*
          - [ ] Hosting Accounts ([#4][])
-         - [ ] Teams ([#3][])
-            - [ ] Membership ([#3][])
+         - [x] Teams ([#3][])
+            - [x] Membership ([#3][])
             - [ ] Apps ([#5][])
-            - [ ] _Permissions_ \*
+            - [x] _Permissions_ \*
          - [ ] Plans and Billing
    - [ ] Apps
       - [ ] _Import from Nanobox_ \*

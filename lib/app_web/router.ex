@@ -114,7 +114,12 @@ defmodule AppWeb.Router do
     resources "/teams", TeamController, except: [:index] do
       resources "/roles", MembershipController, except: [:index, :show]
     end
-    resources "/adapters", AdapterController, only: [:create]
+    resources "/adapters", AdapterController, only: [:create] do
+      get "/share", AdapterController, :share_form
+      post "/share", AdapterController, :share
+      get "/unshare", AdapterController, :unshare_form
+      post "/unshare", AdapterController, :unshare
+    end
   end
 
   scope "/super", AppWeb do
@@ -122,6 +127,8 @@ defmodule AppWeb.Router do
 
     # Add superuser routes here
     get "/", SuperController, :index
+    post "/adapter/:adapter_id", SuperController, :make_global
+    delete "/adapter/:adapter_id", SuperController, :make_local
   end
 
   # Other scopes may use custom stacks.

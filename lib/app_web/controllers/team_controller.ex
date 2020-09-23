@@ -34,10 +34,10 @@ defmodule AppWeb.TeamController do
   end
 
   def show(conn, %{"id" => id}) do
-    team = Accounts.get_team!(id) |> App.Repo.preload([:memberships])
+    team = Accounts.get_team!(id) |> App.Repo.preload([:memberships, :hosting_adapters])
     case App.Accounts.can_access_team(Pow.Plug.current_user(conn), team, "scope", "any") do
       true ->
-        render(conn, "show.html", team: team)
+        render(conn, "show.html", team: team, global_adapters: App.Hosting.global_adapters())
       _else ->
         conn
         |> put_flash(:info, "That page is not available.")

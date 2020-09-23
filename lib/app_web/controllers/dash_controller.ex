@@ -2,7 +2,11 @@ defmodule AppWeb.DashController do
   use AppWeb, :controller
 
   def index(conn, _params) do
-    render conn, "index.html", current_user: conn.assigns.current_user.id |> App.Accounts.get_user!()
+    render conn, "index.html",
+      current_user:
+        Pow.Plug.current_user(conn)
+        |> App.Repo.preload([:teams, :hosting_adapters]),
+      global_adapters: App.Hosting.global_adapters()
   end
 
   def regenerate_token(%{assigns: %{current_user: user}} = conn, _params) do

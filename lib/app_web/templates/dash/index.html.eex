@@ -17,9 +17,24 @@
   <ul>
     <%= for adapter <- @current_user.hosting_adapters do %>
       <%= if adapter.name do %>
-        <li><%= adapter.name %></li>
+        <li>
+          <%= adapter.name %>
+          (
+            <%= if !adapter.global do %>
+              <%= link "Share With Team", to: Routes.adapter_adapter_path(@conn, :share_form, adapter) %> |
+              <%= link "Unshare With Team", to: Routes.adapter_adapter_path(@conn, :unshare_form, adapter) %>
+            <% else %>
+              Global
+            <% end %>
+          )
+        </li>
       <% else %>
         <li>Register at <%= Routes.adapter_url(@conn, :register, adapter.id) %></li>
+      <% end %>
+    <% end %>
+    <%= for adapter <- @global_adapters do %>
+      <%= unless Enum.any?(@current_user.hosting_adapters, fn (x) -> x.id == adapter.id end) do %>
+        <li><%= adapter.name %> ( Global )</li>
       <% end %>
     <% end %>
   </ul>
