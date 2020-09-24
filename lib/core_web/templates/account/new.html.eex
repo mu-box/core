@@ -1,0 +1,37 @@
+<h1>New Account</h1>
+
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= if @team do %>
+    <%= hidden_input f, :team_id, value: @team.id %>
+  <% else %>
+    <%= hidden_input f, :user_id, value: @current_user.id %>
+  <% end %>
+
+  <%= label f, :hosting_adapter_id %>
+  <%= select f, :hosting_adapter_id, Core.Hosting.global_adapters() ++ (@current_user
+                                                                       |> Core.Repo.preload([:hosting_adapters])
+                                                                       |> Map.get(:hosting_adapters))
+                                     |> Enum.map(fn (adapter) -> [key: adapter.name, value: adapter.id] end)
+                                     |> Enum.uniq %>
+  <%= error_tag f, :hosting_adapter_id %>
+
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>
+
+<%= if @team do %>
+<span><%= link "Back", to: Routes.team_path(@conn, :show, @team) %></span>
+<% else %>
+<span><%= link "Back", to: Routes.dash_path(@conn, :index) %></span>
+<% end %>

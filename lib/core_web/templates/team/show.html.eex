@@ -1,0 +1,78 @@
+<h1>Show Team</h1>
+
+<ul>
+  <li>
+    <strong>Name:</strong>
+    <%= @team.name %>
+  </li>
+
+<%= if Core.Accounts.can_access_team(@current_user, @team, "scope", "read") do %>
+  <li>
+    <strong>Members:</strong>
+    <ul>
+      <%= for membership <- @team.memberships |> Core.Repo.preload([:user, :role]) do %>
+        <li>
+          <%= membership.user.username %>
+          (
+            <%= if Core.Accounts.can_access_team(@current_user, @team, "scope", "admin") do %>
+              <%= link membership.role.name, to: Routes.team_membership_path(@conn, :edit, @team, membership) %>
+            <% else %>
+              <%= membership.role.name %>
+            <% end %>
+          )
+        </li>
+      <% end %>
+      <%= if Core.Accounts.can_access_team(@current_user, @team, "scope", "admin") do %>
+        <li>
+          <%= link "Add A Member", to: Routes.team_membership_path(@conn, :new, @team) %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li>
+    <strong>Hosting Accounts:</strong>
+    <ul>
+      <%= for account <- @team |> Core.Repo.preload([:hosting_accounts]) |> Map.get(:hosting_accounts) do %>
+        <%= if Core.Accounts.can_access_team(@current_user, @team, "scope", "edit") do %>
+          <li><%= link account.name, to: Routes.team_account_path(@conn, :show, @team.id, account.id) %></li>
+        <% else %>
+          <li><%= account.name %></li>
+        <% end %>
+      <% end %>
+      <%= if Core.Accounts.can_access_team(@current_user, @team, "scope", "edit") do %>
+        <li><%= link "Create A New Hosting Account", to: Routes.team_account_path(@conn, :new, @team.id) %></li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li>
+    <strong>Hosting Adapters:</strong>
+    <ul>
+      <%= for adapter <- @team.hosting_adapters |> Core.Repo.preload([:user]) do %>
+        <li>
+          <%= adapter.name %>
+          (
+            <%= if adapter.global do %>
+              Global
+            <% else %>
+              Shared by <%= adapter.user.username %>
+            <% end %>
+          )
+        </li>
+      <% end %>
+      <%= for adapter <- @global_adapters do %>
+        <%= unless Enum.any?(@team.hosting_adapters, fn (x) -> x.id == adapter.id end) do %>
+          <li><%= adapter.name %> ( Global )</li>
+        <% end %>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
+</ul>
+
+<%= if Core.Accounts.can_access_team(@current_user, @team, "scope", "admin") do %>
+  <span><%= link "Edit", to: Routes.team_path(@conn, :edit, @team) %></span>
+  <span><%= link "Delete", to: Routes.team_path(@conn, :delete, @team), method: :delete %></span>
+<% end %>
+<span><%= link "Back", to: Routes.dash_path(@conn, :index) %></span>

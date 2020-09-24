@@ -7,7 +7,7 @@ use Mix.Config
 
 database_url = "ecto://#{System.get_env("DATA_DB_USER")}:#{System.get_env("DATA_DB_PASS")}@#{System.get_env("DATA_DB_HOST")}/gonano"
 
-config :app, App.Repo,
+config :core, Core.Repo,
   # ssl: true,
   url: database_url,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
@@ -19,7 +19,7 @@ secret_key_base =
     You can generate one by calling: mix phx.gen.secret
     """
 
-config :app, AppWeb.Endpoint,
+config :core, CoreWeb.Endpoint,
   http: [:inet6, port: String.to_integer(System.get_env("PORT") || "8080")],
   force_ssl: [rewrite_on: [:x_forwarded_proto], host: nil],
   secret_key_base: secret_key_base

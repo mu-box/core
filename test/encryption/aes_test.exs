@@ -39,7 +39,7 @@ defmodule Encryption.AESTest do
   test "can still decrypt the value after adding a new encryption key" do
     encrypted_value = "hello" |> AES.encrypt()
 
-    original_keys = Application.get_env(:app, Encryption.AES)[:keys]
+    original_keys = Application.get_env(:core, Encryption.AES)[:keys]
 
     # add a new key
     Application.put_env(:encryption, Encryption.AES,

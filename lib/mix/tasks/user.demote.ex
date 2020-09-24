@@ -1,6 +1,6 @@
 defmodule Mix.Tasks.User.Demote do
   use Mix.Task
-  alias App.{Repo, Accounts.User}
+  alias Core.{Repo, Accounts.User}
   import Ecto.Query
 
   @shortdoc "Demotes a superuser to a normal user"

@@ -1,7 +1,7 @@
 use Mix.Config
 
 # Configure your database
-config :app, App.Repo,
+config :core, Core.Repo,
   username: System.get_env("DATA_DB_USER"),
   password: System.get_env("DATA_DB_PASS"),
   hostname: System.get_env("DATA_DB_HOST"),
@@ -15,7 +15,7 @@ config :app, App.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :app, AppWeb.Endpoint,
+config :core, CoreWeb.Endpoint,
   url: [host: "microbox.local", port: 80],
   debug_errors: true,
   code_reloader: true,
@@ -55,7 +55,7 @@ config :app, AppWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :app, AppWeb.Endpoint,
+config :core, CoreWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",

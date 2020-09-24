@@ -1,0 +1,100 @@
+<section class="phx-hero">
+  <p>This is the superuser dashboard.</p>
+</section>
+
+<section>
+  <h2>Superusers</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email Address</th>
+        <th>Joined</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for user <- @supers do %>
+        <tr>
+          <td><%= user.username %></td>
+          <td><%= user.email %> <%= if user.email_confirmed_at == nil, do: "(unconfirmed)" %></td>
+          <td><%= user.inserted_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Normal Users</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Email Address</th>
+        <th>Joined</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for user <- @users do %>
+        <tr>
+          <td><%= user.username %></td>
+          <td><%= user.email %> <%= if user.email_confirmed_at == nil, do: "(unconfirmed)" %></td>
+          <td><%= user.inserted_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Teams</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Members</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for team <- @teams |> Core.Repo.preload([:memberships]) do %>
+        <tr>
+          <td><%= link team.name, to: Routes.team_path(@conn, :show, team.id) %></td>
+          <td><%= length(team.memberships) %></td>
+          <td><%= team.inserted_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Adapters</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Regions</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for adapter <- @adapters |> Core.Repo.preload([:regions]) do %>
+        <tr>
+          <td>
+            <%= adapter.name %>
+            (
+              <%= if adapter.global do %>
+                <%= link "Make Nonglobal", to: Routes.super_path(@conn, :make_local, adapter), method: :delete %>
+              <% else %>
+                <%= link "Make Global", to: Routes.super_path(@conn, :make_global, adapter), method: :post %>
+              <% end %>
+            )
+          </td>
+          <td><%= length(adapter.regions) %></td>
+          <td><%= adapter.inserted_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

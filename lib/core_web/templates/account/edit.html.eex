@@ -1,0 +1,26 @@
+<h1>Edit Account</h1>
+
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= label f, :hosting_adapter %>
+  <%= @account |> Core.Repo.preload([:hosting_adapter]) |> Map.get(:hosting_adapter) |> Map.get(:name) %>
+
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>
+
+<%= if @account.team_id do %>
+<span><%= link "Back", to: Routes.team_account_path(@conn, :show, @account.team_id, @account) %></span>
+<% else %>
+<span><%= link "Back", to: Routes.account_path(@conn, :show, @account) %></span>
+<% end %>

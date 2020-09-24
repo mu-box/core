@@ -22,19 +22,19 @@ rescue
   _ -> IO.puts "no .env file found!"
 end
 
-config :app,
-  ecto_repos: [App.Repo]
+config :core,
+  ecto_repos: [Core.Repo]
 
-config :app, App.Repo,
+config :core, Core.Repo,
   migration_primary_key: [name: :id, type: :binary_id]
 
 # Configures the endpoint
-config :app, AppWeb.Endpoint,
+config :core, CoreWeb.Endpoint,
   url: [host: "microbox.cloud", port: 80],
   http: [port: 8080],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
-  render_errors: [view: AppWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: App.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: CoreWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Core.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -44,16 +44,16 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :app, Oban,
-  repo: App.Repo,
+config :core, Oban,
+  repo: Core.Repo,
   plugins: [{Oban.Plugins.Pruner, max_age: 86_400}],
   queues: [default: 100],
   crontab: [
-    {"@daily", App.Workers.UpdateAdapters}
+    {"@daily", Core.Workers.UpdateAdapters}
   ]
 
 # Set the Encryption Keys as an "Application Variable" accessible in aes.ex
-config :app, Encryption.AES,
+config :core, Encryption.AES,
   keys: System.get_env("ENCRYPTION_KEYS") # get the ENCRYPTION_KEYS env variable
     |> String.replace("'", "")  # remove single-quotes around key list in .env
     |> String.split(",")        # split the CSV list of keys
@@ -62,18 +62,18 @@ config :app, Encryption.AES,
 config :argon2_elixir,
   argon2_type: 2
 
-config :app, :pow,
-  user: App.Accounts.User,
-  repo: App.Repo,
+config :core, :pow,
+  user: Core.Accounts.User,
+  repo: Core.Repo,
   extensions: [PowResetPassword, PowEmailConfirmation, PowPersistentSession, PowInvitation],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
-  web_module: AppWeb,
-  web_mailer_module: AppWeb,
-  mailer_backend: AppWeb.PowMailer,
-  routes_backend: AppWeb.PowRoutes,
-  cache_store_backend: AppWeb.PowRedisCache
+  web_module: CoreWeb,
+  web_mailer_module: CoreWeb,
+  mailer_backend: CoreWeb.PowMailer,
+  routes_backend: CoreWeb.PowRoutes,
+  cache_store_backend: CoreWeb.PowRedisCache
 
-config :app, :pow_assent,
+config :core, :pow_assent,
   http_adapter: PowAssent.HTTPAdapter.Mint,
   providers: [
     auth0: [

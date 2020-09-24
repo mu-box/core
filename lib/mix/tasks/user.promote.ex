@@ -1,6 +1,6 @@
 defmodule Mix.Tasks.User.Promote do
   use Mix.Task
-  alias App.{Repo, Accounts.User}
+  alias Core.{Repo, Accounts.User}
   import Ecto.Query
 
   @shortdoc "Promotes a user to a superuser"

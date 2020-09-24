@@ -82,6 +82,6 @@ defmodule Encryption.AES do
 
   @spec encryption_keys() :: list(binary())
   defp encryption_keys do
-    Application.get_env(:app, Encryption.AES)[:keys]
+    Application.get_env(:core, Encryption.AES)[:keys]
   end
 end
