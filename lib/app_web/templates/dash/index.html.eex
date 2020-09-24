@@ -13,6 +13,16 @@
 </section>
 
 <section>
+  <h2>Hosting Accounts</h2>
+  <ul>
+    <%= for account <- @current_user.hosting_accounts do %>
+      <li><%= link account.name, to: Routes.account_path(@conn, :show, account.id) %></li>
+    <% end %>
+    <li><%= link "Create A New Hosting Account", to: Routes.account_path(@conn, :new) %></li>
+  </ul>
+</section>
+
+<section>
   <h2>Hosting Adapters</h2>
   <ul>
     <%= for adapter <- @current_user.hosting_adapters do %>

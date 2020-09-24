@@ -1,0 +1,34 @@
+<h1>Show Account</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @account.name %>
+  </li>
+
+  <li>
+    <strong>Credentials:</strong>
+    <ul>
+      <%= for cred <- @account.creds |> App.Repo.preload([:hosting_credential_field]) do %>
+        <li>
+          <strong><%= cred.hosting_credential_field.label %>:</strong>
+          <%= cred.value %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+
+</ul>
+
+<%= if @account.team_id do %>
+<span><%= link "Edit Account", to: Routes.team_account_path(@conn, :edit, @account.team_id, @account) %></span> |
+<span><%= link "Edit Credentials", to: Routes.team_account_account_path(@conn, :edit_creds, @account.team_id, @account) %></span> |
+<span><%= link "Delete Account", to: Routes.team_account_path(@conn, :delete, @account.team_id, @account), method: :delete %></span> |
+<span><%= link "Back", to: Routes.team_path(@conn, :show, @account.team_id) %></span>
+<% else %>
+<span><%= link "Edit Account", to: Routes.account_path(@conn, :edit, @account) %></span> |
+<span><%= link "Edit Credentials", to: Routes.account_account_path(@conn, :edit_creds, @account) %></span> |
+<span><%= link "Delete Account", to: Routes.account_path(@conn, :delete, @account), method: :delete %></span> |
+<span><%= link "Back", to: Routes.dash_path(@conn, :index) %></span>
+<% end %>

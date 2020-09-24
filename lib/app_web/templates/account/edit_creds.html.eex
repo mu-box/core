@@ -1,0 +1,9 @@
+<h1>Edit Account Credentials</h1>
+
+<%= render "creds_form.html", Map.put(assigns, :method, :put) %>
+
+<%= if @account.team_id do %>
+<span><%= link "Back", to: Routes.team_account_path(@conn, :show, @account.team_id, @account) %></span>
+<% else %>
+<span><%= link "Back", to: Routes.account_path(@conn, :show, @account) %></span>
+<% end %>

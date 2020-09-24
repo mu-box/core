@@ -113,12 +113,24 @@ defmodule AppWeb.Router do
     put "/dashboard/regen_token", DashController, :regenerate_token
     resources "/teams", TeamController, except: [:index] do
       resources "/roles", MembershipController, except: [:index, :show]
+      resources "/accounts", AccountController, except: [:index] do
+        get "/creds/new", AccountController, :new_creds
+        post "/creds", AccountController, :create_creds
+        get "/creds/edit", AccountController, :edit_creds
+        put "/creds", AccountController, :update_creds
+      end
     end
     resources "/adapters", AdapterController, only: [:create] do
       get "/share", AdapterController, :share_form
       post "/share", AdapterController, :share
       get "/unshare", AdapterController, :unshare_form
       post "/unshare", AdapterController, :unshare
+    end
+    resources "/accounts", AccountController, except: [:index] do
+      get "/creds/new", AccountController, :new_creds
+      post "/creds", AccountController, :create_creds
+      get "/creds/edit", AccountController, :edit_creds
+      put "/creds", AccountController, :update_creds
     end
   end
 

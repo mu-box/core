@@ -116,4 +116,116 @@ defmodule App.Hosting do
   def change_adapter(%Adapter{} = adapter) do
     Adapter.changeset(adapter, %{})
   end
+
+  alias App.Hosting.Account
+
+  @doc """
+  Returns the list of accounts.
+
+  ## Examples
+
+      iex> list_accounts()
+      [%Account{}, ...]
+
+  """
+  def list_accounts do
+    Repo.all(Account)
+  end
+
+  @doc """
+  Gets a single account.
+
+  Raises `Ecto.NoResultsError` if the Account does not exist.
+
+  ## Examples
+
+      iex> get_account!(123)
+      %Account{}
+
+      iex> get_account!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_account!(id), do: Repo.get!(Account, id)
+
+  @doc """
+  Creates a account.
+
+  ## Examples
+
+      iex> create_account(%{field: value})
+      {:ok, %Account{}}
+
+      iex> create_account(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_account(attrs \\ %{}) do
+    %Account{}
+    |> Account.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a account.
+
+  ## Examples
+
+      iex> update_account(account, %{field: new_value})
+      {:ok, %Account{}}
+
+      iex> update_account(account, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_account(%Account{} = account, attrs) do
+    account
+    |> Account.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a account.
+
+  ## Examples
+
+      iex> delete_account(account)
+      {:ok, %Account{}}
+
+      iex> delete_account(account)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_account(%Account{} = account) do
+    account
+    |> Account.changeset(%{})
+    |> Repo.delete()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking account changes.
+
+  ## Examples
+
+      iex> change_account(account)
+      %Ecto.Changeset{source: %Account{}}
+
+  """
+  def change_account(%Account{} = account) do
+    Account.changeset(account, %{})
+  end
+
+  @doc """
+  Checks the supplied credentials against the given adapter to see if they're correct.
+  """
+  def try_creds(%Adapter{} = adapter, %{} = creds) do
+    headers = Map.keys(creds)
+    |> Enum.map(fn (key) -> {"Auth-" <> key |> String.split(~r/[_-]/) |> Enum.map(&String.capitalize(&1)) |> Enum.join("-"), Map.get(creds, key)} end)
+    case HTTPoison.post(adapter.endpoint <> "/verify", "", headers) do
+      {:ok, %{status_code: 200}} -> true
+      other ->
+        IO.inspect(other)
+        false
+    end
+  end
 end

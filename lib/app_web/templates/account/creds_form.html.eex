@@ -1,0 +1,21 @@
+<%= form_for @changeset, @action, [as: :creds, method: @method], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= for field <- @fields do %>
+  <%= label f, field.key |> String.to_atom(), field.label %>
+  <%= text_input f, field.key |> String.to_atom(), value: @changeset.data |> Map.get(field.key) %>
+  <%= error_tag f, field.key |> String.to_atom() %>
+  <% end %>
+
+  <p>
+    <%= raw @account.hosting_adapter.instructions %>
+  </p>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>

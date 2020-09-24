@@ -1,0 +1,3 @@
+<h1>New Account Credentials</h1>
+
+<%= render "creds_form.html", Map.put(assigns, :method, :post) %>
