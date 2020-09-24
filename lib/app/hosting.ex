@@ -220,9 +220,18 @@ defmodule App.Hosting do
   """
   def try_creds(%Adapter{} = adapter, %{} = creds) do
     headers = Map.keys(creds)
-    |> Enum.map(fn (key) -> {"Auth-" <> key |> String.split(~r/[_-]/) |> Enum.map(&String.capitalize(&1)) |> Enum.join("-"), Map.get(creds, key)} end)
+    |> Enum.map(fn (key) ->
+      {
+        "Auth-" <> key
+        |> String.split(~r/[_-]/)
+        |> Enum.map(&String.capitalize(&1))
+        |> Enum.join("-"),
+        Map.get(creds, key)
+      }
+    end)
     case HTTPoison.post(adapter.endpoint <> "/verify", "", headers) do
-      {:ok, %{status_code: 200}} -> true
+      {:ok, %{status_code: 200}} ->
+        true
       other ->
         IO.inspect(other)
         false

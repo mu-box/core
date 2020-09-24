@@ -6,6 +6,7 @@
     <%= @team.name %>
   </li>
 
+<%= if App.Accounts.can_access_team(@current_user, @team, "scope", "read") do %>
   <li>
     <strong>Members:</strong>
     <ul>
@@ -33,9 +34,15 @@
     <strong>Hosting Accounts:</strong>
     <ul>
       <%= for account <- @team |> App.Repo.preload([:hosting_accounts]) |> Map.get(:hosting_accounts) do %>
-        <li><%= link account.name, to: Routes.team_account_path(@conn, :show, @team.id, account.id) %></li>
+        <%= if App.Accounts.can_access_team(@current_user, @team, "scope", "edit") do %>
+          <li><%= link account.name, to: Routes.team_account_path(@conn, :show, @team.id, account.id) %></li>
+        <% else %>
+          <li><%= account.name %></li>
+        <% end %>
       <% end %>
-      <li><%= link "Create A New Hosting Account", to: Routes.team_account_path(@conn, :new, @team.id) %></li>
+      <%= if App.Accounts.can_access_team(@current_user, @team, "scope", "edit") do %>
+        <li><%= link "Create A New Hosting Account", to: Routes.team_account_path(@conn, :new, @team.id) %></li>
+      <% end %>
     </ul>
   </li>
 
@@ -61,6 +68,7 @@
       <% end %>
     </ul>
   </li>
+<% end %>
 </ul>
 
 <%= if App.Accounts.can_access_team(@current_user, @team, "scope", "admin") do %>
