@@ -31,26 +31,33 @@ defmodule AppWeb.API.AdapterController do
     case adapter.unlink_code do
       ^unlink_code ->
         adapter = adapter |> App.Repo.preload([:fields, :regions])
-        Enum.each(adapter.fields, fn (field) ->
-          field |> App.Repo.delete()
-        end)
-        Enum.each(adapter.regions, fn (region) ->
-          region = region |> App.Repo.preload([:plans])
-          Enum.each(region.plans, fn (plan) ->
-            plan = plan |> App.Repo.preload([:specs])
-            Enum.each(plan.specs, fn (spec) ->
-              spec |> App.Repo.delete()
-            end)
-            plan |> App.Repo.delete()
+        unless adapter.global do
+          Enum.each(adapter.fields, fn (field) ->
+            field |> App.Repo.delete()
           end)
-          region |> App.Repo.delete()
-        end)
-        with {:ok, %Adapter{}} <- Hosting.delete_adapter(adapter) do
-          send_resp(conn, :no_content, "")
+          Enum.each(adapter.regions, fn (region) ->
+            region = region |> App.Repo.preload([:plans])
+            Enum.each(region.plans, fn (plan) ->
+              plan = plan |> App.Repo.preload([:specs])
+              Enum.each(plan.specs, fn (spec) ->
+                spec |> App.Repo.delete()
+              end)
+              plan |> App.Repo.delete()
+            end)
+            region |> App.Repo.delete()
+          end)
+          with {:ok, %Adapter{}} <- Hosting.delete_adapter(adapter) do
+            send_resp(conn, :no_content, "")
+          end
+        else
+          conn
+          |> put_status(409)
+          |> put_view(AppWeb.APIView)
+          |> render("error.json", message: "Can't unlink a global adapter.")
         end
       _else ->
         conn
-        |> put_status(404)
+        |> put_status(401)
         |> put_view(AppWeb.APIView)
         |> render("error.json", message: "Incorrect unlink code.")
     end

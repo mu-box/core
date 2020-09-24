@@ -32,7 +32,7 @@ in getting the project up and running.
       - [x] _2FA_ \*
       - [ ] Settings Management
          - [x] _Connected Social Accounts_ \*
-         - [ ] Hosting Accounts ([#4][])
+         - [x] Hosting Accounts ([#4][])
          - [x] Teams ([#3][])
             - [x] Membership ([#3][])
             - [ ] Apps ([#5][])
