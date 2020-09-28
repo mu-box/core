@@ -2,13 +2,14 @@
 
 ![MIT License](https://img.shields.io/github/license/mu-box/core)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3162/badge)](https://bestpractices.coreinfrastructure.org/projects/3162)
+[![Elixir CI](https://github.com/mu-box/core/workflows/Elixir%20CI/badge.svg)](https://github.com/mu-box/core/actions?query=workflow%3A%22Elixir+CI%22)
 
 [![Discord](https://img.shields.io/discord/610589644651888651?logo=discord&style=social)](https://discord.gg/MCDdHfy)
 [![GitHub stars](https://img.shields.io/github/stars/mu-box/core?style=social)](https://github.com/mu-box/core)
 
 [![IssueHunt](https://img.shields.io/badge/fund-an_issue-blue)](https://issuehunt.io/o/mu-box)
 [![ko-fi](https://img.shields.io/badge/donate-on_ko--fi-blue)](https://ko-fi.com/microbox)
-[![Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fmicrobox%2Fpledges)](https://patreon.com/microbox)
+[![Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fpatreon-shields-io.herokuapp.com%2Fmicrobox%2Fpledges)](https://patreon.com/microbox)
 [![Liberapay](https://img.shields.io/liberapay/receives/microbox?logo=liberapay)](https://liberapay.com/microbox/)
 
 Microbox (aka µbox, mu-box, or mi-box, depending on who you talk to) is an open

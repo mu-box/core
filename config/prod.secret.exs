@@ -5,7 +5,7 @@
 # file to your .gitignore.
 use Mix.Config
 
-database_url = "ecto://#{System.get_env("DATA_DB_USER")}:#{System.get_env("DATA_DB_PASS")}@#{System.get_env("DATA_DB_HOST")}/gonano"
+database_url = "ecto://#{System.get_env("DATA_DB_USER") || "postgres"}:#{System.get_env("DATA_DB_PASS") || "postgres"}@#{System.get_env("DATA_DB_HOST") || "localhost"}/gonano"
 
 config :core, Core.Repo,
   # ssl: true,

@@ -24,7 +24,7 @@ defmodule Core.Application do
       CoreWeb.Endpoint,
       # Starts a worker by calling: Core.Worker.start_link(arg)
       # {Core.Worker, arg},
-      {Redix, host: System.get_env("DATA_CACHE_HOST"), name: :redix},
+      {Redix, host: System.get_env("DATA_CACHE_HOST") || "localhost", name: :redix},
       {Oban, oban_config()},
     ]
 

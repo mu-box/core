@@ -2,9 +2,9 @@ use Mix.Config
 
 # Configure your database
 config :core, Core.Repo,
-  username: System.get_env("DATA_DB_USER"),
-  password: System.get_env("DATA_DB_PASS"),
-  hostname: System.get_env("DATA_DB_HOST"),
+  username: System.get_env("DATA_DB_USER") || "postgres",
+  password: System.get_env("DATA_DB_PASS") || "postgres",
+  hostname: System.get_env("DATA_DB_HOST") || "localhost",
   database: "gonano",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
