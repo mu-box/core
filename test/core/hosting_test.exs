@@ -64,6 +64,12 @@ defmodule Core.HostingTest do
       unlink_code: nil
     }
 
+    setup do
+      {:ok, user} = Core.Accounts.User.changeset(%Core.Accounts.User{}, %{username: "tester_user", email: "tester@test.com", password: "Password", password_confirmation: "Password"}) |> Core.Repo.insert
+      valid_attrs = Map.put(@valid_attrs, :user_id, user.id)
+      {:ok, %{user: user, valid_attrs: valid_attrs}}
+    end
+
     def adapter_fixture(attrs \\ %{}) do
       {:ok, adapter} =
         attrs
@@ -73,18 +79,18 @@ defmodule Core.HostingTest do
       adapter
     end
 
-    test "list_adapters/0 returns all adapters" do
-      adapter = adapter_fixture()
+    test "list_adapters/0 returns all adapters", %{valid_attrs: valid_attrs} do
+      adapter = adapter_fixture(valid_attrs)
       assert Hosting.list_adapters() == [adapter]
     end
 
-    test "get_adapter!/1 returns the adapter with given id" do
-      adapter = adapter_fixture()
+    test "get_adapter!/1 returns the adapter with given id", %{valid_attrs: valid_attrs} do
+      adapter = adapter_fixture(valid_attrs)
       assert Hosting.get_adapter!(adapter.id) == adapter
     end
 
-    test "create_adapter/1 with valid data creates a adapter" do
-      assert {:ok, %Adapter{} = adapter} = Hosting.create_adapter(@valid_attrs)
+    test "create_adapter/1 with valid data creates a adapter", %{valid_attrs: valid_attrs} do
+      assert {:ok, %Adapter{} = adapter} = Hosting.create_adapter(valid_attrs)
       assert adapter.api == "some api"
       assert adapter.bootstrap_script == "some bootstrap_script"
       assert adapter.can_reboot == true
@@ -108,8 +114,8 @@ defmodule Core.HostingTest do
       assert {:error, %Ecto.Changeset{}} = Hosting.create_adapter(@invalid_attrs)
     end
 
-    test "update_adapter/2 with valid data updates the adapter" do
-      adapter = adapter_fixture()
+    test "update_adapter/2 with valid data updates the adapter", %{valid_attrs: valid_attrs} do
+      adapter = adapter_fixture(valid_attrs)
       assert {:ok, %Adapter{} = adapter} = Hosting.update_adapter(adapter, @update_attrs)
       assert adapter.api == "some updated api"
       assert adapter.bootstrap_script == "some updated bootstrap_script"
@@ -130,20 +136,20 @@ defmodule Core.HostingTest do
       assert adapter.unlink_code == "some updated unlink_code"
     end
 
-    test "update_adapter/2 with invalid data returns error changeset" do
-      adapter = adapter_fixture()
+    test "update_adapter/2 with invalid data returns error changeset", %{valid_attrs: valid_attrs} do
+      adapter = adapter_fixture(valid_attrs)
       assert {:error, %Ecto.Changeset{}} = Hosting.update_adapter(adapter, @invalid_attrs)
       assert adapter == Hosting.get_adapter!(adapter.id)
     end
 
-    test "delete_adapter/1 deletes the adapter" do
-      adapter = adapter_fixture()
+    test "delete_adapter/1 deletes the adapter", %{valid_attrs: valid_attrs} do
+      adapter = adapter_fixture(valid_attrs)
       assert {:ok, %Adapter{}} = Hosting.delete_adapter(adapter)
       assert_raise Ecto.NoResultsError, fn -> Hosting.get_adapter!(adapter.id) end
     end
 
-    test "change_adapter/1 returns a adapter changeset" do
-      adapter = adapter_fixture()
+    test "change_adapter/1 returns a adapter changeset", %{valid_attrs: valid_attrs} do
+      adapter = adapter_fixture(valid_attrs)
       assert %Ecto.Changeset{} = Hosting.change_adapter(adapter)
     end
   end

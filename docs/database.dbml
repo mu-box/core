@@ -168,7 +168,8 @@ table hosting_accounts {
   updated_at timestamp
 
   indexes {
-    (user_id, team_id, name) [unique]
+    (user_id, name) [unique]
+    (team_id, name) [unique]
   }
 }
 
@@ -190,13 +191,12 @@ table apps {
   user_id uuid [null, ref: > users.id]
   team_id uuid [null, ref: > teams.id]
   name varchar
-  timezone varchar
-  state varchar
   inserted_at timestamp
   updated_at timestamp
 
   indexes {
-    (user_id, team_id, name) [unique]
+    (user_id, name) [unique]
+    (team_id, name) [unique]
   }
 }
 
@@ -204,6 +204,8 @@ table instances {
   id uuid [pk]
   app_id uuid [ref: > apps.id]
   name varchar [default: 'default']
+  timezone varchar
+  state varchar
   auto_reconfigure boolean [default: false]
   keep_deploys integer [default: 2]
   inserted_at timestamp
@@ -282,7 +284,8 @@ table components {
   updated_at timestamp
 
   indexes {
-    (instance_id, service_id, name) [unique]
+    (instance_id, name) [unique]
+    (service_id, name) [unique]
   }
 }
 

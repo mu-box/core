@@ -23,8 +23,11 @@ defmodule Core.Accounts.User do
 
     has_many :memberships, Core.Accounts.TeamMembership
     has_many :teams, through: [:memberships, :team]
+    has_many :access, Core.Applications.InstanceAccess
+    has_many :instances, through: [:access, :instance]
     has_many :hosting_adapters, Core.Hosting.Adapter
     has_many :hosting_accounts, Core.Hosting.Account
+    has_many :apps, Core.Applications.App
 
     timestamps()
   end

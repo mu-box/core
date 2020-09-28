@@ -1,0 +1,41 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= inputs_for f, :app, fn fa -> %>
+    <%= label fa, :name, "App" %>
+    <%= text_input fa, :name, value: @app.name %>
+    <%= error_tag fa, :name %>
+  <% end %>
+
+  <%= label f, :timezone, "Timezone" %>
+  <%= select f, :timezone, Tzdata.zone_lists_grouped(), selected: Map.get(@changeset.data, :timezone, "UTC") %>
+  <%= error_tag f, :timezone %>
+
+  <%= label f, :name, "Instance" %>
+  <%= if !!@app.team_id and (!@changeset.data.app_id or @changeset.data.name != "default") do %>
+    <%= if !!@changeset.data.app_id or Map.has_key?(@changeset.changes, :name) do %>
+      <%= text_input f, :name %>
+    <% else %>
+      <%= text_input f, :name, value: "" %>
+    <% end %>
+  <% else %>
+    <%= @changeset.data.name %>
+  <% end %>
+  <%= error_tag f, :name %>
+
+  <%= label f, :auto_reconfigure %>
+  <%= checkbox f, :auto_reconfigure %>
+  <%= error_tag f, :auto_reconfigure %>
+
+  <%= label f, :keep_deploys %>
+  <%= number_input f, :keep_deploys %>
+  <%= error_tag f, :keep_deploys %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>

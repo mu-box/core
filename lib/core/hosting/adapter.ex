@@ -35,7 +35,7 @@ defmodule Core.Hosting.Adapter do
   def changeset(adapter, attrs) do
     adapter
     |> cast(attrs, [:user_id, :global, :endpoint, :unlink_code, :api, :name, :server_nick_name, :default_region, :default_size, :can_reboot, :can_rename, :internal_iface, :external_iface, :ssh_user, :ssh_auth_method, :ssh_key_method, :bootstrap_script, :instructions])
-    |> validate_required([:user_id])
+    |> validate_required([:user_id, :global])
     |> foreign_key_constraint(:hosting_credential_fields, name: :hosting_credential_fields_hosting_adapter_id_fkey, message: "Can't delete with child properties")
     |> foreign_key_constraint(:hosting_regions, name: :hosting_regions_hosting_adapter_id_fkey, message: "Can't delete with child properties")
   end

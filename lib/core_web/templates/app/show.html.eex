@@ -1,0 +1,31 @@
+<h1>Show App</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @app.name %>
+  </li>
+
+  <li>
+    <strong>Instances:</strong>
+    <ul>
+      <%= for instance <- @app.instances do %>
+        <%= if Core.Accounts.can_access_instance(@current_user, instance, "scope", "read") do %>
+          <li>
+            <%= link instance.name, to: Routes.team_app_instance_path(@conn, :show, @app.team_id, @app, instance) %>
+          </li>
+        <% end %>
+      <% end %>
+      <%= if Core.Accounts.can_access_team(@current_user, @app.team, "scope", "write") do %>
+        <li>
+          <span><%= link "New Instance", to: Routes.team_app_instance_path(@conn, :new, @app.team, @app) %></span>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.team_app_path(@conn, :edit, @app.team_id, @app) %></span>
+<span><%= link "Back", to: Routes.team_path(@conn, :show, @app.team_id) %></span>

@@ -20,6 +20,13 @@ defmodule CoreWeb.API.UserController do
         |> render("error.json", message: "User not found with those credentials.")
     end
   end
+  def token(conn, %{}) do
+    Argon2.no_user_verify()
+    conn
+    |> put_status(400)
+    |> put_view(CoreWeb.APIView)
+    |> render("error.json", message: "Incomplete or missing credentials.")
+  end
 
   def show(%{assigns: %{current_user: user}} = conn, _params) do
     render(conn, "user.json", user: user)

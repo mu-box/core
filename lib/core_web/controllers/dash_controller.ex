@@ -5,7 +5,7 @@ defmodule CoreWeb.DashController do
     render conn, "index.html",
       current_user:
         Pow.Plug.current_user(conn)
-        |> Core.Repo.preload([:teams, :hosting_adapters, :hosting_accounts]),
+        |> Core.Repo.preload([:apps, :teams, :hosting_adapters, :hosting_accounts]),
       global_adapters: Core.Hosting.global_adapters()
   end
 

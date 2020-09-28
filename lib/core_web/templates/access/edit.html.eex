@@ -1,0 +1,24 @@
+<h1>Edit Team Membership</h1>
+
+<%= form_for @changeset, Routes.team_app_instance_access_path(@conn, :update, @team, @app_id, @instance_id, @instance_access), fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= label f, :username %>
+  <%= Core.Accounts.get_user!(@instance_access.user_id).username %>
+  <%= hidden_input f, :user_id %>
+
+  <%= label f, :role_id %>
+  <%= select f, :role_id, Enum.map(Core.Accounts.list_roles(), fn (role) -> [value: role.id, key: role.name] end) %>
+  <%= error_tag f, :role_id %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>
+
+<span><%= link "Back", to: Routes.team_app_instance_path(@conn, :show, @team, @app_id, @instance_id) %></span>
+<span><%= link "Delete", to: Routes.team_app_instance_access_path(@conn, :delete, @team, @app_id, @instance_id, @instance_access), method: :delete %></span>

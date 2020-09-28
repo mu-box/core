@@ -156,6 +156,19 @@ defmodule Core.Accounts do
   def get_team!(id), do: Repo.get!(Team, id)
 
   @doc """
+  Gets a single team by its slug.
+
+  Raises if the Team does not exist.
+
+  ## Examples
+
+      iex> get_team_by_slug!("foo")
+      %Team{}
+
+  """
+  def get_team_by_slug!(slug), do: Repo.get_by!(Team, [slug: slug])
+
+  @doc """
   Creates a team.
 
   ## Examples
@@ -428,12 +441,13 @@ defmodule Core.Accounts do
     case user.superuser do
       true -> true
       false ->
-        case Enum.find(user.memberships, nil, fn (membership) ->
+        Enum.find(user.memberships, nil, fn (membership) ->
           case membership do
             %{team_id: ^team_id} -> true
             _else -> false
           end
-        end) do
+        end)
+        |> case do
           %TeamMembership{} = membership ->
             membership
             |> Repo.preload([:role])
@@ -464,6 +478,63 @@ defmodule Core.Accounts do
               _else -> false
             end
           _else -> false
+        end
+    end
+  end
+
+  alias Core.Applications.InstanceAccess
+
+  @doc """
+  Returns a boolean indicating whether the user has the requested instance permission
+  """
+  def can_access_instance(user, instance, permission, want) do
+    instance = instance |> Core.Repo.preload([app: [:team]])
+    case can_access_team(user, instance.app.team, permission, want) do
+      true -> true
+      false ->
+        user = user |> Repo.preload([:access])
+        instance_id = instance.id
+        case user.superuser do
+          true -> true
+          false ->
+            Enum.find(user.access, nil, fn (access) ->
+              case access do
+                %{instance_id: ^instance_id} -> true
+                _else -> false
+              end
+            end)
+            |> case do
+              %InstanceAccess{} = access ->
+                access
+                |> Repo.preload([:role])
+                |> case do
+                  %InstanceAccess{role: %Role{permissions: %{^permission => have}}} ->
+                    case want do
+                      "admin" ->
+                        case have do
+                          "admin" -> true
+                          _else -> false
+                        end
+                      "write" ->
+                        case have do
+                          "admin" -> true
+                          "write" -> true
+                          _else -> false
+                        end
+                      "read" ->
+                        case have do
+                          "admin" -> true
+                          "write" -> true
+                          "read" -> true
+                          _else -> false
+                        end
+                      "any" -> true
+                      _else -> false
+                    end
+                  _else -> false
+                end
+              _else -> false
+            end
         end
     end
   end

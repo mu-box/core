@@ -1,0 +1,69 @@
+<h1>Show Instance</h1>
+
+<ul>
+
+  <li>
+    <strong>App:</strong>
+    <%= @instance.app.name %>
+  </li>
+
+  <li>
+    <strong>Timezone:</strong>
+    <%= @instance.timezone %>
+  </li>
+
+  <li>
+    <strong>Instance:</strong>
+    <%= @instance.name %>
+  </li>
+
+  <li>
+    <strong>Auto Reconfigure:</strong>
+    <%= @instance.auto_reconfigure %>
+  </li>
+
+  <li>
+    <strong>Keep Deploys:</strong>
+    <%= @instance.keep_deploys %>
+  </li>
+
+  <%= if @instance.app.team_id do %>
+    <li>
+      <strong>Users With Additional Access:</strong>
+      <ul>
+        <%= for access <- @instance.access do %>
+          <li>
+            <%= access.user.username %>
+            (
+              <%= if Core.Accounts.can_access_instance(@current_user, @instance, "scope", "admin") do %>
+                <%= link access.role.name, to: Routes.team_app_instance_access_path(@conn, :edit, @instance.app.team_id, @app_id, @instance.id, access.id) %>
+              <% else %>
+                <%= access.role.name %>
+              <% end %>
+            )
+          </li>
+        <% end %>
+        <%= if Core.Accounts.can_access_instance(@current_user, @instance, "scope", "admin") do %>
+          <li>
+            <%= link "Grant Team Member Access", to: Routes.team_app_instance_access_path(@conn, :new, @instance.app.team_id, @app_id, @instance) %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+
+</ul>
+
+<%= if @instance.app.team_id do %>
+  <span><%= link "Edit", to: Routes.team_app_instance_path(@conn, :edit, @instance.app.team_id, @app_id, @instance) %></span>
+  <%= if @instance.name != "default" do %>
+    <span><%= link "Delete", to: Routes.team_app_instance_path(@conn, :delete, @instance.app.team_id, @app_id, @instance), method: :delete, data: [confirm: "Are you sure?"] %></span>
+  <% else %>
+    <span><%= link "Delete", to: Routes.team_app_instance_path(@conn, :delete, @instance.app.team_id, @app_id, @instance), method: :delete, data: [confirm: "Are you sure? This will delete the entire app as well."] %></span>
+  <% end %>
+  <span><%= link "Back", to: Routes.team_app_path(@conn, :show, @instance.app.team_id, @app_id) %></span>
+<% else %>
+  <span><%= link "Edit", to: Routes.app_instance_path(@conn, :edit, @app_id, @instance) %></span>
+  <span><%= link "Delete", to: Routes.app_instance_path(@conn, :delete, @app_id, @instance), method: :delete, data: [confirm: "Are you sure?"] %></span>
+  <span><%= link "Back", to: Routes.dash_path(@conn, :index) %></span>
+<% end %>

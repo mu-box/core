@@ -22,6 +22,8 @@ rescue
   _ -> IO.puts "no .env file found!"
 end
 
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
 config :core,
   ecto_repos: [Core.Repo]
 

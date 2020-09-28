@@ -1,0 +1,26 @@
+<h1>New Team Member</h1>
+
+<%= form_for @changeset, Routes.team_app_instance_access_path(@conn, :create, @team, @app_id, @instance_id), fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= hidden_input f, :instance_id, value: @instance_id %>
+
+  <%= label f, :user_id %>
+  <%= select f, :user_id, @team |> Core.Repo.preload([:users]) |> Map.get(:users) |> Enum.map(fn (user) -> [key: user.username, value: user.id] end) %>
+  <%= error_tag f, :instance_id %>
+  <%= error_tag f, :user_id %>
+
+  <%= label f, :role_id %>
+  <%= select f, :role_id, Enum.map(Core.Accounts.list_roles(), fn (role) -> [value: role.id, key: role.name] end) %>
+  <%= error_tag f, :role_id %>
+
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>
+
+<span><%= link "Back", to: Routes.team_app_instance_path(@conn, :show, @team, @app_id, @instance_id) %></span>

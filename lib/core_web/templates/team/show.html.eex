@@ -6,6 +6,24 @@
     <%= @team.name %>
   </li>
 
+  <li>
+    <strong>Apps:</strong>
+    <ul>
+      <%= for app <- @team.apps |> Core.Repo.preload([:instances]) do %>
+        <%= if Core.Accounts.can_access_team(@current_user, @team, "scope", "read") or Enum.any?(app.instances, fn instance -> Core.Accounts.can_access_instance(@current_user, instance, "scope", "read") end) do %>
+          <li>
+            <%= link app.name, to: Routes.team_app_path(@conn, :show, @team, app) %>
+          </li>
+        <% end %>
+      <% end %>
+      <%= if Core.Accounts.can_access_team(@current_user, @team, "scope", "write") do %>
+        <li>
+          <%= link "Add An App", to: Routes.team_app_path(@conn, :new, @team) %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+
 <%= if Core.Accounts.can_access_team(@current_user, @team, "scope", "read") do %>
   <li>
     <strong>Members:</strong>

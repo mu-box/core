@@ -3,6 +3,16 @@
 </section>
 
 <section>
+  <h2>Apps</h2>
+  <ul>
+    <%= for app <- @current_user.apps do %>
+      <li><%= link app.name, to: Routes.app_path(@conn, :show, app.id) %></li>
+    <% end %>
+    <li><%= link "Create A New App", to: Routes.app_path(@conn, :new) %></li>
+  </ul>
+</section>
+
+<section>
   <h2>Teams</h2>
   <ul>
     <%= for team <- @current_user.teams do %>
@@ -39,7 +49,7 @@
           )
         </li>
       <% else %>
-        <li>Register at <%= Routes.adapter_url(@conn, :register, adapter.id) %></li>
+        <li>Register at <%= Routes.api_adapter_url(@conn, :register, adapter.id) %></li>
       <% end %>
     <% end %>
     <%= for adapter <- @global_adapters do %>

@@ -34,7 +34,7 @@ defmodule CoreWeb.TeamController do
   end
 
   def show(conn, %{"id" => id}) do
-    team = Accounts.get_team!(id) |> Core.Repo.preload([:memberships, :hosting_adapters])
+    team = Accounts.get_team!(id) |> Core.Repo.preload([:apps, :memberships, :hosting_adapters])
     case Core.Accounts.can_access_team(Pow.Plug.current_user(conn), team, "scope", "any") do
       true ->
         render(conn, "show.html", team: team, global_adapters: Core.Hosting.global_adapters())

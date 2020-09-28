@@ -12,6 +12,7 @@ defmodule Core.Accounts.Team do
       join_through: Core.Hosting.TeamAdapter,
       join_keys: [team_id: :id, hosting_adapter_id: :id]
     has_many :hosting_accounts, Core.Hosting.Account
+    has_many :apps, Core.Applications.App
 
     timestamps()
   end
@@ -34,5 +35,6 @@ defmodule Core.Accounts.Team do
         team
         |> put_change(:slug, Slug.slugify(name))
     end
+    |> unique_constraint([:slug])
   end
 end

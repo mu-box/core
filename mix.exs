@@ -52,6 +52,7 @@ defmodule App.MixProject do
       {:slugify, "~> 1.3"},                   # convert names into slugs as needed
       {:httpoison, "~> 1.7"},                 # HTTP lib, for accessing external APIs (already included elsewhere, but enforced here as well)
       {:oban, "~> 2.1"},                      # Background task handling
+      {:tzdata, "~> 1.0.1"},                  # Timezone support
       # Auth - First factor
       {:argon2_elixir, "~> 2.3"},             # Password hashing
       {:pow, "~> 1.0.13"},                    # User management

@@ -1,0 +1,9 @@
+<h1>Edit Instance</h1>
+
+<%= render "form.html", assigns %>
+
+<%= if !!@app.team_id do %>
+  <span><%= link "Back", to: Routes.team_app_path(@conn, :show, @app.team, @app) %></span>
+<% else %>
+  <span><%= link "Back", to: Routes.app_path(@conn, :show, @app) %></span>
+<% end %>

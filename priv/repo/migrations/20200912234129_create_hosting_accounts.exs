@@ -14,6 +14,7 @@ defmodule App.Repo.Migrations.CreateHostingAccounts do
     create index(:hosting_accounts, [:user_id])
     create index(:hosting_accounts, [:team_id])
     create index(:hosting_accounts, [:hosting_adapter_id])
-    create unique_index(:hosting_accounts, [:user_id, :team_id, :name])
+    create unique_index(:hosting_accounts, [:user_id, :name])
+    create unique_index(:hosting_accounts, [:team_id, :name])
   end
 end

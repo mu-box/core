@@ -119,6 +119,11 @@ defmodule CoreWeb.Router do
         get "/creds/edit", AccountController, :edit_creds
         put "/creds", AccountController, :update_creds
       end
+      resources "/apps", AppController, except: [:index] do
+        resources "/instances", InstanceController, except: [:index] do
+          resources "/access", AccessController, except: [:index, :show]
+        end
+      end
     end
     resources "/adapters", AdapterController, only: [:create] do
       get "/share", AdapterController, :share_form
@@ -132,6 +137,9 @@ defmodule CoreWeb.Router do
       get "/creds/edit", AccountController, :edit_creds
       put "/creds", AccountController, :update_creds
     end
+    resources "/apps", AppController, except: [:index] do
+      resources "/instances", InstanceController, except: [:index]
+    end
   end
 
   scope "/super", CoreWeb do
@@ -144,7 +152,7 @@ defmodule CoreWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  scope "/api/v1", CoreWeb.API do
+  scope "/api/v1", CoreWeb.API, as: :api do
     pipe_through :api
 
     get "/", MiscController, :version
@@ -152,11 +160,14 @@ defmodule CoreWeb.Router do
     get "/users/:slug/auth_token", UserController, :token
   end
 
-  scope "/api/v1", CoreWeb.API do
+  scope "/api/v1", CoreWeb.API, as: :api do
     pipe_through [:api, :need_auth_token]
 
     get "/users/:me", UserController, :show
     post "/adapters/:id", AdapterController, :register
     delete "/adapters/:id", AdapterController, :unregister
+    resources "/apps", AppController, only: [:index, :show] do
+      #
+    end
   end
 end

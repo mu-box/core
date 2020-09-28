@@ -1,0 +1,32 @@
+<h1>Listing Instances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>App Name</th>
+      <th>App Timezone</th>
+      <th>Instance</th>
+      <th>Auto Reconfigure</th>
+      <th>Keep Deploys</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for instance <- @instances do %>
+    <tr>
+      <td><%= instance.app.name %></td>
+      <td><%= instance.app.timezone %></td>
+      <td><%= instance.name %></td>
+      <td><%= instance.auto_reconfigure %></td>
+      <td><%= instance.keep_deploys %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.app_instance_path(@conn, :show, @app_id, instance) %></span>
+        <span><%= link "Edit", to: Routes.app_instance_path(@conn, :edit, @app_id, instance) %></span>
+        <span><%= link "Delete", to: Routes.app_instance_path(@conn, :delete, @app_id, instance), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

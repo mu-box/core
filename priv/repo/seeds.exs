@@ -5,12 +5,12 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-#     App.Repo.insert!(%App.SomeSchema{})
+#     Core.Repo.insert!(%Core.SomeSchema{})
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias App.Accounts
+alias Core.Accounts
 
 roles = [
   %{
