@@ -20,6 +20,19 @@ secret_key_base =
     """
 
 config :core, CoreWeb.Endpoint,
-  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "8080")],
+  http: [
+    port: String.to_integer(System.get_env("PORT") || "8080"),
+    transport_options: [socket_opts: [:inet6]]
+  ],
   force_ssl: [rewrite_on: [:x_forwarded_proto], host: nil],
   secret_key_base: secret_key_base
+
+# ## Using releases (Elixir v1.9+)
+#
+# If you are doing OTP releases, you need to instruct Phoenix
+# to start each relevant endpoint:
+#
+#     config :core, CoreWeb.Endpoint, server: true
+#
+# Then you can assemble a release by calling `mix release`.
+# See `mix help release` for more information.

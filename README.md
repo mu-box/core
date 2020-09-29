@@ -19,19 +19,19 @@ maintaining the boxfile approach moving forward. Doing this will require making
 some changes to some of the tooling and Docker images used, for example to
 switch package managers to something that will take less time to maintain when
 new package versions are released. More information on this process will be
-added to the project documentation (at the moment, this README) as it gets
+added to the project documentation (check the `docs/` directory) as it gets
 fleshed out.
 
 For now, just getting the basic Nanobox features implemented will go a long way
 in getting the project up and running.
 
 - [ ] Dashboard
-   - [ ] Accounts
+   - [x] Accounts
       - [x] Registration
       - [x] Login
       - [x] Social Login
       - [x] _2FA_ \*
-      - [ ] Settings Management
+      - [x] Settings Management
          - [x] _Connected Social Accounts_ \*
          - [x] Hosting Accounts ([#4][])
          - [x] Teams ([#3][])

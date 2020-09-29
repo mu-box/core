@@ -60,7 +60,7 @@ config :core, CoreWeb.Endpoint,
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/app_web/{live,views}/.*(ex)$",
+      ~r"lib/app_web/(live|views)/.*(ex)$",
       ~r"lib/app_web/templates/.*(eex)$"
     ]
   ]

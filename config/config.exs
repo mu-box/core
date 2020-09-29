@@ -36,7 +36,8 @@ config :core, CoreWeb.Endpoint,
   http: [port: 8080],
   secret_key_base: System.get_env("SECRET_KEY_BASE"),
   render_errors: [view: CoreWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Core.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Core.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [signing_salt: System.get_env("SECRET_SALT") || "MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD"]
 
 # Configures Elixir's Logger
 config :logger, :console,
