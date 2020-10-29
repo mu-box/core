@@ -138,3 +138,7 @@ their own copies are free to use whatever works best for them.
 -   `:app.:user.microbox.app` for apps
 -   `:instance.:app.:team.microbox.team` for team apps
 -   `:app.:team.microbox.live` for HA, A/B, etc
+
+## Sponsors!
+
+[Giacomo Trezzi (@G3z)](https://github.com/G3z)
