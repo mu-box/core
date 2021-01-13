@@ -12,6 +12,9 @@ defmodule Core.Applications.Instance do
 
     has_many :access, Core.Applications.InstanceAccess
     has_many :users, through: [:access, :user]
+    has_many :servers, Core.Remote.Server
+    has_many :keys, Core.Remote.Key
+    has_many :logs, Core.Tracking.JobLog
 
     timestamps()
   end

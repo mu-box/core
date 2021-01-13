@@ -71,7 +71,7 @@ defmodule Core.Hosting.Adapter do
       case HTTPoison.get(adapter.endpoint <> "/meta") do
         {:ok, response} ->
           response.body
-          |> Poison.decode!()
+          |> Jason.decode!()
           |> populate_meta(adapter)
         {:error, err} ->
           Logger.error(adapter.endpoint <> "/meta: " <> Atom.to_string(err.reason))
@@ -82,7 +82,7 @@ defmodule Core.Hosting.Adapter do
         case HTTPoison.get(adapter.endpoint <> "/catalog", [], recv_timeout: 120_000) do
           {:ok, response} ->
             response.body
-            |> Poison.decode!()
+            |> Jason.decode!()
             |> populate_catalog(adapter)
           {:error, err} ->
             Logger.error(adapter.endpoint <> "/catalog: " <> Atom.to_string(err.reason))

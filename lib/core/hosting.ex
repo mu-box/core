@@ -219,7 +219,31 @@ defmodule Core.Hosting do
   Checks the supplied credentials against the given adapter to see if they're correct.
   """
   def try_creds(%Adapter{} = adapter, %{} = creds) do
-    headers = Map.keys(creds)
+    headers = get_creds_headers(creds)
+    case HTTPoison.post(adapter.endpoint <> "/verify", "", headers) do
+      {:ok, %{status_code: 200}} ->
+        true
+      other ->
+        IO.inspect(other)
+        false
+    end
+  end
+
+  def get_creds(%Account{} = account) do
+    account = account |> Repo.preload([:creds, :hosting_adapter])
+    account.hosting_adapter
+    |> Repo.preload([:fields])
+    |> Map.get(:fields)
+    |> Enum.reduce(%{}, fn (field, acc) ->
+      cred = Enum.find(account.creds, %Core.Hosting.Credential{}, fn (cred) ->
+        field.id == cred.hosting_credential_field_id
+      end)
+      Map.put(acc, field.key, cred.value)
+    end)
+  end
+
+  def get_creds_headers(%{} = creds) do
+    Map.keys(creds)
     |> Enum.map(fn (key) ->
       {
         "Auth-" <> key
@@ -229,12 +253,5 @@ defmodule Core.Hosting do
         Map.get(creds, key)
       }
     end)
-    case HTTPoison.post(adapter.endpoint <> "/verify", "", headers) do
-      {:ok, %{status_code: 200}} ->
-        true
-      other ->
-        IO.inspect(other)
-        false
-    end
   end
 end

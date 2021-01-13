@@ -201,4 +201,75 @@ defmodule Core.ApplicationsTest do
       assert %Ecto.Changeset{} = Applications.change_instance_access(instance_access)
     end
   end
+
+  describe "services" do
+    alias Core.Applications.Service
+
+    @valid_attrs %{ip: "some ip", mode: "some mode", name: "some name", slug: "some slug", token: "some token", uid: "some uid", url: "some url"}
+    @update_attrs %{ip: "some updated ip", mode: "some updated mode", name: "some updated name", slug: "some updated slug", token: "some updated token", uid: "some updated uid", url: "some updated url"}
+    @invalid_attrs %{ip: nil, mode: nil, name: nil, slug: nil, token: nil, uid: nil, url: nil}
+
+    def service_fixture(attrs \\ %{}) do
+      {:ok, service} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Applications.create_service()
+
+      service
+    end
+
+    test "list_services/0 returns all services" do
+      service = service_fixture()
+      assert Applications.list_services() == [service]
+    end
+
+    test "get_service!/1 returns the service with given id" do
+      service = service_fixture()
+      assert Applications.get_service!(service.id) == service
+    end
+
+    test "create_service/1 with valid data creates a service" do
+      assert {:ok, %Service{} = service} = Applications.create_service(@valid_attrs)
+      assert service.ip == "some ip"
+      assert service.mode == "some mode"
+      assert service.name == "some name"
+      assert service.slug == "some slug"
+      assert service.token == "some token"
+      assert service.uid == "some uid"
+      assert service.url == "some url"
+    end
+
+    test "create_service/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Applications.create_service(@invalid_attrs)
+    end
+
+    test "update_service/2 with valid data updates the service" do
+      service = service_fixture()
+      assert {:ok, %Service{} = service} = Applications.update_service(service, @update_attrs)
+      assert service.ip == "some updated ip"
+      assert service.mode == "some updated mode"
+      assert service.name == "some updated name"
+      assert service.slug == "some updated slug"
+      assert service.token == "some updated token"
+      assert service.uid == "some updated uid"
+      assert service.url == "some updated url"
+    end
+
+    test "update_service/2 with invalid data returns error changeset" do
+      service = service_fixture()
+      assert {:error, %Ecto.Changeset{}} = Applications.update_service(service, @invalid_attrs)
+      assert service == Applications.get_service!(service.id)
+    end
+
+    test "delete_service/1 deletes the service" do
+      service = service_fixture()
+      assert {:ok, %Service{}} = Applications.delete_service(service)
+      assert_raise Ecto.NoResultsError, fn -> Applications.get_service!(service.id) end
+    end
+
+    test "change_service/1 returns a service changeset" do
+      service = service_fixture()
+      assert %Ecto.Changeset{} = Applications.change_service(service)
+    end
+  end
 end

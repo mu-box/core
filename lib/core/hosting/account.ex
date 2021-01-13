@@ -9,6 +9,7 @@ defmodule Core.Hosting.Account do
     field :name, :string
 
     has_many :creds, Core.Hosting.Credential, foreign_key: :hosting_account_id
+    has_many :servers, Core.Remote.Server, foreign_key: :hosting_account_id
 
     timestamps()
   end

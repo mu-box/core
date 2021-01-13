@@ -1,4 +1,4 @@
-- user provides name, provider, and server size
+- user provides name, account, and server size
 - add app to DB (details, initial evars, etc)
 - order server
     - contact provider (via adapter) to order the desired server

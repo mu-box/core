@@ -53,6 +53,7 @@ defmodule App.MixProject do
       {:httpoison, "~> 1.7"},                 # HTTP lib, for accessing external APIs (already included elsewhere, but enforced here as well)
       {:oban, "~> 2.1"},                      # Background task handling
       {:tzdata, "~> 1.0.1"},                  # Timezone support
+      {:sshex, "~> 2.2.1"},                   # SSH access to servers
       # Auth - First factor
       {:argon2_elixir, "~> 2.3"},             # Password hashing
       {:pow, "~> 1.0.13"},                    # User management
@@ -65,7 +66,6 @@ defmodule App.MixProject do
       # {:ueberauth_linkedin, "~> 0.3"},        # LinkedIn
       # Auth - Second factor
       {:elixir2fa, "~> 0.1.0"},               # code generator
-      {:passwordless_auth, "~> 0.1.0"},       # SMS
     ]
   end
 

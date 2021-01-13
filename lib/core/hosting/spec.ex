@@ -13,6 +13,8 @@ defmodule Core.Hosting.Spec do
     field :spec, :string
     field :transfer, :integer
 
+    has_many :servers, Core.Remote.Server, foreign_key: :specs_id
+
     timestamps()
   end
 

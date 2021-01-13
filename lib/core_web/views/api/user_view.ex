@@ -1,6 +1,5 @@
 defmodule CoreWeb.API.UserView do
   use CoreWeb, :view
-  alias CoreWeb.API.UserView
 
   def render("token.json", %{user: user}) do
     %{id: user.id,

@@ -39,3 +39,5 @@ evars.local
 .elixir_ls/
 
 odin-*
+
+.idea/

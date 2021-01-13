@@ -167,7 +167,9 @@ defmodule CoreWeb.Router do
     post "/adapters/:id", AdapterController, :register
     delete "/adapters/:id", AdapterController, :unregister
     resources "/apps", AppController, only: [:index, :show] do
-      #
+      resources "/services", ServiceController, only: [:index, :show] do
+        #
+      end
     end
   end
 end

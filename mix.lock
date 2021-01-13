@@ -47,6 +47,7 @@
   "ranch": {:hex, :ranch, "1.7.1", "6b1fab51b49196860b733a49c07604465a47bdb78aa10c1c16a3d199f7f8c881", [:rebar3], [], "hexpm", "451d8527787df716d99dc36162fca05934915db0b6141bbdac2ea8d3c7afc7d7"},
   "redix": {:hex, :redix, "0.9.3", "c51d66657018a9b14f3b4496b1ba70ef6a16e8414cd19b34635242ac371beb95", [:mix], [], "hexpm", "aaf66448a6daac9ebaf310407a9edee99c65a0c4b39b16e67676cb5884228a13"},
   "slugify": {:hex, :slugify, "1.3.1", "0d3b8b7e5c1eeaa960e44dce94382bee34a39b3ea239293e457a9c5b47cc6fd3", [:mix], [], "hexpm", "cb090bbeb056b312da3125e681d98933a360a70d327820e4b7f91645c4d8be76"},
+  "sshex": {:hex, :sshex, "2.2.1", "e1270b8345ea2a66a11c2bb7aed22c93e3bc7bc813486f4ffd0a980e4a898160", [:mix], [], "hexpm", "45b2caa5011dc850e70a2d77e3b62678a3e8bcb903eab6f3e7afb2ea897b13db"},
   "ssl_verify_fun": {:hex, :ssl_verify_fun, "1.1.6", "cf344f5692c82d2cd7554f5ec8fd961548d4fd09e7d22f5b62482e5aeaebd4b0", [:make, :mix, :rebar3], [], "hexpm", "bdb0d2471f453c88ff3908e7686f86f9be327d065cc1ec16fa4540197ea04680"},
   "telemetry": {:hex, :telemetry, "0.4.2", "2808c992455e08d6177322f14d3bdb6b625fbcfd233a73505870d8738a2f4599", [:rebar3], [], "hexpm", "2d1419bd9dda6a206d7b5852179511722e2b18812310d304620c7bd92a13fcef"},
   "tzdata": {:hex, :tzdata, "1.0.3", "73470ad29dde46e350c60a66e6b360d3b99d2d18b74c4c349dbebbc27a09a3eb", [:mix], [{:hackney, "~> 1.0", [hex: :hackney, repo: "hexpm", optional: false]}], "hexpm", "a6e1ee7003c4d04ecbd21dd3ec690d4c6662db5d3bbdd7262d53cdf5e7c746c1"},

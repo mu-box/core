@@ -9,7 +9,6 @@ defmodule Core.Workers.UpdateAdapters do
     Core.Hosting.get_adapter!(adapter_id)
     |> Core.Hosting.Adapter.populate_config()
   end
-
   def perform(_) do
     Core.Hosting.list_adapters()
     |> Enum.each(fn (adapter) ->

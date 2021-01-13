@@ -23,7 +23,7 @@ run.config:
   fs_watch: true
 
   extra_steps:
-    - cd assets && yarn
+    - cd assets && npm install
 
 deploy.config:
   # generate the static assets digest
@@ -37,6 +37,9 @@ deploy.config:
 
 web.main:
   start: node-start mix phx.server
+  writable_dirs:
+    # - _build
+    - priv
 
 # add postgres as a data component
 data.db:

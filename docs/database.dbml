@@ -229,6 +229,18 @@ table instance_access {
   }
 }
 
+table keys {
+  id uuid [pk]
+  instance_id uuid [ref: > instances.id]
+  hosting_account_id uuid [ref: > hosting_accounts.id]
+  key varchar
+  title varchar
+  public varchar
+  private binary
+  inserted_at timestamp
+  updated_at timestamp
+}
+
 table servers {
   id uuid [pk]
   instance_id uuid [ref: > instances.id]
@@ -358,17 +370,6 @@ table evars {
   }
 }
 
-table keys {
-  id uuid [pk]
-  instance_id uuid [ref: > instances.id]
-  hosting_id varchar
-  title varchar
-  public varchar
-  private text
-  inserted_at timestamp
-  updated_at timestamp
-}
-
 table certs {
   id uuid [pk]
   instance_id uuid [ref: > instances.id]
@@ -387,7 +388,7 @@ table cert_bundles {
   id uuid [pk]
   cert_id uuid [ref: > certs.id]
   type varchar
-  key text [null]
+  key binary [null]
   challenge json [null]
   csr text [null]
   authority text [null]

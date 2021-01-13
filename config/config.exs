@@ -112,11 +112,6 @@ config :core, :pow_assent,
     ]
   ]
 
-config :ex_twilio,
-  account_sid: System.get_env("TWILIO_ACCOUNT_SID"),
-  auth_token: System.get_env("TWILIO_AUTH_TOKEN"),
-  workspace_sid: System.get_env("TWILIO_WORKSPACE_SID") # optional
-
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
