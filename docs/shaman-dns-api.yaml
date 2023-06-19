@@ -4,12 +4,12 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/danhunsaker/shaman-dns/1.0.0
 info:
-  description: API spec for Nanobox's Shaman DNS server
+  description: API spec for Microbox's Shaman DNS server
   version: "1.0.0"
   title: Shaman DNS API
   contact:
-    name: Dan Hunsaker
-    email: danhunsaker@gmail.com
+    name: Hennik Hunsaker
+    email: hennikhunsaker@microbox.cloud
   license:
     name: MIT License
     url: https://choosealicense.com/licenses/mit/
@@ -44,10 +44,10 @@ paths:
                 properties:
                   err:
                     type: string
-                example: 
+                example:
                   err: 'exit status 2: unexpected argument'
     get:
-      summary: Returns a list of domains we have records for  
+      summary: Returns a list of domains we have records for
       tags: [zone]
       responses:
         200:
@@ -59,7 +59,7 @@ paths:
                 items:
                   type: string
               example:
-                - nanopack.io
+                - microbox.cloud
     put:
       summary: Update all domains and records (replaces all)
       tags: [zone]
@@ -125,7 +125,7 @@ paths:
                 properties:
                   msg:
                     type: string
-                example: 
+                example:
                   msg: success
 components:
   schemas:
@@ -148,7 +148,7 @@ components:
               address:
                 type: string
       example:
-        domain: nanopack.io.
+        domain: microbox.cloud.
         records:
           - ttl: 60
             class: IN

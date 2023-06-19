@@ -5,7 +5,7 @@ config :core, Core.Repo,
   username: System.get_env("DATA_DB_USER") || "postgres",
   password: System.get_env("DATA_DB_PASS") || "postgres",
   hostname: System.get_env("DATA_DB_HOST") || "localhost",
-  database: "gonano_test",
+  database: "gomicro_test",
   pool: Ecto.Adapters.SQL.Sandbox
 
 # We don't run a server during test. If one is required,

@@ -57,8 +57,8 @@ defmodule Core.Accounts do
 
   ## Examples
 
-      iex> get_user_by_name!("danhunsaker")
-      %User{username: "danhunsaker"}
+      iex> get_user_by_name!("hennikhunsaker")
+      %User{username: "hennikhunsaker"}
 
   """
   def get_user_by_name!(name), do: Repo.get_by!(User, [username: name])
@@ -68,8 +68,8 @@ defmodule Core.Accounts do
 
   ## Examples
 
-      iex> get_user_by_name("danhunsaker")
-      %User{username: "danhunsaker"}
+      iex> get_user_by_name("hennikhunsaker")
+      %User{username: "hennikhunsaker"}
 
   """
   def get_user_by_name(name), do: Repo.get_by(User, [username: name])

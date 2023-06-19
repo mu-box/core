@@ -173,7 +173,7 @@ components:
         type: deploy
         priority: 4
         message: |-
-          $ mv nanobox/.htaccess .htaccess
+          $ mv microbox/.htaccess .htaccess
           [✓] SUCCESS
     Drain:
       type: object

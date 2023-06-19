@@ -7,15 +7,13 @@ servers:
     description: The production version of Microbox.
   - url: https://api.xn-box-wyc.cloud/v1
     description: The staging version of Microbox.
-  - url: https://api.nanobox.io/v1
-    description: The production version of Nanobox.
 info:
   version: "1.0.0"
   title: Microbox Core API
   description: The full API spec for Microbox Core, and other Nanobox-v1-compatible dashboard and coordination servers.
   contact:
-    name: Dan Hunsaker
-    email: danhunsaker@gmail.com
+    name: Hennik Hunsaker
+    email: hennikhunsaker@microbox.cloud
   license:
     url: https://choosealicense.com/licenses/mit/
     name: MIT License
@@ -256,7 +254,7 @@ paths:
                             description: will either be 'reference' or 'object'. When set to 'reference', Microbox will first create the SSH key in the user's provider account, then pass a reference to it when servers are created. When set to 'object', Microbox will pass the actual public SSH key that should be installed on the server.
                           bootstrap_script:
                             type: string
-                            description: The script that should be used to bootstrap the server. e.g. https://s3.amazonaws.com/tools.nanobox.io/bootstrap/ubuntu.sh
+                            description: The script that should be used to bootstrap the server. e.g. https://s3.amazonaws.com/tools.microbox.cloud/bootstrap/ubuntu.sh
                           credential_fields:
                             type: array
                             items:
@@ -289,7 +287,7 @@ paths:
                         ssh_user: root
                         ssh_auth_method: key
                         ssh_key_method: reference
-                        bootstrap_script: https://s3.amazonaws.com/tools.nanobox.io/bootstrap/ubuntu.sh
+                        bootstrap_script: https://s3.amazonaws.com/tools.microbox.cloud/bootstrap/ubuntu.sh
                         credential_fields:
                           - key: access-token
                             label: Access Token
@@ -996,7 +994,7 @@ paths:
                     example: active
                   dashboard_url:
                     type: string
-                    example: 'http://dashboard.nanobox.io/apps/f76a11e5-ab8c-4f3f-8602-4b267353c17d'
+                    example: 'https://dashboard.microbox.cloud/apps/f76a11e5-ab8c-4f3f-8602-4b267353c17d'
                   platform:
                     type: object
                     properties:
@@ -1041,7 +1039,7 @@ paths:
                               example: o4HWwj9mfONL86teG1PdZMJDT3FKqcnCp7vlbIr52EsBaUuRxh
                             server_name:
                               type: string
-                              example: nanobox-do.1.1
+                              example: microbox-do.1.1
                             size_id:
                               type: string
                               example: 512mb
@@ -1169,7 +1167,7 @@ paths:
               properties:
                 boxfile_content:
                   type: string
-                  example: "--- \ndata.db: \n  image: nanobox/postgres:9.6 \nrun.config: \n  engine: static"
+                  example: "--- \ndata.db: \n  image: mubox/postgres:9.6 \nrun.config: \n  engine: static"
                 build_id:
                   type: string
                   example: MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD
@@ -1550,7 +1548,7 @@ components:
           example: ""
         boxfile_content:
           type: string
-          example: "--- \ndata.db: \n  image: nanobox/postgres:9.6 \nrun.config: \n  engine: static"
+          example: "--- \ndata.db: \n  image: mubox/postgres:9.6 \nrun.config: \n  engine: static"
         build_id:
           type: string
           example: MDAwMDAwMDAwMDAwMDAwMDAwMDAwMD

@@ -3,18 +3,18 @@ servers:
   - url: https://virtserver.swaggerhub.com/danhunsaker/adapters/1.0.0
     description: SwaggerHub API Auto Mocking
 info:
-  title: Nanobox Adapter API
-  description: An API for deploying Nanobox apps to a cloud provider.
+  title: Microbox Adapter API
+  description: An API for deploying Microbox apps to a cloud provider.
   contact:
-    name: Dan Hunsaker
-    email: danhunsaker@gmail.com
+    name: Hennik Hunsaker
+    email: hennikhunsaker@microbox.cloud
   license:
     name: MIT
     url: 'http://choosealicense.com/licenses/mit/'
   version: 1.0.0
 externalDocs:
   description: Official documentation here
-  url: 'https://docs.nanobox.io/providers/create/'
+  url: 'https://docs.microbox.cloud/providers/create/'
 paths:
   /keys:
     post:
@@ -22,18 +22,18 @@ paths:
         - keys
       summary: Create SSH Key
       description: >-
-        <p>The `/keys` route is used to authorize Nanobox with the user's
-        account that will be ordering servers. After ordering a server, Nanobox
-        needs to SSH into the server to provision it. Nanobox will pre-generate
+        <p>The `/keys` route is used to authorize Microbox with the user's
+        account that will be ordering servers. After ordering a server, Microbox
+        needs to SSH into the server to provision it. Microbox will pre-generate
         an SSH key for the user's account and the authorization route allows
-        Nanobox to register this key with the user's account on this provider so
-        that Nanobox can access the server after it is ordered.</p> <p>NOTE:
+        Microbox to register this key with the user's account on this provider so
+        that Microbox can access the server after it is ordered.</p> <p>NOTE:
         This route is *not* required if your provider uses passwords for SSH
         instead of SSH keys, assuming the Install Server Key endpoint is
         implemented instead.</p>
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#create-ssh-key'
+        url: 'https://docs.microbox.cloud/providers/create/#create-ssh-key'
       operationId: create-ssh-key
       responses:
         '201':
@@ -80,13 +80,13 @@ paths:
         - keys
       summary: Query SSH Key
       description: >-
-        <p>The `GET /keys/{id}` route is used by Nanobox to query the existence
+        <p>The `GET /keys/{id}` route is used by Microbox to query the existence
         of previously created key.</p> <p>NOTE: This route is *not* required if
         your provider uses passwords for SSH instead of SSH keys, assuming the
         Install Server Key endpoint is implemented instead.</p>
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#query-ssh-key'
+        url: 'https://docs.microbox.cloud/providers/create/#query-ssh-key'
       operationId: query-ssh-key
       parameters:
         - name: id
@@ -120,7 +120,7 @@ paths:
                 response:
                   value:
                     id: provider-key-ID
-                    name: nanobox-provider-account-ID
+                    name: microbox-provider-account-ID
                     public_key: CONTENTS OF PUBLIC KEY
         default:
           $ref: '#/components/responses/default'
@@ -130,12 +130,12 @@ paths:
       summary: Delete SSH Key
       description: >-
         <p>The `DELETE /keys/{id}` route is used to cancel a key that was
-        previously created via Nanobox.</p> <p>NOTE: This route is *not*
+        previously created via Microbox.</p> <p>NOTE: This route is *not*
         required if your provider uses passwords for SSH instead of SSH keys,
         assuming the Install Server Key endpoint is implemented instead.</p>
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#delete-ssh-key'
+        url: 'https://docs.microbox.cloud/providers/create/#delete-ssh-key'
       operationId: delete-ssh-key
       parameters:
         - name: id
@@ -155,12 +155,12 @@ paths:
         - meta
       summary: Gathering Metadata
       description: >-
-        The `/meta` route is used to provide Nanobox with various pieces of
+        The `/meta` route is used to provide Microbox with various pieces of
         metadata that will be used for displaying information in the dashboard
         and for requesting authentication information from the users.
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#meta'
+        url: 'https://docs.microbox.cloud/providers/create/#meta'
       operationId: meta
       security:
         - {}
@@ -224,15 +224,15 @@ paths:
                     type: string
                   ssh_user:
                     description: >-
-                      The ssh user Nanobox can use for ssh access to bootstrap
+                      The ssh user Microbox can use for ssh access to bootstrap
                       the server. e.g. root
                     type: string
                   ssh_auth_method:
                     description: >-
                       will either be 'key' or 'password'. When set to 'key',
-                      Nanobox will behave in accordance with the
+                      Microbox will behave in accordance with the
                       <code>ssh_key_method</code> value. When set to 'password',
-                      Nanobox will use the Install Server Key endpoint to
+                      Microbox will use the Install Server Key endpoint to
                       install the SSH key manually via the adapter, instead of
                       passing it in the create server step.
                     type: string
@@ -242,9 +242,9 @@ paths:
                   ssh_key_method:
                     description: >-
                       will either be 'reference' or 'object'. When set to
-                      'reference', Nanobox will first create the SSH key in the
+                      'reference', Microbox will first create the SSH key in the
                       user's provider account, then pass a reference to it when
-                      servers are created. When set to 'object', Nanobox will
+                      servers are created. When set to 'object', Microbox will
                       pass the actual public SSH key that should be installed on
                       the server.
                     type: string
@@ -255,7 +255,7 @@ paths:
                     description: >-
                       The script that should be used to bootstrap the server.
                       e.g.
-                      https://s3.amazonaws.com/tools.nanobox.io/bootstrap/ubuntu.sh
+                      https://s3.amazonaws.com/tools.microbox.cloud/bootstrap/ubuntu.sh
                     type: string
                   credential_fields:
                     description: >-
@@ -299,7 +299,7 @@ paths:
                     ssh_auth_method: key
                     ssh_key_method: reference
                     bootstrap_script: >-
-                      https://s3.amazonaws.com/tools.nanobox.io/bootstrap/ubuntu.sh
+                      https://s3.amazonaws.com/tools.microbox.cloud/bootstrap/ubuntu.sh
                     credential_fields:
                       - key: access-token
                         label: Access Token
@@ -316,11 +316,11 @@ paths:
         - meta
       summary: Requesting the Catalog
       description: >-
-        The `/catalog` route is used to provide Nanobox with a catalog of server
+        The `/catalog` route is used to provide Microbox with a catalog of server
         sizes and options, within the available geographic regions.
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#catalog'
+        url: 'https://docs.microbox.cloud/providers/create/#catalog'
       operationId: catalog
       security:
         - {}
@@ -462,12 +462,12 @@ paths:
         The `/verify` route is used to verify a user's account credentials. The
         `credential_fields` specified in the metadata will be provided in the
         dashboard and required to be filled before the user can use this
-        provider. After the credentials are provided, Nanobox will call this
+        provider. After the credentials are provided, Microbox will call this
         route to verify that the account credentials provided by the user are
         valid.
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#verify'
+        url: 'https://docs.microbox.cloud/providers/create/#verify'
       operationId: verify
       responses:
         '200':
@@ -480,14 +480,14 @@ paths:
         - servers
       summary: Order Server
       description: >-
-        The `/servers` route is how Nanobox submits a request to order a new
+        The `/servers` route is how Microbox submits a request to order a new
         server. This route SHOULD NOT hold open the request until the server is
         ready. The request should return immediately once the order has been
-        submitted with an identifier that Nanobox can use to followup on the
+        submitted with an identifier that Microbox can use to followup on the
         order status.
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#order-server'
+        url: 'https://docs.microbox.cloud/providers/create/#order-server'
       operationId: order-server
       responses:
         '201':
@@ -519,8 +519,8 @@ paths:
               properties:
                 name:
                   description: >-
-                    Nanobox-generated name used to identify the machine visually
-                    as ordered by Nanobox
+                    Microbox-generated name used to identify the machine visually
+                    as ordered by Microbox
                   type: string
                 region:
                   description: >-
@@ -544,12 +544,12 @@ paths:
         - servers
       summary: Query Server
       description: >-
-        The `GET /servers/{id}` route is used by Nanobox to query state about a
-        previously ordered server. This state is used to inform Nanobox when the
+        The `GET /servers/{id}` route is used by Microbox to query state about a
+        previously ordered server. This state is used to inform Microbox when the
         server is ready to be provisioned and also how to connect to the server.
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#query-server'
+        url: 'https://docs.microbox.cloud/providers/create/#query-server'
       operationId: query-server
       parameters:
         - name: id
@@ -594,7 +594,7 @@ paths:
                   value:
                     id: provider-server-ID
                     status: active
-                    name: nanobox.io-cool-app-do.1.1
+                    name: microbox.cloud-cool-app-do.1.1
                     external_ip: 192.0.2.15
                     internal_ip: 192.168.0.15
         default:
@@ -605,12 +605,12 @@ paths:
       summary: Cancel Server
       description: >-
         The `DELETE /servers/{id}` route is used to cancel a server that was
-        previously ordered via Nanobox. This route SHOULD NOT hold open the
+        previously ordered via Microbox. This route SHOULD NOT hold open the
         request until the server is completely canceled. It should return
         immediately once the order to cancel has been submitted.
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#cancel-server'
+        url: 'https://docs.microbox.cloud/providers/create/#cancel-server'
       operationId: cancel-server
       parameters:
         - name: id
@@ -631,15 +631,15 @@ paths:
         - servers
       summary: Install Server Key
       description: >-
-        <p>The `/servers/{id}/keys` route is used to authorize Nanobox with a
-        server that was previously ordered via Nanobox. Nanobox will
+        <p>The `/servers/{id}/keys` route is used to authorize Microbox with a
+        server that was previously ordered via Microbox. Microbox will
         pre-generate an SSH key for the user's account, and this route allows
-        Nanobox to register that key with the server so that Nanobox can access
+        Microbox to register that key with the server so that Microbox can access
         it after it is ordered.</p> <p>NOTE: This route is *only* required if
         your provider uses passwords for SSH instead of SSH keys.</p>
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#install-ssh-key'
+        url: 'https://docs.microbox.cloud/providers/create/#install-ssh-key'
       operationId: install-server-key
       parameters:
         - name: id
@@ -677,12 +677,12 @@ paths:
       summary: Reboot Server
       description: >-
         The `/servers/{id}/reboot` route is used to reboot a server that was
-        previously ordered via Nanobox. This route SHOULD NOT hold open the
+        previously ordered via Microbox. This route SHOULD NOT hold open the
         request until the server is completely rebooted. It should return
         immediately once the order to reboot has been submitted
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#reboot-server'
+        url: 'https://docs.microbox.cloud/providers/create/#reboot-server'
       operationId: reboot-server
       parameters:
         - name: id
@@ -703,12 +703,12 @@ paths:
       summary: Rename Server
       description: >-
         The `/servers/{id}/rename` route is used to rename a server that was
-        previously ordered via Nanobox. This route SHOULD NOT hold open the
+        previously ordered via Microbox. This route SHOULD NOT hold open the
         request until the server is completely renamed. It should return
         immediately once the order to rename has been submitted.
       externalDocs:
         description: Official documentation here
-        url: 'https://docs.nanobox.io/providers/create/#rename-server'
+        url: 'https://docs.microbox.cloud/providers/create/#rename-server'
       operationId: rename-server
       parameters:
         - name: id

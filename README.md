@@ -1,6 +1,6 @@
 # µbox core
 
-![MIT License](https://img.shields.io/github/license/mu-box/core)
+[![The MIT License](https://img.shields.io/github/license/mu-box/core)](http://opensource.org/licenses/MIT)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3162/badge)](https://bestpractices.coreinfrastructure.org/projects/3162)
 [![Elixir CI](https://github.com/mu-box/core/workflows/Elixir%20CI/badge.svg)](https://github.com/mu-box/core/actions?query=workflow%3A%22Elixir+CI%22)
 
@@ -12,15 +12,14 @@
 [![Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fpatreon-shields-io.herokuapp.com%2Fmicrobox%2Fpledges)](https://patreon.com/microbox)
 [![Liberapay](https://img.shields.io/liberapay/receives/microbox?logo=liberapay)](https://liberapay.com/microbox/)
 
-Microbox (aka µbox, mu-box, or mi-box, depending on who you talk to) is an open
-source clone of [Nanobox](https://nanobox.io), focusing initially on
-feature-parity with Nanobox v1 (boxfiles), then on adding features and
-maintaining the boxfile approach moving forward. Doing this will require making
-some changes to some of the tooling and Docker images used, for example to
-switch package managers to something that will take less time to maintain when
-new package versions are released. More information on this process will be
-added to the project documentation (check the `docs/` directory) as it gets
-fleshed out.
+Microbox (aka µbox, mu-box, or mi-box, depending on who you talk to) is an open-
+source clone of Nanobox, focusing initially on feature-parity with Nanobox v1
+(boxfiles), then on adding features and maintaining the boxfile approach moving
+forward. Doing this will require making some changes to some of the tooling and
+Docker images used, for example to switch package managers to something that
+will take less time to maintain when new package versions are released. More
+information on this process will be added to the project documentation (check
+the `docs/` directory) as it gets fleshed out.
 
 For now, just getting the basic Nanobox features implemented will go a long way
 in getting the project up and running.
@@ -40,7 +39,6 @@ in getting the project up and running.
             - [x] _Permissions_ \*
          - [ ] Plans and Billing
    - [ ] Apps
-      - [ ] _Import from Nanobox_ \*
       - [ ] Create ([#5][])
       - [ ] Manage
          - [ ] Servers ([#5][])
@@ -90,15 +88,15 @@ alternatives.
 ### Local
 
 If you're setting up Microbox Core in your own development environment, the
-easiest (and only supported) way to do it is with the Nanobox CLI. Setting that
+easiest (and only supported) way to do it is with the Microbox CLI. Setting that
 up is beyond the scope of this document, but once it's in place, you only need
 to do a couple of things to get started.
 
 In the directory where you've cloned the Core's code:
 
 ```sh
-nanobox dns add local microbox.local
-nanobox run node-start mix phx.server
+microbox dns add local microbox.local
+microbox run node-start mix phx.server
 ```
 
 And you should be off and running!

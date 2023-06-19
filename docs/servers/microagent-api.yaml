@@ -16,8 +16,8 @@ info:
     name: MIT License
     url: https://choosealicense.com/licenses/mit/
   contact:
-    email: danhunsaker@gmail.com
-    name: Dan Hunsaker
+    email: hennikhunsaker@microbox.cloud
+    name: Hennik Hunsaker
   description: The API spec for microagent, and other Nanobox-v1-compatible application server agents.
 tags:
   - name: members
@@ -195,7 +195,7 @@ paths:
         description: The name:tag of the Docker image to operate on
         schema:
           type: string
-          example: nanobox/logvac:latest
+          example: mubox/logvac:latest
     get:
       summary: Fetch info about a specific image on the server, by ID
       tags: [images]
@@ -265,7 +265,7 @@ paths:
                   type: integer
               example:
                 name: data.storage.1.1
-                image_slug: nanobox/unfs:0.9
+                image_slug: mubox/unfs:0.9
                 hostname: data.storage.1.1
                 domainname: ""
                 labels:
@@ -511,7 +511,7 @@ components:
         hostname: data.storage.1.1
         domainname: ""
         cmd: null
-        image_slug: nanobox/unfs:0.9
+        image_slug: mubox/unfs:0.9
         ip: 127.0.0.5
         binds: null
         memory: 0
@@ -537,9 +537,9 @@ components:
           type: string
       example:
         id: sha256:76e2e00e3b633ef8de439d9eccf63e8cc514d583e1847dd2db009c0861d35249
-        slug: nanobox/logvac:latest
+        slug: mubox/logvac:latest
         repo_tags:
-          - nanobox/logvac:latest
+          - mubox/logvac:latest
         size: 346998892
         virtual_size: 346998892
         status: complete
